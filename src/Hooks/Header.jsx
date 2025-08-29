@@ -1,0 +1,55 @@
+import { Box, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
+import { useContext, useEffect } from "react";
+import { DataContext } from "../Components/Context/DataContext";
+function Header({ firstText, secondText, thirdText }) {
+  const { t, i18n } = useTranslation();
+  const { locale } = useContext(DataContext);
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        my: 2,
+      }}>
+      <Typography
+        component="h5"
+        sx={{
+          fontFamily: "Marhey",
+          fontSize: "2.2vw",
+          color: "#49a760",
+        }}>
+        {t(`${firstText}`)}
+      </Typography>
+      <Typography
+        component="h2"
+        sx={{
+          color: "#255946",
+          fontSize: locale === "en" ? "3vw" : "3vw",
+          fontWeight: "900",
+          fontFamily: locale === "en" ? "Roboto" : "El Messiri",
+          py: 1,
+        }}>
+        {t(`${secondText}`)}
+      </Typography>
+      <Typography
+        component="h5"
+        sx={{
+          color: "gray",
+          fontFamily: "Roboto",
+          fontSize: "1.3vw",
+
+          pb: { xs: 2, md: 4, lg: 4 },
+        }}>
+        {t(`${thirdText}`)}
+      </Typography>
+    </Box>
+  );
+}
+
+export default Header;
