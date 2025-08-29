@@ -9,7 +9,6 @@ import { styled } from "@mui/material/styles";
 import Header from "../../../Hooks/Header";
 import KeyboardTabIcon from "@mui/icons-material/KeyboardTab";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import aboutStyle from "./About.Style.module.css";
 
 const Demo = styled("div")(({ theme }) => ({
   backgroundColor: (theme.vars || theme).palette.background.paper,
@@ -104,7 +103,6 @@ function About() {
               src={image}
               alt="photo"
               width={"100%"}
-              className={`${aboutStyle.cts_img}`}
               style={{ borderRadius: "2%" }}
             />
           </Grid>
