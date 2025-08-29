@@ -11,7 +11,7 @@ import CompanyLogos from "./CompanyLogos/CompanyLogos";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <MySwiper />
       <Welcome />
       <OurService />
@@ -22,6 +22,6 @@ export default function Home() {
       <CompanyLogos />
       <MyGallery />
       <Testimonials />
-    </div>
+    </>
   );
 }

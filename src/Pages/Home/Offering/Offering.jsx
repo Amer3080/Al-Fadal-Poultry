@@ -47,11 +47,11 @@ function Offering() {
     <>
       <Box
         sx={{
-          my: { xs: 1, md: 5, lg: 12 },
+          my: { xs: 0, md: 5, lg: 10 },
+          mt: { xs: 5, md: 0 },
           position: "relative",
           direction: locale === "en" ? "ltr" : "rtl",
         }}>
-        <Divider component={"h5"} sx={{ mb: 7, width: "80%", mx: "auto" }} />
         <Header
           firstText={"What We’re Offering"}
           secondText={"Hatch to Harvest for Best Poultry Products"}

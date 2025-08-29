@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "swiper/css/effect-fade"; 
+import "swiper/css/effect-fade";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import imgTwo from "../../../assets/images/2.jpg";
 import imgThree from "../../../assets/images/1.jpg";
@@ -21,7 +21,7 @@ export default function MySwiper() {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
   return (
-    <div>
+    <>
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
@@ -89,6 +89,6 @@ export default function MySwiper() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </div>
+    </>
   );
 }

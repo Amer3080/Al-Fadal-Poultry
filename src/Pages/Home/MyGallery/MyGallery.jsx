@@ -35,35 +35,30 @@ const images = [
       { value: "Nature", title: "Nature" },
       { value: "Flora", title: "Flora" },
     ],
-    caption: "After Rain (Jeshu John - designerspics.com)",
   },
   {
     src: imageTwo,
     original: imageTwo,
     width: 320,
     height: 212,
-    caption: "Boats (Jeshu John - designerspics.com)",
   },
   {
     src: imageThree,
     original: imageThree,
     width: 320,
     height: 212,
-    caption: "Color Pencils (Jeshu John - designerspics.com)",
   },
   {
     src: imageFour,
     original: imageFour,
     width: 320,
     height: 213,
-    caption: "Red Apples with other Red Fruit (foodiesfeed.com)",
   },
   {
     src: imageFive,
     original: imageFive,
     width: 320,
     height: 183,
-    caption: "37H (gratispgraphy.com)",
   },
   {
     src: imageSix,
@@ -71,14 +66,12 @@ const images = [
     width: 240,
     height: 320,
     tags: [{ value: "Nature", title: "Nature" }],
-    caption: "8H (gratisography.com)",
   },
   {
     src: imageSeven,
     original: imageSeven,
     width: 320,
     height: 190,
-    caption: "286H (gratisography.com)",
   },
   {
     src: imageEight,
@@ -86,7 +79,6 @@ const images = [
     width: 320,
     height: 148,
     tags: [{ value: "People", title: "People" }],
-    caption: "315H (gratisography.com)",
   },
 ];
 
@@ -95,8 +87,7 @@ export default function MyGallery() {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
   const isSm = useMediaQuery(theme.breakpoints.between("sm", "md"));
-  const cols = isXs ? 2 : isSm ? 3 : 4;
-
+  const cols = isXs ? 1 : isSm ? 2 : 4;
   const handleOpen = useCallback((idx) => {
     setOpenIndex(idx);
   }, []);
@@ -121,20 +112,19 @@ export default function MyGallery() {
   );
 
   return (
-    <Box my={10}>
-      <Divider component={"h5"} sx={{ mb: 7, width: "80%", mx: "auto" }} />
+    <Box my={8}>
       <Header
         firstText={"Our gallery"}
         secondText={"Get to know our farm"}
         thirdText={""}
       />
       {/* Thumbnail grid */}
-      <ImageList cols={cols} gap={8}>
+      <ImageList cols={cols} gap={6}>
         {images.map((img, idx) => (
           <ImageListItem key={img.src} onClick={() => handleOpen(idx)}>
             <img
               src={img.src}
-              alt={img.alt || img.caption}
+              alt={img.alt}
               loading="lazy"
               style={{ width: "100%", cursor: "pointer", borderRadius: 4 }}
             />
@@ -210,22 +200,13 @@ export default function MyGallery() {
               <Box
                 component="img"
                 src={currentImage.original}
-                alt={currentImage.alt || currentImage.caption}
+                alt={currentImage.alt}
                 sx={{
                   maxWidth: "100%",
                   maxHeight: `calc(100vh - ${theme.spacing(10)})`,
                 }}
               />
             </DialogContent>
-
-            {/* Caption */}
-            {currentImage.caption && (
-              <Typography
-                variant="caption"
-                sx={{ color: "common.white", textAlign: "center", mt: 1 }}>
-                {currentImage.caption}
-              </Typography>
-            )}
           </>
         )}
       </Dialog>

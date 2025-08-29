@@ -98,7 +98,7 @@ const Testimonials = () => {
   return (
     <Container
       maxWidth="lg"
-      sx={{ my: 12, direction: locale === "en" ? "ltr" : "rtl" }}>
+      sx={{ my: 5, direction: locale === "en" ? "ltr" : "rtl" }}>
       <Box textAlign="center" mb={6}>
         <Box display="flex" justifyContent="center" alignItems="center" mb={2}>
           <Header
@@ -108,7 +108,7 @@ const Testimonials = () => {
           />
         </Box>
       </Box>
-      <Grid container spacing={4}>
+      <Grid container spacing={3}>
         {testimonials.map((testimonial) => (
           <Grid item size={{ xs: 12, md: 4 }} key={testimonial.id}>
             <TestimonialCard onClick={() => handleOpen(testimonial)}>
@@ -146,10 +146,10 @@ const Testimonials = () => {
                       style={{ color: "#ddd", marginBottom: "8px" }}
                     />
                   ) : (
-                     <FaQuoteRight
-                    size={24}
-                    style={{ color: "#ddd", marginBottom: "8px" }}
-                  />
+                    <FaQuoteRight
+                      size={24}
+                      style={{ color: "#ddd", marginBottom: "8px" }}
+                    />
                   )}
                   <Typography variant="body1">
                     {t(testimonial.testimonialText)}
@@ -174,6 +174,7 @@ const Testimonials = () => {
         aria-describedby="testimonial-description">
         <Box
           sx={{
+            direction: locale === "en" ? "ltr" : "rtl",
             position: "absolute",
             top: "50%",
             left: "50%",
@@ -190,19 +191,26 @@ const Testimonials = () => {
                 <Avatar
                   src={selectedTestimonial.profileImage}
                   alt={selectedTestimonial.clientName}
-                  sx={{ width: 80, height: 80, mr: 2 }}
+                  sx={{ width: 80, height: 80, mx: 2 }}
                 />
                 <Box>
-                  <Typography variant="h5">
-                    {selectedTestimonial.clientName}
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      fontFamily: locale === "en" ? "Roboto" : "El Messiri",
+                    }}>
+                    {t(`${selectedTestimonial.clientName}`)}
                   </Typography>
-                  <Typography variant="subtitle1" color="text.secondary">
-                    {selectedTestimonial.clientDesignation}
+                  <Typography
+                    variant="subtitle1"
+                    color="text.secondary"
+                    sx={{ fontFamily: locale === "en" ? "Roboto" : "Marhey" }}>
+                    {t(`${selectedTestimonial.clientDesignation}`)}
                   </Typography>
                 </Box>
               </Box>
               <Typography variant="body1" sx={{ mb: 2 }}>
-                {selectedTestimonial.testimonialText}
+                {t(`${selectedTestimonial.testimonialText}`)}
               </Typography>
               <Box
                 display="flex"

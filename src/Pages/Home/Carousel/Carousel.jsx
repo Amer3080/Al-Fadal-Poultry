@@ -73,7 +73,7 @@ function Carousel() {
     <>
       <Box
         sx={{
-          mt: 4,
+          mt: 2,
         }}
         className={`${carouselStyle.custom_slider}`}>
         <Slider {...settings}>

@@ -28,21 +28,19 @@ export default function NumberCounters() {
 
   return (
     <Box p={4}>
-      <Divider component="h5" sx={{ mb: 7, width: "80%", mx: "auto" }} />
       <Header
         firstText="High-quality Chickens"
         secondText="Our numbers prove the constant improvement in the quality"
         thirdText="Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
       />
 
-      <Grid container spacing={4} justifyContent="center" mt={8} ref={ref}>
+      <Grid container spacing={4} justifyContent="center" ref={ref}>
         {data.map((item, idx) => (
           <Grid
             item
             size={{ xs: 12, md: 6, lg: 3 }}
             key={idx}
-            textAlign="center"
-            mb={10}>
+            textAlign="center">
             <Box
               sx={{
                 position: "relative",
@@ -95,7 +93,7 @@ export default function NumberCounters() {
             <Typography
               variant="subtitle1"
               sx={{
-                color: "#49a760",
+                color: "#255946",
                 fontSize: "3rem",
                 fontWeight: 600,
                 fontFamily: locale === "en" ? "Roboto" : "El Messiri",

@@ -62,7 +62,7 @@ export default function OurService() {
       sx={{
         flexGrow: 1,
         m: 2,
-        my: 5,
+        my: { xs: 5, lg: 10 },
         direction: locale === "en" ? "ltr" : "rtl",
       }}>
       <Grid container spacing={5}>

@@ -15,13 +15,13 @@ function Header({ firstText, secondText, thirdText }) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        my: 2,
+        my: 1,
       }}>
       <Typography
         component="h5"
         sx={{
           fontFamily: "Marhey",
-          fontSize: "2.2vw",
+          fontSize: "3vw",
           color: "#49a760",
         }}>
         {t(`${firstText}`)}
@@ -29,8 +29,9 @@ function Header({ firstText, secondText, thirdText }) {
       <Typography
         component="h2"
         sx={{
+          textAlign: "center",
           color: "#255946",
-          fontSize: locale === "en" ? "3vw" : "3vw",
+          fontSize: "4vw",
           fontWeight: "900",
           fontFamily: locale === "en" ? "Roboto" : "El Messiri",
           py: 1,
@@ -42,7 +43,7 @@ function Header({ firstText, secondText, thirdText }) {
         sx={{
           color: "gray",
           fontFamily: "Roboto",
-          fontSize: "1.3vw",
+          fontSize: "2vw",
 
           pb: { xs: 2, md: 4, lg: 4 },
         }}>
