@@ -71,13 +71,23 @@ function App() {
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* The font */}
+        <link
+          rel="preload"
+          href="/node_modules/slick-carousel/slick/fonts/slick.woff"
+          as="font"
+          type="font/woff"
+          crossorigin
+        />
+
         {/* Preload core Roboto stylesheet */}
         <link
-          crossOrigin="anonymous"
           rel="preload"
           as="style"
           href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+          onload="this.rel='stylesheet'"
         />
+
         {/* Preload key hero image */}
         <link
           rel="icon"
@@ -86,6 +96,9 @@ function App() {
           as="image"
           crossOrigin="anonymous"
         />
+        {/* Preconnect / Prefetch for faster asset loading */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </Helmet>
 
       <ThemeProvider theme={muiTheme}>
