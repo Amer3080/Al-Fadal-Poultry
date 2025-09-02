@@ -1,5 +1,12 @@
-import React from "react";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
 
 export default function AboutUs() {
-  return <div>About Us</div>;
+  return (
+    <>
+      <Typography variant="h5" gutterBottom sx={{ height: "50vh", pt: 10 }}>
+        About Us
+      </Typography>
+    </>
+  );
 }

@@ -1,20 +1,26 @@
-import { Box, Divider } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import CardActionArea from "@mui/material/CardActionArea";
-import Grid from "@mui/material/Grid";
-import img1 from "../../../assets/images/22.jpg";
-import img2 from "../../../assets/images/23.jpg";
-import img3 from "../../../assets/images/24.jpg";
-import img4 from "../../../assets/images/25.jpg";
-import { useContext, useEffect } from "react";
+// Offering.jsx
+
+import React, { useContext, useEffect, useMemo, memo } from "react";
+import {
+  Box,
+  Grid,
+  Typography,
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Divider,
+} from "@mui/material";
 import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
 import { useTranslation } from "react-i18next";
 
-const content = [
+import img1 from "../../../assets/images/12.jpg";
+import img2 from "../../../assets/images/13.jpg";
+import img3 from "../../../assets/images/6.jpg";
+import img4 from "../../../assets/images/7.jpg";
+
+const rawContent = [
   {
     img: img1,
     title: "Chicken Quality",
@@ -36,40 +42,60 @@ const content = [
     content: "Lorem ium dolor sit ametad pisicing elit sed simply do ut.",
   },
 ];
+
 function Offering() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
 
+  // Keep i18n in sync with our locale
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
+
+  // Translate titles & contents once per render
+  const offerings = useMemo(
+    () =>
+      rawContent.map((item) => ({
+        ...item,
+        title: t(item.title),
+        content: t(item.content),
+      })),
+    [t]
+  );
+
   return (
     <>
       <Box
+        component="section"
+        aria-labelledby="offering-heading"
         sx={{
-          my: { xs: 0, md: 5, lg: 10 },
+          my: { xs: 2, md: 5, lg: 10 },
           mt: { xs: 5, md: 0 },
-          position: "relative",
           direction: locale === "en" ? "ltr" : "rtl",
         }}>
+        {/* Decorative header */}
         <Header
-          firstText={"What We’re Offering"}
-          secondText={"Hatch to Harvest for Best Poultry Products"}
-          thirdText={""}
+          firstText={t("What We’re Offering")}
+          secondText={t("Hatch to Harvest for Best Poultry Products")}
+          thirdText=""
         />
+
         <Grid container spacing={3}>
-          {content.map((element, index) => (
+          {offerings.map(({ img, title, content }, idx) => (
             <Grid
-              key={index}
+              key={idx}
               size={{ xs: 12, sm: 6, md: 3 }}
-              sx={{ justifyContent: "center", display: "flex", my: 4 }}>
+              sx={{ display: "flex", justifyContent: "center", my: 4 }}>
               <Card sx={{ maxWidth: 300, pb: 1 }}>
                 <CardActionArea>
                   <CardMedia
+                    crossOrigin="anonymous"
                     component="img"
+                    src={img}
+                    alt={title}
+                    loading="lazy"
+                    decoding="async"
                     height="140"
-                    image={element.img}
-                    alt="green iguana"
                   />
                   <CardContent>
                     <Typography
@@ -78,20 +104,22 @@ function Offering() {
                       component="div"
                       sx={{
                         color: "#255946",
-                        fontWeight: "700",
-                        my: 2,
+                        fontWeight: 700,
+                        my: 1,
                         fontFamily: locale === "en" ? "Roboto" : "El Messiri",
                       }}>
-                      {t(element.title)}
+                      {title}
                     </Typography>
+                    <Divider />
                     <Typography
                       variant="body2"
-                      sx={{ color: "text.secondary" }}>
-                      {t(element.content)}
+                      color="text.secondary"
+                      sx={{ mt: 1 }}>
+                      {content}
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-              </Card>{" "}
+              </Card>
             </Grid>
           ))}
         </Grid>
@@ -100,4 +128,4 @@ function Offering() {
   );
 }
 
-export default Offering;
+export default memo(Offering);

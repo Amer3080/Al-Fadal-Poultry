@@ -1,5 +1,12 @@
-import React from "react";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
 
 export default function History() {
-  return <div>History</div>;
+  return (
+    <>
+      <Typography variant="h5" gutterBottom sx={{ height: "50vh", pt: 10 }}>
+        History
+      </Typography>
+    </>
+  );
 }

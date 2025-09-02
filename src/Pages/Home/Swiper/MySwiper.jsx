@@ -12,7 +12,6 @@ import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../../Components/Context/DataContext";
-
 export default function MySwiper() {
   const sliders = [imgFour, imgTwo, imgThree];
   const { t, i18n } = useTranslation();
@@ -25,30 +24,29 @@ export default function MySwiper() {
       <Swiper
         spaceBetween={0}
         centeredSlides={true}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
+        autoplay={{ delay: 2500, disableOnInteraction: false }}
         effect="fade"
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         className="mySwiper">
+        {" "}
         {sliders.map((image, index) => (
           <SwiperSlide key={index} className={styles.slide}>
+            {" "}
             <img
+              crossOrigin="anonymous"
               src={image}
               alt={`Slide ${index + 1}`}
               className={styles["slide-image"]}
-            />
+            />{" "}
             <div className={styles["text_content"]}>
+              {" "}
               <Typography
                 component="h5"
                 color="white"
-                sx={{
-                  fontFamily: "Marhey",
-                  fontSize: "2vw",
-                }}>
-                {t("No antibiotics, no growth stimulants!")}
-              </Typography>
+                sx={{ fontFamily: "Marhey", fontSize: "2vw" }}>
+                {" "}
+                {t("No antibiotics, no growth stimulants!")}{" "}
+              </Typography>{" "}
               <Typography
                 component="h2"
                 sx={{
@@ -59,8 +57,9 @@ export default function MySwiper() {
                   fontFamily: locale === "en" ? "Oleo Script" : "El Messiri",
                   py: { xs: 1, md: 1, lg: 1 },
                 }}>
-                {t("Fresh chickens for you every day!")}
-              </Typography>
+                {" "}
+                {t("Fresh chickens for you every day!")}{" "}
+              </Typography>{" "}
               <Typography
                 component="h5"
                 color="white"
@@ -69,8 +68,11 @@ export default function MySwiper() {
                   fontSize: "2vw",
                   pb: { xs: 2, md: 4, lg: 6 },
                 }}>
-                {t("From farm to table, our poultry is simply incredible!")}
-              </Typography>
+                {" "}
+                {t(
+                  "From farm to table, our poultry is simply incredible!"
+                )}{" "}
+              </Typography>{" "}
               <Button
                 variant="contained"
                 color="success"
@@ -83,12 +85,13 @@ export default function MySwiper() {
                   fontFamily: locale === "en" ? "Archivo" : "El Messiri",
                   fontWeight: "700",
                 }}>
-                {t("Contact Us")}
+                {" "}
+                {t("Contact Us")}{" "}
               </Button>{" "}
-            </div>
+            </div>{" "}
           </SwiperSlide>
-        ))}
-      </Swiper>
+        ))}{" "}
+      </Swiper>{" "}
     </>
   );
 }

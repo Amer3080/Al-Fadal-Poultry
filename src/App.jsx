@@ -1,71 +1,112 @@
+import React, { Suspense, lazy, useContext } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import "./App.css";
+
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { DataContext } from "./Components/Context/DataContext";
+
 import MasterLayout from "./Components/MasterLayout/MasterLayout";
 import NotFound from "./Components/NotFound/NotFound";
-import Home from "./Pages/Home/Home";
-import AboutUs from "./Pages/AboutUs/AboutUs";
-import ContactUs from "./Pages/ContactUs/ContactUs";
-import Faq from "./Pages/Faq/Faq";
-import Services from "./Pages/Services/Services";
-import History from "./Pages/History/History";
-import { useContext } from "react";
-import { DataContext } from "./Components/Context/DataContext";
+
+import CircularIndeterminate from "./Components/CircularIndeterminate/CircularIndeterminate.jsx";
+import image from "./assets/images/Logo.png";
+import "./App.css";
+
+// Lazy-loaded pages
+const Home = lazy(() => import("./Pages/Home/Home"));
+const AboutUs = lazy(() => import("./Pages/AboutUs/AboutUs"));
+const ContactUs = lazy(() => import("./Pages/ContactUs/ContactUs"));
+const Faq = lazy(() => import("./Pages/Faq/Faq"));
+const Services = lazy(() => import("./Pages/Services/Services"));
+const History = lazy(() => import("./Pages/History/History"));
 
 function App() {
   const { theme } = useContext(DataContext);
+
   const routes = createBrowserRouter([
     {
       path: "/",
-      errorElement: <NotFound />,
       element: <MasterLayout />,
+      errorElement: <NotFound />,
       children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "home",
-          element: <Home />,
-        },
-        {
-          path: "about-us",
-          element: <AboutUs />,
-        },
-        {
-          path: "contact-us",
-          element: <ContactUs />,
-        },
-        {
-          path: "faq",
-          element: <Faq />,
-        },
-        {
-          path: "history",
-          element: <History />,
-        },
-        {
-          path: "services",
-          element: <Services />,
-        },
+        { index: true, element: <Home /> },
+        { path: "home", element: <Home /> },
+        { path: "about-us", element: <AboutUs /> },
+        { path: "contact-us", element: <ContactUs /> },
+        { path: "faq", element: <Faq /> },
+        { path: "history", element: <History /> },
+        { path: "services", element: <Services /> },
       ],
     },
   ]);
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: theme,
-    },
+  const muiTheme = createTheme({
+    palette: { mode: theme },
   });
 
   return (
-    <>
-      <ThemeProvider theme={darkTheme}>
+    <HelmetProvider>
+      <Helmet htmlAttributes={{ lang: "en", dir: "ltr" }}>
+        {/* Open Graph / Facebook */}
+        <meta property="og:url" content="http://www.alfadalpoultry.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Al-Fadal Poultry" />
+        <meta
+          property="og:description"
+          content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards"
+        />
+        <meta property="og:image" content={image} />
+        {/* Open Graph / Twitter */}
+        <meta name="twitter:card" content="Al-Fadal Poultry" />
+        {/* Preconnect to font origins */}
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        {/* Preload core Roboto stylesheet */}
+        <link
+          crossOrigin="anonymous"
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+        />
+        {/* Preload key hero image */}
+        <link
+          rel="icon"
+          type="image/png"
+          href="src/assets/images/Logo.png"
+          as="image"
+          crossOrigin="anonymous"
+        />
+      </Helmet>
+
+      <ThemeProvider theme={muiTheme}>
         <CssBaseline />
-        <RouterProvider router={routes}></RouterProvider>
+
+        <Suspense
+          fallback={
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "100vh",
+              }}>
+              <CircularIndeterminate />
+            </div>
+          }>
+          <RouterProvider router={routes} />
+        </Suspense>
       </ThemeProvider>
-    </>
+    </HelmetProvider>
   );
 }
 

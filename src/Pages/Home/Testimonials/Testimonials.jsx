@@ -1,4 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+// Testimonials.jsx
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useMemo,
+  lazy,
+  Suspense,
+  memo,
+} from "react";
+import { Helmet } from "react-helmet-async";
 import {
   Box,
   Container,
@@ -10,21 +20,23 @@ import {
   Rating,
   Modal,
   styled,
-  IconButton,
-  Tooltip,
   Divider,
 } from "@mui/material";
-import {
-  FaQuoteLeft,
-  FaQuoteRight,
-  FaBuilding,
-  FaWhatsapp,
-  FaEnvelope,
-} from "react-icons/fa";
 import Header from "../../../Hooks/Header";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
+import photo_girl from "../../../assets/images/girl.jpg";
+import photo_man from "../../../assets/images/man.jpg";
 
+// Lazy‐load quote icons
+const FaQuoteLeft = lazy(() =>
+  import("react-icons/fa").then((mod) => ({ default: mod.FaQuoteLeft }))
+);
+const FaQuoteRight = lazy(() =>
+  import("react-icons/fa").then((mod) => ({ default: mod.FaQuoteRight }))
+);
+
+// Styled card with hover transform
 const TestimonialCard = styled(Card)(({ theme }) => ({
   height: "100%",
   transition: "transform 0.3s ease-in-out",
@@ -34,19 +46,17 @@ const TestimonialCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const testimonials = [
+// Static testimonials data
+const rawTestimonials = [
   {
     id: 1,
     clientName: "Mohamed Ahmed",
     clientDesignation: "Local Resident",
     testimonialText:
       "The municipal corporation's new online service portal has made it incredibly easy to pay property taxes and access public services. The digital transformation is truly commendable.",
-    profileImage:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+    profileImage: photo_man,
     rating: 5,
     date: "2024-01-15",
-    whatsapp: "+1234567890",
-    email: "robert.johnson@email.com",
   },
   {
     id: 2,
@@ -54,12 +64,9 @@ const testimonials = [
     clientDesignation: "Small Business Owner",
     testimonialText:
       "The corporation's business licensing department has streamlined their processes significantly. Their support for local businesses during challenging times has been exceptional.",
-    profileImage:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    profileImage: photo_girl,
     rating: 4,
     date: "2024-01-10",
-    whatsapp: "+1987654321",
-    email: "emily.williams@email.com",
   },
   {
     id: 3,
@@ -67,170 +74,185 @@ const testimonials = [
     clientDesignation: "Community Leader",
     testimonialText:
       "The public works department's responsiveness to community needs has improved dramatically. Their new complaint resolution system is efficient and citizen-friendly.",
-    profileImage:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    profileImage: photo_man,
     rating: 5,
     date: "2024-01-05",
-    whatsapp: "+1122334455",
-    email: "david.chang@email.com",
   },
 ];
 
-const Testimonials = () => {
-  const [selectedTestimonial, setSelectedTestimonial] = useState(null);
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = (testimonial) => {
-    setSelectedTestimonial(testimonial);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+function Testimonials() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
+  const [selected, setSelected] = useState(null);
+  const [open, setOpen] = useState(false);
 
+  // Sync language
   useEffect(() => {
     i18n.changeLanguage(locale);
-  }, [i18n, locale]);
+  }, [locale, i18n]);
+
+  // Memoize testimonials for render performance
+  const testimonials = useMemo(
+    () =>
+      rawTestimonials.map((item) => ({
+        ...item,
+        tClientName: t(item.clientName),
+        tDesignation: t(item.clientDesignation),
+        tText: t(item.testimonialText),
+        localizedDate: new Date(item.date).toLocaleDateString(locale),
+      })),
+    [t, locale]
+  );
+
+  const handleOpen = (item) => {
+    setSelected(item);
+    setOpen(true);
+  };
+  const handleClose = () => setOpen(false);
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{ my: 5, direction: locale === "en" ? "ltr" : "rtl" }}>
-      <Box textAlign="center" mb={6}>
-        <Box display="flex" justifyContent="center" alignItems="center" mb={2}>
+    <>
+      <Container
+        maxWidth="lg"
+        sx={{
+          my: 5,
+          direction: locale === "en" ? "ltr" : "rtl",
+        }}>
+        <Box textAlign="center" mb={6}>
           <Header
-            firstText={"Testimonial"}
-            secondText={"What Client Say Our Poultry Farm"}
+            firstText={t("Testimonial")}
+            secondText={t("What Clients Say About Our Poultry Farm")}
             thirdText={""}
           />
         </Box>
-      </Box>
-      <Grid container spacing={3}>
-        {testimonials.map((testimonial) => (
-          <Grid item size={{ xs: 12, md: 4 }} key={testimonial.id}>
-            <TestimonialCard onClick={() => handleOpen(testimonial)}>
-              <CardContent sx={{ p: 4 }}>
-                <Box display="flex" alignItems="center" mb={3}>
+
+        <Grid container spacing={3}>
+          {testimonials.map((rev) => (
+            <Grid size={{ xs: 12, md: 4 }} key={rev.id}>
+              <TestimonialCard
+                onClick={() => handleOpen(rev)}
+                role="button"
+                aria-label={t("Open testimonial by {{name}}", {
+                  name: rev.tClientName,
+                })}>
+                <CardContent sx={{ p: 4 }}>
+                  <Box display="flex" alignItems="center" mb={2}>
+                    <Avatar
+                      src={rev.profileImage}
+                      alt={rev.tClientName}
+                      imgProps={{ loading: "lazy", decoding: "async" }}
+                      sx={{ width: 64, height: 64, mr: 2 }}
+                    />
+                    <Box sx={{ mr: 2 }}>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          fontFamily: locale === "en" ? "Roboto" : "El Messiri",
+                        }}>
+                        {rev.tClientName}
+                      </Typography>
+                      <Typography
+                        variant="subtitle2"
+                        color="text.secondary"
+                        sx={{
+                          fontFamily: locale === "en" ? "Roboto" : "Marhey",
+                        }}>
+                        {rev.tDesignation}
+                      </Typography>
+                    </Box>
+                  </Box>
+
+                  <Box sx={{ position: "relative", mb: 2 }}>
+                    <Suspense fallback={<Box height={24} />}>
+                      {locale === "en" ? (
+                        <FaQuoteLeft size={24} style={{ color: "#ddd" }} />
+                      ) : (
+                        <FaQuoteRight size={24} style={{ color: "#ddd" }} />
+                      )}
+                    </Suspense>
+                    <Typography variant="body1" sx={{ mt: 1 }}>
+                      {rev.tText}
+                    </Typography>
+                  </Box>
+
+                  <Box display="flex" justifyContent="flex-start">
+                    <Rating value={rev.rating} readOnly size="small" />
+                  </Box>
+                </CardContent>
+              </TestimonialCard>
+            </Grid>
+          ))}
+        </Grid>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="testimonial-modal-title"
+          aria-describedby="testimonial-modal-description">
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: { xs: "90%", sm: 600 },
+              bgcolor: "background.paper",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: 2,
+              direction: locale === "en" ? "ltr" : "rtl",
+            }}>
+            {selected && (
+              <>
+                <Box display="flex" alignItems="center" mb={2}>
                   <Avatar
-                    src={testimonial.profileImage}
-                    alt={testimonial.clientName}
-                    sx={{ width: 64, height: 64, mr: 2 }}
+                    src={selected.profileImage}
+                    alt={selected.tClientName}
+                    imgProps={{ loading: "lazy", decoding: "async" }}
+                    sx={{ width: 80, height: 80, mr: 2 }}
                   />
-                  <Box>
+                  <Box sx={{ mr: 2 }}>
                     <Typography
-                      variant="h6"
+                      id="testimonial-modal-title"
+                      variant="h5"
                       sx={{
                         fontFamily: locale === "en" ? "Roboto" : "El Messiri",
-                        mr: 2,
                       }}>
-                      {t(testimonial.clientName)}
+                      {selected.tClientName}
                     </Typography>
                     <Typography
-                      variant="subtitle2"
+                      variant="subtitle1"
                       color="text.secondary"
                       sx={{
                         fontFamily: locale === "en" ? "Roboto" : "Marhey",
-                        mr: 3,
                       }}>
-                      {t(testimonial.clientDesignation)}
+                      {selected.tDesignation}
                     </Typography>
                   </Box>
                 </Box>
-                <Box sx={{ position: "relative", mb: 2 }}>
-                  {locale === "en" ? (
-                    <FaQuoteLeft
-                      size={24}
-                      style={{ color: "#ddd", marginBottom: "8px" }}
-                    />
-                  ) : (
-                    <FaQuoteRight
-                      size={24}
-                      style={{ color: "#ddd", marginBottom: "8px" }}
-                    />
-                  )}
-                  <Typography variant="body1">
-                    {t(testimonial.testimonialText)}
-                  </Typography>
-                </Box>
+                <Divider sx={{ mb: 2 }} />
+                <Typography
+                  id="testimonial-modal-description"
+                  variant="body1"
+                  sx={{ mb: 2 }}>
+                  {selected.tText}
+                </Typography>
                 <Box
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center">
-                  <Rating value={testimonial.rating} readOnly />
-                </Box>
-              </CardContent>
-            </TestimonialCard>
-          </Grid>
-        ))}
-      </Grid>
-
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="testimonial-modal"
-        aria-describedby="testimonial-description">
-        <Box
-          sx={{
-            direction: locale === "en" ? "ltr" : "rtl",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: { xs: "90%", sm: 600 },
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-            borderRadius: 2,
-          }}>
-          {selectedTestimonial && (
-            <>
-              <Box display="flex" alignItems="center" mb={3}>
-                <Avatar
-                  src={selectedTestimonial.profileImage}
-                  alt={selectedTestimonial.clientName}
-                  sx={{ width: 80, height: 80, mx: 2 }}
-                />
-                <Box>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      fontFamily: locale === "en" ? "Roboto" : "El Messiri",
-                    }}>
-                    {t(`${selectedTestimonial.clientName}`)}
-                  </Typography>
-                  <Typography
-                    variant="subtitle1"
-                    color="text.secondary"
-                    sx={{ fontFamily: locale === "en" ? "Roboto" : "Marhey" }}>
-                    {t(`${selectedTestimonial.clientDesignation}`)}
+                  <Rating value={selected.rating} readOnly size="large" />
+                  <Typography variant="body2" color="text.secondary">
+                    {selected.localizedDate}
                   </Typography>
                 </Box>
-              </Box>
-              <Typography variant="body1" sx={{ mb: 2 }}>
-                {t(`${selectedTestimonial.testimonialText}`)}
-              </Typography>
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center">
-                <Rating
-                  value={selectedTestimonial.rating}
-                  readOnly
-                  size="large"
-                />
-                <Typography variant="body2" color="text.secondary">
-                  {new Date(selectedTestimonial.date).toLocaleDateString()}
-                </Typography>
-              </Box>
-            </>
-          )}
-        </Box>
-      </Modal>
-    </Container>
+              </>
+            )}
+          </Box>
+        </Modal>
+      </Container>
+    </>
   );
-};
+}
 
-export default Testimonials;
+export default memo(Testimonials);

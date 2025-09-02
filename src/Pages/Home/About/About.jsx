@@ -1,116 +1,169 @@
-import { Box, Button, Divider } from "@mui/material";
+// About.jsx
+import React, {
+  useContext,
+  useEffect,
+  lazy,
+  Suspense,
+  memo,
+  useMemo,
+} from "react";
+import { Helmet } from "react-helmet-async";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { useContext, useEffect } from "react";
-import { DataContext } from "../../../Components/Context/DataContext";
-import image from "../../../assets/images/w.jpg";
 import { useTranslation } from "react-i18next";
-import { styled } from "@mui/material/styles";
+import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
-import KeyboardTabIcon from "@mui/icons-material/KeyboardTab";
-import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 
-const Demo = styled("div")(({ theme }) => ({
-  backgroundColor: (theme.vars || theme).palette.background.paper,
-}));
+import imageJpg from "../../../assets/images/10.jpg";
+// import imageAvif from "../../../assets/images/w.avif";
+// import imageWebp from "../../../assets/images/w.webp";
+
+// Dynamically‐import icons so they don’t bloat your main bundle
+const KeyboardTabIcon = lazy(() => import("@mui/icons-material/KeyboardTab"));
+const KeyboardReturnIcon = lazy(() =>
+  import("@mui/icons-material/KeyboardReturn")
+);
+
+// Memoized style objects live outside the component
+const boxStyles = {
+  my: 5,
+  flexGrow: 1,
+  m: 2,
+  mx: 5,
+};
+const gridContainerStyles = {
+  flexDirection: { xs: "column-reverse", lg: "row" },
+  spacing: 4,
+};
+const leftGridStyles = {
+  my: { xs: 2, md: 3 },
+  textAlign: { xs: "center", md: "center", lg: "start" },
+};
+const smallHeadingStyles = {
+  my: 1,
+  fontSize: "30px",
+  fontFamily: "Marhey",
+  textTransform: "capitalize",
+  color: "#49a760",
+};
+const leadStyles = (locale) => ({
+  color: "#255946",
+  fontSize: "38px",
+  fontWeight: 800,
+  my: 2,
+  fontFamily: locale === "en" ? "Roboto" : "El Messiri",
+});
+const paragraphStyles = {
+  fontSize: "18px",
+  color: "gray",
+  lineHeight: 2,
+};
+const buttonStyles = (locale) => ({
+  direction: locale === "en" ? "ltr" : "rtl",
+  textTransform: "capitalize",
+  my: 3,
+  borderRadius: "5%",
+  fontFamily: locale === "en" ? "Roboto" : "Marhey",
+});
 
 function About() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
 
+  // Sync i18n language when locale changes
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
+
   return (
-    <Box
-      sx={{
-        my: 5,
-        flexGrow: 1,
-        m: 2,
-        mx: 5,
-        direction: locale === "en" ? "ltr" : "rtl",
-      }}>
-      <Header
-        firstText={"About US"}
-        secondText={"We offer healthy & natural poultry such as chickens "}
-        thirdText={"Attention to ensure optimal growth and well-being."}
-      />
-      <Grid
-        container
-        spacing={4}
-        sx={{ flexDirection: { xs: "column-reverse", lg: "row" } }}>
-        <Grid
-          size={{ md: 12, lg: 6 }}
-          sx={{
-            my: { xs: 2, md: 3 },
-            textAlign: { xs: "center", md: "center", lg: "start" },
-          }}>
-          <Typography
-            component="p"
-            color="gray"
-            sx={{
-              my: 1,
-              fontSize: "30px",
-              fontFamily: "Marhey",
-              textTransform: "capitalize",
-              color: "#49a760",
-            }}>
-            {t("Providing premium poultry since 1983")}
-          </Typography>
-          <Typography
-            component="h3"
-            sx={{
-              color: "#255946",
-              fontSize: "38px",
-              fontWeight: "800",
-              my: 2,
-              fontFamily: locale === "en" ? "Roboto" : "El Messiri",
-            }}>
-            {t("We monitor agricultural products for customers & partners")}{" "}
-          </Typography>
-          <Typography
-            component={"p"}
-            sx={{ fontSize: "18px", color: "gray", lineHeight: 2 }}>
-            {t(
-              "Amet consectetur adipiscing elit duis tristique sollicitudin nibh. Platea dictumst vestibulum rhoncus est pellentesque."
+    <>
+      <Box
+        component="main"
+        sx={{ ...boxStyles, direction: locale === "en" ? "ltr" : "rtl" }}>
+        <section aria-labelledby="about-heading">
+          <Header
+            firstText={t("About US")}
+            secondText={t(
+              "We offer healthy & natural poultry such as chickens"
             )}
-          </Typography>
-          <Typography
-            component={"p"}
-            sx={{ fontSize: "18px", color: "gray", lineHeight: 2, pt: 3 }}>
-            {t(
-              "Curabitur gravida arcu ac tortor. Non consectetur a erat nam at. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus."
-            )}
-          </Typography>
-          <Box>
-            <Button
-              endIcon={locale === "en" ? <KeyboardTabIcon /> : ""}
-              startIcon={<KeyboardTabIcon sx={{ ml: 2 }} />}
-              sx={{
-                direction: locale === "en" ? "ltr" : "rtl",
-                textTransform: "capitalize",
-                my: 3,
-                borderRadius: "5%",
-                fontFamily: locale === "en" ? "Roboto" : "Marhey",
-              }}
-              variant="contained"
-              color="success"
-              size="large">
-              {t("About Us")}
-            </Button>
-          </Box>
-        </Grid>
-        <Grid size={{ md: 12, lg: 6 }}>
-          <img
-            src={image}
-            alt="photo"
-            width={"100%"}
-            style={{ borderRadius: "2%" }}
+            thirdText={t("Attention to ensure optimal growth and well-being.")}
           />
+        </section>
+
+        <Grid container sx={gridContainerStyles}>
+          <Grid size={{ xs: 12, lg: 7 }} sx={leftGridStyles}>
+            <Typography component="p" sx={smallHeadingStyles}>
+              {t("Providing premium poultry since 1983")}
+            </Typography>
+
+            <Typography component="h3" sx={leadStyles(locale)}>
+              {t("We monitor agricultural products for customers & partners")}
+            </Typography>
+
+            <Typography component="p" sx={paragraphStyles}>
+              {t(
+                "Amet consectetur adipiscing elit duis tristique sollicitudin nibh. Platea dictumst vestibulum rhoncus est pellentesque."
+              )}
+            </Typography>
+
+            <Typography component="p" sx={{ ...paragraphStyles, pt: 3 }}>
+              {t(
+                "Curabitur gravida arcu ac tortor. Non consectetur a erat nam at. Facilisis magna etiam tempor orci eu lobortis elementum nibh tellus. Sollicitudin aliquam ultrices sagittis orci a scelerisque purus."
+              )}
+            </Typography>
+
+            <Box>
+              <Suspense fallback={<span style={{ width: 24, height: 24 }} />}>
+                <Button
+                  startIcon={
+                    locale === "ar" ? <KeyboardTabIcon sx={{ ml: 2 }} /> : null
+                  }
+                  endIcon={
+                    locale === "en" ? (
+                      <KeyboardReturnIcon sx={{ mr: 2 }} />
+                    ) : null
+                  }
+                  sx={buttonStyles(locale)}
+                  variant="contained"
+                  color="success"
+                  size="large">
+                  {t("About Us")}
+                </Button>
+              </Suspense>
+            </Box>
+          </Grid>
+
+          <Grid size={{ xs: 12, lg: 5 }}>
+            <Box
+              component="picture"
+              sx={{
+                width: "100%",
+                aspectRatio: "3/2",
+                borderRadius: "2%",
+                display: "block",
+                overflow: "hidden",
+              }}>
+              <Box
+                crossOrigin="anonymous"
+                component="img"
+                src={imageJpg}
+                alt={t("About us image")}
+                loading="lazy"
+                sx={{
+                  width: "100%",
+                  height: "auto",
+                  display: "block",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </>
   );
 }
 
-export default About;
+export default memo(About);

@@ -1,108 +1,151 @@
-import React, { useContext, useEffect } from "react";
-import AnimatedNumbers from "react-animated-numbers";
-import { Box, Grid, Typography, Divider, Paper } from "@mui/material";
+// NumberCounters.jsx
+import React, {
+  useContext,
+  useEffect,
+  useMemo,
+  lazy,
+  Suspense,
+  memo,
+} from "react";
+import { Box, Grid, Typography, Paper } from "@mui/material";
 import Header from "../../../Hooks/Header";
 import { useInView } from "react-intersection-observer";
-import icon from "../../../assets/images/icon.png";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
 
-const data = [
-  { num: 46, sym: "K", text: "Areas" },
-  { num: 24, sym: "+", text: "Experience" },
-  { num: 30, sym: "T", text: "Products" },
-  { num: 10, sym: "K", text: "Customers" },
+// Lazy‐load the animated numbers for a smaller initial bundle
+const AnimatedNumbers = lazy(() => import("react-animated-numbers"));
+
+// Icon used as a background image
+import iconPng from "../../../assets/images/icon.png";
+
+// Raw, untranslated data
+const rawData = [
+  { num: 46, sym: "K", textKey: "Areas" },
+  { num: 24, sym: "+", textKey: "Experience" },
+  { num: 30, sym: "T", textKey: "Products" },
+  { num: 10, sym: "K", textKey: "Customers" },
 ];
 
-export default function NumberCounters() {
-  const { ref, inView } = useInView({
-    threshold: 0.2,
-    triggerOnce: false,
-  });
+function NumberCounters() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
+  const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: false });
 
+  // Sync language
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
 
+  // Translate data only when `t` changes
+  const counters = useMemo(
+    () =>
+      rawData.map(({ num, sym, textKey }) => ({
+        num,
+        sym,
+        text: t(textKey),
+      })),
+    [t]
+  );
+
   return (
-    <Box p={4}>
-      <Header
-        firstText="High-quality Chickens"
-        secondText="Our numbers prove the constant improvement in the quality"
-        thirdText="Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
-      />
+    <>
+      <Box component="section" aria-labelledby="counters-heading" sx={{ p: 4 }}>
+        <Header
+          firstText={t("High-quality Chickens")}
+          secondText={t(
+            "Our numbers prove the constant improvement in the quality"
+          )}
+          thirdText={t(
+            "Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+          )}
+        />
 
-      <Grid container spacing={4} justifyContent="center" ref={ref}>
-        {data.map((item, idx) => (
-          <Grid
-            item
-            size={{ xs: 12, md: 6, lg: 3 }}
-            key={idx}
-            textAlign="center">
-            <Box
-              sx={{
-                position: "relative",
-                width: 300,
-                height: 300,
-                mx: "auto",
-                backgroundImage: `url(${icon})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-              }}>
-              <Typography
-                variant="h4"
-                component="div"
+        <Grid
+          container
+          spacing={4}
+          justifyContent="center"
+          ref={ref}
+          sx={{ mt: 4 }}>
+          {counters.map(({ num, sym, text }, idx) => (
+            <Grid
+              key={idx}
+              size={{ xs: 12, md: 6, lg: 3 }}
+              sx={{ textAlign: "center" }}>
+              <Paper
+                elevation={0}
                 sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  fontSize: "4.5rem",
-                  fontWeight: 700,
-                  color: "white",
-                  fontFamily: "Merienda",
-                  lineHeight: 1,
+                  position: "relative",
+                  width: 300,
+                  height: 300,
+                  mx: "auto",
+                  backgroundImage: `url(${iconPng})`,
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
                 }}>
-                <AnimatedNumbers
-                  includeComma
-                  animateToNumber={inView ? item.num : 0}
-                  fontStyle={{}}
-                  configs={(n) => ({
-                    mass: 1,
-                    tension: 230 + n * 5,
-                    friction: 140,
-                  })}
-                  animationType="wobbly"
-                />
-                <span
-                  style={{
-                    fontWeight: 700,
-                    fontSize: "3rem",
-                    fontFamily: "Robot",
-                  }}>
-                  {t(item.sym)}
-                </span>
+                <Suspense
+                  fallback={<Typography variant="h4">0{sym}</Typography>}>
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}>
+                    <Typography
+                      variant="h4"
+                      component="div"
+                      sx={{
+                        fontSize: "4.5rem",
+                        fontWeight: 700,
+                        color: "white",
+                        fontFamily: "Merienda",
+                        lineHeight: 1,
+                      }}>
+                      <AnimatedNumbers
+                        includeComma
+                        animateToNumber={inView ? num : 0}
+                        configs={(n) => ({
+                          mass: 1,
+                          tension: 230 + n * 5,
+                          friction: 140,
+                        })}
+                        animationType="wobbly"
+                        fontStyle={{}}
+                      />
+                      <Box
+                        component="span"
+                        sx={{
+                          fontWeight: 700,
+                          fontSize: "3rem",
+                          fontFamily: "Roboto",
+                        }}>
+                        {sym}
+                      </Box>
+                    </Typography>
+                  </Box>
+                </Suspense>
+              </Paper>
+
+              <Typography
+                variant="subtitle1"
+                sx={{
+                  mt: 2,
+                  color: "#255946",
+                  fontSize: "3rem",
+                  fontWeight: 600,
+                  fontFamily: locale === "en" ? "Roboto" : "El Messiri",
+                }}>
+                {text}
               </Typography>
-            </Box>
-
-            {/* Wrap item.text in a Paper */}
-
-            <Typography
-              variant="subtitle1"
-              sx={{
-                color: "#255946",
-                fontSize: "3rem",
-                fontWeight: 600,
-                fontFamily: locale === "en" ? "Roboto" : "El Messiri",
-              }}>
-              {t(item.text)}
-            </Typography>
-          </Grid>
-        ))}
-      </Grid>
-    </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    </>
   );
 }
+
+export default memo(NumberCounters);

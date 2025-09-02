@@ -1,12 +1,18 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../Footer/Footer";
 import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 
 export default function MasterLayout() {
   return (
     <>
-      <NavBar />
-      <Outlet />
+      <header>
+        <NavBar />
+      </header>
+
+      <main id="content">
+        <Outlet />
+      </main>
+
       <Footer />
     </>
   );

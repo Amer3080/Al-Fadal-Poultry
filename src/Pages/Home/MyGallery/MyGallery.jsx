@@ -1,4 +1,13 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useContext,
+  useEffect,
+  lazy,
+  Suspense,
+  memo,
+} from "react";
 import {
   Box,
   ImageList,
@@ -6,29 +15,31 @@ import {
   Dialog,
   DialogContent,
   IconButton,
-  Typography,
   useMediaQuery,
   useTheme,
-  Divider,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
-import imageOne from "../../../assets/images/gallery/1.jpeg";
-import imageTwo from "../../../assets/images/gallery/19.jpeg";
+import { useTranslation } from "react-i18next";
+import imageOne from "../../../assets/images/gallery/1.jpg";
+import imageTwo from "../../../assets/images/gallery/19.jpg";
 import imageThree from "../../../assets/images/gallery/7.jpg";
 import imageFour from "../../../assets/images/gallery/25.jpg";
 import imageFive from "../../../assets/images/gallery/5.jpg";
 import imageSix from "../../../assets/images/gallery/15.jpg";
 import imageSeven from "../../../assets/images/gallery/10.jpg";
 import imageEight from "../../../assets/images/gallery/12.jpg";
+// Lazy‐load navigation icons
+const CloseIcon = lazy(() => import("@mui/icons-material/Close"));
+const ArrowBack = lazy(() => import("@mui/icons-material/ArrowBackIosNew"));
+const ArrowForward = lazy(() => import("@mui/icons-material/ArrowForwardIos"));
 
+// Gallery images
 const images = [
-  /* … your image objects here (same shape as before) … */
   {
     src: imageOne,
     original: imageOne,
+    alt: "Gallery image 1",
     width: 320,
     height: 174,
     tags: [
@@ -39,30 +50,35 @@ const images = [
   {
     src: imageTwo,
     original: imageTwo,
+    alt: "Gallery image 2",
     width: 320,
     height: 212,
   },
   {
     src: imageThree,
     original: imageThree,
+    alt: "Gallery image 3",
     width: 320,
     height: 212,
   },
   {
     src: imageFour,
     original: imageFour,
+    alt: "Gallery image 4",
     width: 320,
     height: 213,
   },
   {
     src: imageFive,
     original: imageFive,
+    alt: "Gallery image 5",
     width: 320,
     height: 183,
   },
   {
     src: imageSix,
     original: imageSix,
+    alt: "Gallery image 6",
     width: 240,
     height: 320,
     tags: [{ value: "Nature", title: "Nature" }],
@@ -70,146 +86,172 @@ const images = [
   {
     src: imageSeven,
     original: imageSeven,
+    alt: "Gallery image 7",
     width: 320,
     height: 190,
   },
   {
     src: imageEight,
     original: imageEight,
+    alt: "Gallery image 8",
     width: 320,
     height: 148,
     tags: [{ value: "People", title: "People" }],
   },
 ];
 
-export default function MyGallery() {
+function MyGallery() {
   const [openIndex, setOpenIndex] = useState(null);
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
   const isSm = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const cols = isXs ? 1 : isSm ? 2 : 4;
-  const handleOpen = useCallback((idx) => {
-    setOpenIndex(idx);
-  }, []);
 
-  const handleClose = useCallback(() => {
-    setOpenIndex(null);
-  }, []);
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
 
+  // Sync locale with i18n
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
+
+  // Handlers
+  const handleOpen = useCallback((idx) => setOpenIndex(idx), []);
+  const handleClose = useCallback(() => setOpenIndex(null), []);
   const handlePrev = useCallback(() => {
-    if (openIndex === null) return;
-    setOpenIndex((openIndex + images.length - 1) % images.length);
-  }, [openIndex]);
-
+    setOpenIndex((i) =>
+      i === null ? null : (i + images.length - 1) % images.length
+    );
+  }, []);
   const handleNext = useCallback(() => {
-    if (openIndex === null) return;
-    setOpenIndex((openIndex + 1) % images.length);
-  }, [openIndex]);
+    setOpenIndex((i) => (i === null ? null : (i + 1) % images.length));
+  }, []);
 
+  // Current image
   const currentImage = useMemo(
     () => (openIndex !== null ? images[openIndex] : null),
     [openIndex]
   );
 
   return (
-    <Box my={8}>
-      <Header
-        firstText={"Our gallery"}
-        secondText={"Get to know our farm"}
-        thirdText={""}
-      />
-      {/* Thumbnail grid */}
-      <ImageList cols={cols} gap={6}>
-        {images.map((img, idx) => (
-          <ImageListItem key={img.src} onClick={() => handleOpen(idx)}>
-            <img
-              src={img.src}
-              alt={img.alt}
-              loading="lazy"
-              style={{ width: "100%", cursor: "pointer", borderRadius: 4 }}
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+    <>
+      <Box my={8}>
+        <Header
+          firstText={t("Our gallery")}
+          secondText={t("Get to know our farm")}
+          thirdText=""
+        />
 
-      {/* Lightbox dialog */}
-      <Dialog
-        open={openIndex !== null}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="md"
-        PaperProps={{
-          sx: {
-            position: "relative",
-            backgroundColor: "transparent",
-            boxShadow: "none",
-          },
-        }}>
-        {currentImage && (
-          <>
-            {/* Close button */}
-            <IconButton
-              onClick={handleClose}
-              sx={{
-                position: "absolute",
-                top: 8,
-                right: 8,
-                color: "common.white",
-                bgcolor: "rgba(0,0,0,0.4)",
-                "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
-              }}>
-              <CloseIcon />
-            </IconButton>
-
-            {/* Previous / Next */}
-            <IconButton
-              onClick={handlePrev}
-              sx={{
-                position: "absolute",
-                left: 8,
-                top: "50%",
-                transform: "translateY(-50%)",
-                color: "common.white",
-                bgcolor: "rgba(0,0,0,0.4)",
-                "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
-              }}>
-              <ArrowBackIosNewIcon />
-            </IconButton>
-            <IconButton
-              onClick={handleNext}
-              sx={{
-                position: "absolute",
-                right: 8,
-                top: "50%",
-                transform: "translateY(-50%)",
-                color: "common.white",
-                bgcolor: "rgba(0,0,0,0.4)",
-                "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
-              }}>
-              <ArrowForwardIosIcon />
-            </IconButton>
-
-            {/* Image display */}
-            <DialogContent
-              sx={{
-                p: 0,
-                display: "flex",
-                justifyContent: "center",
-                bgcolor: "rgba(0,0,0,0.8)",
-              }}>
-              <Box
-                component="img"
-                src={currentImage.original}
-                alt={currentImage.alt}
-                sx={{
-                  maxWidth: "100%",
-                  maxHeight: `calc(100vh - ${theme.spacing(10)})`,
-                }}
+        <ImageList cols={cols} gap={6}>
+          {images.map((img, idx) => (
+            <ImageListItem
+              key={img.src}
+              onClick={() => handleOpen(idx)}
+              sx={{ cursor: "pointer", borderRadius: 1, overflow: "hidden" }}>
+              <img
+                crossOrigin="anonymous"
+                src={img.src}
+                alt={img.alt}
+                loading="lazy"
+                decoding="async"
+                width={img.width}
+                height={img.height}
+                style={{ width: "100%", display: "block" }}
               />
-            </DialogContent>
-          </>
-        )}
-      </Dialog>
-    </Box>
+            </ImageListItem>
+          ))}
+        </ImageList>
+
+        <Dialog
+          open={openIndex !== null}
+          onClose={handleClose}
+          fullWidth
+          maxWidth="md"
+          aria-labelledby="gallery-dialog"
+          PaperProps={{
+            sx: {
+              background: "transparent",
+              boxShadow: "none",
+            },
+          }}>
+          {currentImage && (
+            <>
+              <Suspense fallback={<IconButton />}>
+                <IconButton
+                  onClick={handleClose}
+                  sx={{
+                    position: "absolute",
+                    top: 8,
+                    right: 8,
+                    color: "common.white",
+                    bgcolor: "rgba(0,0,0,0.4)",
+                    "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
+                  }}
+                  aria-label={t("Close gallery")}>
+                  <CloseIcon />
+                </IconButton>
+              </Suspense>
+
+              <Suspense fallback={<IconButton />}>
+                <IconButton
+                  onClick={handlePrev}
+                  sx={{
+                    position: "absolute",
+                    left: 8,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "common.white",
+                    bgcolor: "rgba(0,0,0,0.4)",
+                    "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
+                  }}
+                  aria-label={t("Previous image")}>
+                  <ArrowBack />
+                </IconButton>
+              </Suspense>
+
+              <Suspense fallback={<IconButton />}>
+                <IconButton
+                  onClick={handleNext}
+                  sx={{
+                    position: "absolute",
+                    right: 8,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    color: "common.white",
+                    bgcolor: "rgba(0,0,0,0.4)",
+                    "&:hover": { bgcolor: "rgba(0,0,0,0.6)" },
+                  }}
+                  aria-label={t("Next image")}>
+                  <ArrowForward />
+                </IconButton>
+              </Suspense>
+
+              <DialogContent
+                id="gallery-dialog"
+                sx={{
+                  p: 0,
+                  display: "flex",
+                  justifyContent: "center",
+                  bgcolor: "rgba(0,0,0,0.8)",
+                }}>
+                <Box
+                  component="img"
+                  src={currentImage.original}
+                  alt={currentImage.alt}
+                  loading="lazy"
+                  decoding="async"
+                  sx={{
+                    maxWidth: "100%",
+                    maxHeight: `calc(100vh - ${theme.spacing(10)})`,
+                  }}
+                />
+              </DialogContent>
+            </>
+          )}
+        </Dialog>
+      </Box>
+    </>
   );
 }
+
+export default memo(MyGallery);
