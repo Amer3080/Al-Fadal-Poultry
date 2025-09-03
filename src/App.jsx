@@ -14,6 +14,8 @@ import CircularIndeterminate from "./Components/CircularIndeterminate/CircularIn
 import image from "./assets/images/Logo.png";
 import "./App.css";
 
+
+
 // Lazy-loaded pages
 const Home = lazy(() => import("./Pages/Home/Home"));
 const AboutUs = lazy(() => import("./Pages/AboutUs/AboutUs"));
