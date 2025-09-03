@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App.jsx";
 import "./i18n";
 import DataContextProvider from "./Components/Context/DataContext.jsx";
-import { HashRouter } from "react-router-dom";
 
 // MUI theme imports
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -50,9 +49,7 @@ createRoot(document.getElementById("root")).render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <StrictMode>
-        <HashRouter>
-          <App />
-        </HashRouter>
+        <App />
       </StrictMode>
     </ThemeProvider>
   </DataContextProvider>
