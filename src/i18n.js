@@ -20,8 +20,8 @@ i18n
   // init i18next
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
-    lng: "ar",
-    fallbackLng: "ar",
+    lng: "en",
+    fallbackLng: "en",
     debug: true,
     ns: ["translation"],
     defaultNS: "translation",
