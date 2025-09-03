@@ -1,4 +1,3 @@
-// Welcome.jsx
 import React, { useContext, useEffect, useMemo } from "react";
 import Header from "../../../Hooks/Header";
 import imgJpg from "../../../assets/images/5.jpg";
