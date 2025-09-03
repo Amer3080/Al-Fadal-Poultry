@@ -95,7 +95,6 @@ function OurService() {
     ],
     [t]
   );
-  console.log(imgOne, imgTwo);
   return (
     <>
       <Box
