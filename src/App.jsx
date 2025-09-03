@@ -49,6 +49,10 @@ function App() {
   return (
     <HelmetProvider>
       <Helmet htmlAttributes={{ lang: "en", dir: "ltr" }}>
+        <meta
+          name="description"
+          content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards, reliable supply, and ISO certified."
+        />
         {/* Open Graph / Facebook */}
         <meta property="og:url" content="http://www.alfadalpoultry.com" />
         <meta property="og:type" content="website" />
