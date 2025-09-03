@@ -18,16 +18,18 @@ function Header({ firstText, secondText, thirdText }) {
         my: 1,
       }}>
       <Typography
-        component="h5"
+        component="h3"
+        variant="h5"
         sx={{
           fontFamily: "Marhey",
           fontSize: "3vw",
-          color: "#49a760",
+          color: "#286138",
         }}>
         {t(`${firstText}`)}
       </Typography>
       <Typography
-        component="h2"
+        component="h4"
+        variant="h2"
         sx={{
           textAlign: "center",
           color: "#255946",
@@ -41,7 +43,7 @@ function Header({ firstText, secondText, thirdText }) {
       <Typography
         component="h5"
         sx={{
-          color: "gray",
+          color: "#575757",
           fontFamily: "Roboto",
           fontSize: "2vw",
 

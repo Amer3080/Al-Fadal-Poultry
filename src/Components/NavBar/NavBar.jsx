@@ -151,7 +151,7 @@ const NavBar = () => {
             loading="eager"
           />
           <Typography
-            component={Link}
+            component="h1"
             to="/"
             variant="h6"
             sx={{
@@ -241,7 +241,7 @@ const NavBar = () => {
               loading="eager"
             />
             <Typography
-              component={Link}
+              component="h1"
               to="/"
               variant="h6"
               noWrap

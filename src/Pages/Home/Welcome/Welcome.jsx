@@ -89,7 +89,7 @@ export default function Welcome() {
               }}>
               <Typography
                 component="div"
-                color="gray"
+                color="#575757"
                 sx={{
                   textTransform: "uppercase",
                   my: 1,
@@ -116,7 +116,7 @@ export default function Welcome() {
                 component="p"
                 sx={{
                   fontSize: "18px",
-                  color: "gray",
+                  color: "#575757",
                   lineHeight: 1.8,
                   mb: 3,
                   fontFamily: locale === "en" ? "Roboto" : "Marhey",
@@ -167,7 +167,7 @@ export default function Welcome() {
                       fontSize: "22px",
                       fontFamily:
                         locale === "en" ? "Caveat" : "Noto Nastaliq Urdu",
-                      color: "#49a760",
+                      color: "#2B643A",
                     }}>
                     {t("Mr: Ahmed Fathy")}
                   </Typography>

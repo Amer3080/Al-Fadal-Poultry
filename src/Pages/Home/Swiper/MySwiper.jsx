@@ -41,14 +41,16 @@ export default function MySwiper() {
             <div className={styles["text_content"]}>
               {" "}
               <Typography
-                component="h5"
+                component="h3"
+                variant="h5"
                 color="white"
                 sx={{ fontFamily: "Marhey", fontSize: "2vw" }}>
                 {" "}
                 {t("No antibiotics, no growth stimulants!")}{" "}
               </Typography>{" "}
               <Typography
-                component="h2"
+                component="h4"
+                variant="h2"
                 sx={{
                   position: "relative",
                   fontSize: locale === "en" ? "5vw" : "6vw",

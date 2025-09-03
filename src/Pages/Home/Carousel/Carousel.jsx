@@ -100,7 +100,7 @@ function Carousel() {
                     fontFamily: locale === "en" ? "Orbitron" : "Marhey",
                     fontSize: locale === "en" ? "2.2vw" : "3vw",
                     fontWeight: 900,
-                    color: locale === "en" ? "#efb443" : "#255946",
+                    color: "#255946",
                     whiteSpace: "nowrap",
                   }}>
                   {label}

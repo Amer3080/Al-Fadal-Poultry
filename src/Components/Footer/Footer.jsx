@@ -86,6 +86,8 @@ export default function Footer() {
                   component="a"
                   href="https://www.facebook.com/"
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow us on Facebook"
                   sx={{ color: "common.white" }}>
                   <FacebookIcon />
                 </IconButton>
@@ -93,6 +95,8 @@ export default function Footer() {
                   component="a"
                   href="https://x.com/home"
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow us on Twitter"
                   sx={{ color: "common.white" }}>
                   <TwitterIcon />
                 </IconButton>
@@ -100,6 +104,8 @@ export default function Footer() {
                   component="a"
                   href="https://web.telegram.org/k/"
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow us on Telegram"
                   sx={{ color: "common.white" }}>
                   <TelegramIcon />
                 </IconButton>
@@ -107,6 +113,8 @@ export default function Footer() {
                   component="a"
                   href="https://www.whatsapp.com/?lang=ar"
                   target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Follow us on WhatsApp"
                   sx={{ color: "common.white" }}>
                   <WhatsAppIcon />
                 </IconButton>

@@ -57,7 +57,7 @@ const leadStyles = (locale) => ({
 });
 const paragraphStyles = {
   fontSize: "18px",
-  color: "gray",
+  color: "#575757",
   lineHeight: 2,
 };
 const buttonStyles = (locale) => ({
