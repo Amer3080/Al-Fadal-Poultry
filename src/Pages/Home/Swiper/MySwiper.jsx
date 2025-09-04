@@ -41,7 +41,7 @@ export default function MySwiper() {
             <div className={styles["text_content"]}>
               {" "}
               <Typography
-                component="h4"
+                component="h3"
                 variant="h5"
                 color="white"
                 sx={{ fontFamily: "Marhey", fontSize: "2vw" }}>
