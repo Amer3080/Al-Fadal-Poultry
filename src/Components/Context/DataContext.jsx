@@ -4,7 +4,7 @@ import { createContext, useState } from "react";
 export let DataContext = createContext();
 
 export default function DataContextProvider({ children }) {
-  const [locale, setLocale] = useState("en");
+  const [locale, setLocale] = useState("ar");
   const [theme, setTheme] = useState("light");
   return (
     <DataContext.Provider value={{ theme, setTheme, locale, setLocale }}>
