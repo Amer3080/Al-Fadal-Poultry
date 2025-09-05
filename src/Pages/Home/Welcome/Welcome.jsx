@@ -47,7 +47,7 @@ export default function Welcome() {
         aria-labelledby="welcome-heading"
         sx={{ my: 5, mx: 2, direction: locale === "en" ? "ltr" : "rtl" }}>
         <Header
-          firstText={t("Welcome to our poultry farm")}
+          firstText={t("")}
           secondText={t("We offer high-quality chicken at wholesale prices!")}
           thirdText={t(
             "Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."

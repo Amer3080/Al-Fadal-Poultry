@@ -13,6 +13,7 @@ import NotFound from "./Components/NotFound/NotFound";
 import CircularIndeterminate from "./Components/CircularIndeterminate/CircularIndeterminate.jsx";
 import image from "./assets/images/Logo.png";
 import "./App.css";
+import Preloader from "./Components/Preloader/Preloader.jsx";
 
 // Lazy-loaded pages
 const Home = lazy(() => import("./Pages/Home/Home"));
@@ -117,7 +118,7 @@ function App() {
                 alignItems: "center",
                 height: "100vh",
               }}>
-              <CircularIndeterminate />
+              <Preloader />{" "}
             </div>
           }>
           <RouterProvider router={routes} />
