@@ -1,34 +1,40 @@
 import React from "react";
-import HeroSection from "./HeroSection/HeroSection.jsx";
 import ServicesGrid from "./ServicesGrid/ServicesGrid.jsx";
 import FeatureSections from "./FeatureSections/FeatureSections.jsx";
 import CallToActionBanner from "./CallToActionBanner/CallToActionBanner.jsx";
 import TestimonialsCarousel from "./TestimonialsCarousel/TestimonialsCarousel.jsx";
-
+import HeroSection from "../../Components/HeroSection/HeroSection.jsx";
+import imageOne from "../../assets/images/4.jpg";
 export default function Services() {
   return (
     <main>
-      <HeroSection />
+      <HeroSection HeadText={"خـدماتنـــــــا"} />
 
       <ServicesGrid />
-      {/* 
+
       <FeatureSections
         features={[
           {
-            imageUrl: "/assets/feature-organic.jpg",
-            heading: "Organic Feed Program",
-            text: "Locally sourced grains for healthier livestock.",
+            imageUrl: imageOne,
+            heading: "ORGANIC POULTRY FARMING",
+            text: `Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor feugiat.
+             Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor
+              feugiat. Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur.
+               Mauris faucibus sapien sollicitudin porttitor feugiat. Suspendisse fringilla commodo.`,
           },
           {
-            imageUrl: "/assets/feature-safety.jpg",
-            heading: "Food Safety Standards",
-            text: "HACCP-compliant processing facilities.",
+            imageUrl: imageOne,
+            heading: "ORGANIC POULTRY FARMING",
+            text: `Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor feugiat.
+             Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor
+              feugiat. Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur.
+               Mauris faucibus sapien sollicitudin porttitor feugiat. Suspendisse fringilla commodo.`,
           },
         ]}
-      /> */}
+      />
 
-      {/* <CallToActionBanner
-        heading="Ready to Partner with Us?"
+      <CallToActionBanner
+        heading="Ready to Get Started?"
         buttonText="Contact Sales"
         buttonUrl="/contact-us"
       />
@@ -37,9 +43,10 @@ export default function Services() {
         testimonials={[
           { quote: "Best poultry I’ve ever tasted!", author: "A. Khan" },
           { quote: "On-time and fresh every time.", author: "S. Patel" },
-          // …more quotes
+          { quote: "Best poultry I’ve ever tasted!", author: "A. Khan" },
+          { quote: "On-time and fresh every time.", author: "S. Patel" },
         ]}
-      /> */}
+      />
     </main>
   );
 }
