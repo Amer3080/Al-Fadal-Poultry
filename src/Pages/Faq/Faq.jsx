@@ -20,6 +20,7 @@ import {
   FaGlobeAmericas,
 } from "react-icons/fa";
 import { styled } from "@mui/material";
+import HeroSection from "../../Components/HeroSection/HeroSection";
 
 const StyledAccordion = styled(Accordion)(() => ({
   marginBottom: "16px",
@@ -93,82 +94,91 @@ const Faq = () => {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ py: 8, mt: 10 }}>
-      <Typography
-        variant="h3"
-        component="h1"
-        align="center"
-        gutterBottom
-        sx={{ mb: 6, color: theme.palette.primary.main }}>
-        Frequently Asked Questions
-      </Typography>
-
-      <Grid container spacing={4}>
-        <Grid size={{ xs: 12, md: 7 }}>
-          <Card
-            elevation={3}
-            sx={{
-              p: 2,
-              borderRadius: 2,
-              height: "100%",
-              bgcolor: "background.paper",
-            }}>
-            {faqData.map((faqs) => (
-              <StyledAccordion
-                key={faqs.id}
-                expanded={expanded === faqs.id}
-                onChange={handleChange(faqs.id)}>
-                <AccordionSummary
-                  expandIcon={<IoIosArrowDown />}
-                  sx={{
-                    "& .MuiAccordionSummary-content": {
-                      display: "flex",
-                      alignItems: "center",
-                    },
-                  }}>
-                  <IconWrapper>{faqs.icon}</IconWrapper>
-                  <Typography
-                    variant="h6"
-                    sx={{ color: "#333", fontSize: "1.1rem" }}>
-                    {faqs.question}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography sx={{ color: "#666", pl: 5 }}>
-                    {faqs.answer}
-                  </Typography>
-                </AccordionDetails>
-              </StyledAccordion>
-            ))}
-          </Card>
-        </Grid>
-
-        <Grid
-          size={{ xs: 12, md: 5 }}
+    <Box sx={{ mt: 8 }}>
+      <HeroSection HeadText={"FAQ"} />
+      <Container maxWidth="lg" sx={{ py: 8 }}>
+        <Typography
+          variant="h3"
+          component="h1"
+          align="center"
+          gutterBottom
           sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+            color: "#255946",
+            fontSize: { xs: "36px", md: "48px", lg: "56px" },
+            fontWeight: 900,
+            fontFamily: "El Messiri",
+            mb: 6,
           }}>
-          <Box
-            component="img"
-            src="https://images.unsplash.com/photo-1557804506-669a67965ba0"
-            alt="FAQ Support Illustration"
+          Frequently Asked Questions
+        </Typography>
+
+        <Grid container spacing={4}>
+          <Grid size={{ xs: 12, md: 7 }}>
+            <Card
+              elevation={3}
+              sx={{
+                p: 2,
+                borderRadius: 2,
+                height: "100%",
+                bgcolor: "background.paper",
+              }}>
+              {faqData.map((faqs) => (
+                <StyledAccordion
+                  key={faqs.id}
+                  expanded={expanded === faqs.id}
+                  onChange={handleChange(faqs.id)}>
+                  <AccordionSummary
+                    expandIcon={<IoIosArrowDown />}
+                    sx={{
+                      "& .MuiAccordionSummary-content": {
+                        display: "flex",
+                        alignItems: "center",
+                      },
+                    }}>
+                    <IconWrapper>{faqs.icon}</IconWrapper>
+                    <Typography
+                      variant="h6"
+                      sx={{ color: "#333", fontSize: "1.1rem" }}>
+                      {faqs.question}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography sx={{ color: "#666", pl: 5 }}>
+                      {faqs.answer}
+                    </Typography>
+                  </AccordionDetails>
+                </StyledAccordion>
+              ))}
+            </Card>
+          </Grid>
+
+          <Grid
+            size={{ xs: 12, md: 5 }}
             sx={{
-              width: "100%",
-              maxWidth: 500,
-              height: "auto",
-              borderRadius: 2,
-              boxShadow: 3,
-            }}
-            onError={(e) => {
-              e.target.src =
-                "https://images.unsplash.com/photo-1516321318423-f06f85e504b3";
-            }}
-          />
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <Box
+              component="img"
+              src="https://images.unsplash.com/photo-1557804506-669a67965ba0"
+              alt="FAQ Support Illustration"
+              sx={{
+                width: "100%",
+                maxWidth: 500,
+                height: "auto",
+                borderRadius: 2,
+                boxShadow: 3,
+              }}
+              onError={(e) => {
+                e.target.src =
+                  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3";
+              }}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

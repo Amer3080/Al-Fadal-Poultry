@@ -22,6 +22,7 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineOppositeContent from "@mui/lab/TimelineOppositeContent";
 import TimelineDot from "@mui/lab/TimelineDot";
+import HeroSection from "../../Components/HeroSection/HeroSection";
 
 const History = () => {
   const [expandedId, setExpandedId] = useState(null);
@@ -66,72 +67,71 @@ const History = () => {
   };
 
   return (
-    <Box sx={{ maxWidth: 900, mx: "auto", p: 4 }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        Historical Timeline
-      </Typography>
+    <Box sx={{ mt: 8 }}>
+      <HeroSection HeadText={"History"} />
+      <Box sx={{ maxWidth: 900, mx: "auto", p: 4 }}>
+        <Timeline position="alternate">
+          {timelineData.map((event, idx) => (
+            <TimelineItem key={event.id}>
+              <TimelineOppositeContent
+                sx={{ m: "auto 0" }}
+                align={idx % 2 === 0 ? "right" : "left"}>
+                <Box display="flex" alignItems="center" gap={1}>
+                  <CalendarTodayIcon fontSize="small" color="action" />
+                  <Typography variant="body2" color="textSecondary">
+                    {format(new Date(event.date), "MMMM dd, yyyy")}
+                  </Typography>
+                </Box>
+              </TimelineOppositeContent>
 
-      <Timeline position="alternate">
-        {timelineData.map((event, idx) => (
-          <TimelineItem key={event.id}>
-            <TimelineOppositeContent
-              sx={{ m: "auto 0" }}
-              align={idx % 2 === 0 ? "right" : "left"}>
-              <Box display="flex" alignItems="center" gap={1}>
-                <CalendarTodayIcon fontSize="small" color="action" />
-                <Typography variant="body2" color="textSecondary">
-                  {format(new Date(event.date), "MMMM dd, yyyy")}
-                </Typography>
-              </Box>
-            </TimelineOppositeContent>
+              <TimelineSeparator>
+                <TimelineDot color="primary" />
+                {idx < timelineData.length - 1 && <TimelineConnector />}
+              </TimelineSeparator>
 
-            <TimelineSeparator>
-              <TimelineDot color="primary" />
-              {idx < timelineData.length - 1 && <TimelineConnector />}
-            </TimelineSeparator>
+              <TimelineContent sx={{ py: "12px", px: 2 }}>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.2 }}
+                  whileHover={{ scale: 1.02 }}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => toggleExpand(event.id)}>
+                  <Card elevation={3}>
+                    <CardActionArea>
+                      <CardMedia
+                        component="img"
+                        height="200"
+                        image={event.image}
+                        alt={event.title}
+                        onError={(e) => {
+                          e.target.src =
+                            "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead";
+                        }}
+                      />
 
-            <TimelineContent sx={{ py: "12px", px: 2 }}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.2 }}
-                whileHover={{ scale: 1.02 }}
-                style={{ cursor: "pointer" }}
-                onClick={() => toggleExpand(event.id)}>
-                <Card elevation={3}>
-                  <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={event.image}
-                      alt={event.title}
-                      onError={(e) => {
-                        e.target.src =
-                          "https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead";
-                      }}
-                    />
-
-                    <CardContent>
-                      <Typography variant="h6" gutterBottom>
-                        {event.title}
-                      </Typography>
-
-                      <Collapse
-                        in={expandedId === event.id}
-                        timeout="auto"
-                        unmountOnExit>
-                        <Typography variant="body2" color="textSecondary">
-                          {event.description}
+                      <CardContent>
+                        <Typography variant="h6" gutterBottom>
+                          {event.title}
                         </Typography>
-                      </Collapse>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              </motion.div>
-            </TimelineContent>
-          </TimelineItem>
-        ))}
-      </Timeline>
+
+                        <Collapse
+                          in={expandedId === event.id}
+                          timeout="auto"
+                          unmountOnExit>
+                          <Typography variant="body2" color="textSecondary">
+                            {event.description}
+                          </Typography>
+                        </Collapse>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                </motion.div>
+              </TimelineContent>
+            </TimelineItem>
+          ))}
+        </Timeline>
+      </Box>
     </Box>
   );
 };
