@@ -35,7 +35,10 @@ export default function FeatureSections({ features }) {
               fontWeight: "900",
               color: "#255946",
               fontFamily: "Roboto",
-              textAlign: { xs: "center", md: "start" },
+              textAlign: {
+                xs: "center",
+                md: locale === "en" ? "end" : "start",
+              },
             }}>
             {heading}
           </Typography>
@@ -44,7 +47,10 @@ export default function FeatureSections({ features }) {
               mt: 4,
               fontSize: "18px",
               lineHeight: 2,
-              textAlign: { xs: "center", md: "start" },
+              textAlign: {
+                xs: "center",
+                md: locale === "en" ? "end" : "start",
+              },
             }}>
             {text}
           </Typography>
