@@ -1,52 +1,56 @@
-import React from "react";
 import ServicesGrid from "./ServicesGrid/ServicesGrid.jsx";
 import FeatureSections from "./FeatureSections/FeatureSections.jsx";
-import CallToActionBanner from "./CallToActionBanner/CallToActionBanner.jsx";
-import TestimonialsCarousel from "./TestimonialsCarousel/TestimonialsCarousel.jsx";
+import ActionBanner from "./ActionBanner/ActionBanner.jsx";
 import HeroSection from "../../Components/HeroSection/HeroSection.jsx";
-import imageOne from "../../assets/images/4.jpg";
+import imageOne from "../../assets/images/s1.jpg";
+import imageTwo from "../../assets/images/s4.jpg";
+import imageThree from "../../assets/images/s5.jpg";
+import IsoCertificates from "./IsoCertificates/IsoCertificates.jsx";
+import { Helmet } from "react-helmet-async";
 export default function Services() {
   return (
-    <main>
-      <HeroSection HeadText={"خـدماتنـــــــا"} />
-
-      <ServicesGrid />
-
-      <FeatureSections
-        features={[
-          {
-            imageUrl: imageOne,
-            heading: "ORGANIC POULTRY FARMING",
-            text: `Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor feugiat.
+    <>
+      <Helmet>
+        <title>Services</title>
+        <meta
+          name="description"
+          content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards, reliable supply, and ISO certified."
+        />
+      </Helmet>
+      <main>
+        <HeroSection HeadText={"Services"} />
+        <ServicesGrid />
+        <FeatureSections
+          features={[
+            {
+              imageUrl: imageOne,
+              heading: "ORGANIC POULTRY FARMING",
+              text: `Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor feugiat.
              Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor
               feugiat. Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur.
                Mauris faucibus sapien sollicitudin porttitor feugiat. Suspendisse fringilla commodo.`,
-          },
-          {
-            imageUrl: imageOne,
-            heading: "ORGANIC POULTRY FARMING",
-            text: `Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor feugiat.
+            },
+            {
+              imageUrl: imageTwo,
+              heading: "ORGANIC POULTRY FARMING",
+              text: `Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor feugiat.
              Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor
               feugiat. Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur.
                Mauris faucibus sapien sollicitudin porttitor feugiat. Suspendisse fringilla commodo.`,
-          },
-        ]}
-      />
-
-      <CallToActionBanner
-        heading="Ready to Get Started?"
-        buttonText="Contact Sales"
-        buttonUrl="/contact-us"
-      />
-
-      <TestimonialsCarousel
-        testimonials={[
-          { quote: "Best poultry I’ve ever tasted!", author: "A. Khan" },
-          { quote: "On-time and fresh every time.", author: "S. Patel" },
-          { quote: "Best poultry I’ve ever tasted!", author: "A. Khan" },
-          { quote: "On-time and fresh every time.", author: "S. Patel" },
-        ]}
-      />
-    </main>
+            },
+            {
+              imageUrl: imageThree,
+              heading: "ORGANIC POULTRY FARMING",
+              text: `Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor feugiat.
+             Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur. Mauris faucibus sapien sollicitudin porttitor
+              feugiat. Suspendisse fringilla commodo.Nulla suscipit quam id risus placerat consectetur.
+               Mauris faucibus sapien sollicitudin porttitor feugiat. Suspendisse fringilla commodo.`,
+            },
+          ]}
+        />
+        <ActionBanner heading="ISO Certificates" />
+        <IsoCertificates />
+      </main>
+    </>
   );
 }
