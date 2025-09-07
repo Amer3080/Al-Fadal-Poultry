@@ -86,7 +86,7 @@ function About() {
         <Header
           firstText={t("About US")}
           secondText={t("We offer healthy & natural poultry such as chickens")}
-          thirdText={t("Attention to ensure optimal growth and well-being.")}
+          thirdText={t("")}
         />
       </Box>
       <Box
