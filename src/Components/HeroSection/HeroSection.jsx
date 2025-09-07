@@ -58,7 +58,7 @@ export default function HeroSection({ HeadText }) {
         }}>
         <Breadcrumbs
           aria-label="breadcrumb"
-          sx={{ fontSize: "18px", color: "white", mx: 3 }}>
+          sx={{ fontSize: "20px", color: "white", px: 8 }}>
           <Link to="/" style={{ textDecoration: "none" }}>
             <Box
               sx={{
@@ -72,7 +72,7 @@ export default function HeroSection({ HeadText }) {
               <HomeIcon
                 className="hoverable"
                 sx={{
-                  fontSize: "18px",
+                  fontSize: { xs: "10px", sm: "16", md: "30px" },
                   color: "white",
                   fontWeight: "900",
                   transition: "color 0.3s ease",
@@ -82,7 +82,7 @@ export default function HeroSection({ HeadText }) {
               <Typography
                 className="hoverable"
                 sx={{
-                  fontSize: "18px",
+                  fontSize: { xs: "10px", sm: "16", md: "30px" },
                   color: "white",
                   fontWeight: "900",
                   transition: "color 0.3s ease",
@@ -95,7 +95,7 @@ export default function HeroSection({ HeadText }) {
 
           <Typography
             sx={{
-              fontSize: "20px",
+              fontSize: { xs: "10px", sm: "16", md: "30px" },
               fontWeight: "900",
               display: "flex",
               alignItems: "center",
@@ -122,7 +122,7 @@ export default function HeroSection({ HeadText }) {
             sx={{
               mt: 5,
               fontFamily: locale === "en" ? "Robot" : "El Messiri",
-              fontSize: "50px",
+              fontSize: { xs: "35px", md: "65px" },
               fontWeight: "700",
             }}
             gutterBottom>

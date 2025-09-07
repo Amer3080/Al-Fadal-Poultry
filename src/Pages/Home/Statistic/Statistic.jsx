@@ -12,7 +12,7 @@ import Header from "../../../Hooks/Header";
 import { useInView } from "react-intersection-observer";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
-
+import image from "../../../assets/images/Frame.png";
 // Lazy‐load the animated numbers for a smaller initial bundle
 const AnimatedNumbers = lazy(() => import("react-animated-numbers"));
 
@@ -50,17 +50,22 @@ function NumberCounters() {
 
   return (
     <>
-      <Box component="section" aria-labelledby="counters-heading" sx={{ p: 4 }}>
+      <Box
+        sx={{
+          backgroundImage: `url(${image})`,
+          py: 2,
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-labelledby="about-heading">
         <Header
           firstText={t("High-quality Chickens")}
           secondText={t(
-            "Our numbers prove the constant improvement in the quality"
+            "Our numbers  the constant improvement in the quality"
           )}
-          thirdText={t(
-            "Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
-          )}
+          thirdText={t("")}
         />
-
+      </Box>
+      <Box component="section" aria-labelledby="counters-heading" sx={{ p: 4 }}>
         <Grid
           container
           spacing={4}

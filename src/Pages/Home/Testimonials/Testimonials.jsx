@@ -25,6 +25,7 @@ import {
 import Header from "../../../Hooks/Header";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
+import image from "../../../assets/images/Frame.png";
 import photo_girl from "../../../assets/images/girl.jpg";
 import photo_man from "../../../assets/images/man.jpg";
 
@@ -112,20 +113,25 @@ function Testimonials() {
 
   return (
     <>
+      <Box
+        sx={{
+          backgroundImage: `url(${image})`,
+          py: 2,
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-labelledby="about-heading">
+        <Header
+          firstText={t("About US")}
+          secondText={t("We offer healthy & natural poultry such as chickens")}
+          thirdText={t("Attention to ensure optimal growth and well-being.")}
+        />
+      </Box>
       <Container
         maxWidth="lg"
         sx={{
           my: 5,
           direction: locale === "en" ? "ltr" : "rtl",
         }}>
-        <Box textAlign="center" mb={6}>
-          <Header
-            firstText={t("Testimonial")}
-            secondText={t("What Clients Say About Our Poultry Farm")}
-            thirdText={""}
-          />
-        </Box>
-
         <Grid container spacing={3}>
           {testimonials.map((rev) => (
             <Grid size={{ xs: 12, md: 4 }} key={rev.id}>

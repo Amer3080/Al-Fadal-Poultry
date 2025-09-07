@@ -67,7 +67,7 @@ const History = () => {
   };
 
   return (
-    <Box sx={{ mt: 8 }}>
+    <Box>
       <HeroSection HeadText={"History"} />
       <Box sx={{ maxWidth: 900, mx: "auto", p: 4 }}>
         <Timeline position="alternate">

@@ -21,10 +21,10 @@ function Values() {
           align="center"
           gutterBottom
           sx={{
-            color: "#255946",
-            fontSize: { xs: "50px", md: "60px", lg: "70px" },
+            fontSize: { xs: "50px", md: "40px" },
             fontWeight: 900,
-            fontFamily: "El Messiri",
+            fontFamily: "Marhey",
+            color: "#255946",
             mb: 5,
           }}>
           Our Values
@@ -39,7 +39,7 @@ function Values() {
                   sx={{
                     fontSize: "30px",
                     fontWeight: "600",
-                    fontFamily: "Marhey",
+                    fontFamily: "Robot",
                   }}>
                   {val}
                 </Typography>

@@ -54,10 +54,10 @@ const Team = () => {
           align="center"
           gutterBottom
           sx={{
-            color: "#255946",
-            fontSize: { xs: "36px", md: "48px", lg: "56px" },
+            fontSize: { xs: "50px", md: "40px" },
             fontWeight: 900,
-            fontFamily: "El Messiri",
+            fontFamily: "Marhey",
+            color: "#255946",
             mb: 6,
           }}>
           Our Team
@@ -83,14 +83,14 @@ const Team = () => {
                   <Typography
                     variant="h5"
                     component="h3"
-                    sx={{ fontFamily: "Marhey" }}
+                    sx={{ fontFamily: "Robot", fontWeight: "bold" }}
                     gutterBottom>
                     {name}
                   </Typography>
                   <Typography
                     variant="subtitle1"
                     color="text.secondary"
-                    sx={{ mb: 2 }}>
+                    sx={{ mb: 2, fontWeight: "900" }}>
                     {title}
                   </Typography>
                   <Typography

@@ -21,6 +21,7 @@ import {
 import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
 import { useTranslation } from "react-i18next";
+import image from "../../../assets/images/Frame.png";
 import imageOne from "../../../assets/images/gallery/1.jpg";
 import imageTwo from "../../../assets/images/gallery/19.jpg";
 import imageThree from "../../../assets/images/gallery/7.jpg";
@@ -135,13 +136,20 @@ function MyGallery() {
 
   return (
     <>
-      <Box my={8}>
+      <Box
+        sx={{
+          backgroundImage: `url(${image})`,
+          py: 2,
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-labelledby="about-heading">
         <Header
           firstText={t("Our gallery")}
           secondText={t("Get to know our farm")}
           thirdText=""
         />
-
+      </Box>
+      <Box my={8}>
         <ImageList cols={cols} gap={6}>
           {images.map((img, idx) => (
             <ImageListItem

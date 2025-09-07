@@ -17,10 +17,7 @@ import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
 
 import imageJpg from "../../../assets/images/10.jpg";
-// import imageAvif from "../../../assets/images/w.avif";
-// import imageWebp from "../../../assets/images/w.webp";
-
-// Dynamically‐import icons so they don’t bloat your main bundle
+import image from "../../../assets/images/Frame.png";
 const KeyboardTabIcon = lazy(() => import("@mui/icons-material/KeyboardTab"));
 const KeyboardReturnIcon = lazy(() =>
   import("@mui/icons-material/KeyboardReturn")
@@ -80,18 +77,24 @@ function About() {
   return (
     <>
       <Box
+        sx={{
+          backgroundImage: `url(${image})`,
+          py: 2,
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-labelledby="about-heading">
+        <Header
+          firstText={t("About US")}
+          secondText={t("We offer healthy & natural poultry such as chickens")}
+          thirdText={t("Attention to ensure optimal growth and well-being.")}
+        />
+      </Box>
+      <Box
         component="main"
-        sx={{ ...boxStyles, direction: locale === "en" ? "ltr" : "rtl" }}>
-        <section aria-labelledby="about-heading">
-          <Header
-            firstText={t("About US")}
-            secondText={t(
-              "We offer healthy & natural poultry such as chickens"
-            )}
-            thirdText={t("Attention to ensure optimal growth and well-being.")}
-          />
-        </section>
-
+        sx={{
+          ...boxStyles,
+          direction: locale === "en" ? "ltr" : "rtl",
+        }}>
         <Grid container sx={gridContainerStyles}>
           <Grid size={{ xs: 12, lg: 7 }} sx={leftGridStyles}>
             <Typography component="p" sx={smallHeadingStyles}>

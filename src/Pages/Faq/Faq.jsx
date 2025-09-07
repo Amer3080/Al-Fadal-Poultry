@@ -8,7 +8,6 @@ import {
   AccordionDetails,
   Grid,
   Card,
-  useTheme,
 } from "@mui/material";
 import { IoIosArrowDown } from "react-icons/io";
 import {
@@ -37,12 +36,10 @@ const IconWrapper = styled(Box)({
   marginRight: "12px",
   display: "flex",
   alignItems: "center",
-  color: "#2196f3",
+  color: "#255946",
 });
 const Faq = () => {
   const [expanded, setExpanded] = useState(false);
-  const theme = useTheme();
-  // const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -94,7 +91,7 @@ const Faq = () => {
   ];
 
   return (
-    <Box sx={{ mt: 8 }}>
+    <Box>
       <HeroSection HeadText={"FAQ"} />
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Typography

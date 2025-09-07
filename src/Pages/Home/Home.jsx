@@ -11,6 +11,7 @@ const Statistic = lazy(() => import("./Statistic/Statistic"));
 const CompanyLogos = lazy(() => import("./CompanyLogos/CompanyLogos"));
 const MyGallery = lazy(() => import("./MyGallery/MyGallery"));
 const Testimonials = lazy(() => import("./Testimonials/Testimonials"));
+const IsoCertificates = lazy(() => import("./IsoCertificates/IsoCertificates"));
 
 function Home() {
   // Scroll to top on route change / mount
@@ -62,8 +63,9 @@ function Home() {
         <Carousel />
         <Offering />
         <Statistic />
-        <CompanyLogos />
+        {/* <CompanyLogos /> */}
         <MyGallery />
+        <IsoCertificates />
         <Testimonials />
       </main>
     </>

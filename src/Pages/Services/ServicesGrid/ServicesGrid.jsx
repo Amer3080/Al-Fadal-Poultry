@@ -49,12 +49,13 @@ export default function ServicesGrid() {
           <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
             <ServiceCard>
               <CardContent sx={{ textAlign: "center" }}>
-                <Box sx={{ fontSize: 50, mb: 2, color: "#255946" }}>
+                <Box sx={{ fontSize: 50, mb: 2, color: "#49a760" }}>
                   {service.icon}
                 </Box>
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   sx={{
+                    fontFamily: "Marhey",
                     fontWeight: "bold",
                     color: "#255946",
                   }}

@@ -36,8 +36,8 @@ const LogoItem = styled(Box)({
 });
 
 const IconImage = styled("img")({
-  width: 48,
-  height: 48,
+  width: 28,
+  height: 28,
   flexShrink: 0,
 });
 
@@ -87,7 +87,7 @@ function Carousel() {
       <Box
         component="section"
         aria-labelledby="carousel-heading"
-        sx={{ mt: 2 }}
+        sx={{ mb: 8 }}
         className={carouselStyle.custom_slider}>
         <Suspense
           fallback={<div style={{ textAlign: "center" }}>{t("Loading…")}</div>}>
@@ -97,8 +97,8 @@ function Carousel() {
                 <Typography
                   component="span"
                   sx={{
-                    fontFamily: locale === "en" ? "Orbitron" : "Marhey",
-                    fontSize: locale === "en" ? "2.2vw" : "3vw",
+                    fontFamily: "Marhey",
+                    fontSize: "3.5vw",
                     fontWeight: 900,
                     color: "#255946",
                     whiteSpace: "nowrap",

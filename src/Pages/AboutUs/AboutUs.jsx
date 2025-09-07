@@ -7,7 +7,7 @@ import Team from "./Team/Team";
 
 export default function AboutUs() {
   return (
-    <Box sx={{ mt: 8 }}>
+    <Box>
       <HeroSection HeadText={"About Us"} />
       <Mission />
       <Vision />

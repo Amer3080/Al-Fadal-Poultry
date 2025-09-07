@@ -14,7 +14,7 @@ import {
 import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
 import { useTranslation } from "react-i18next";
-
+import image from "../../../assets/images/Frame.png";
 import img1 from "../../../assets/images/12.jpg";
 import img2 from "../../../assets/images/13.jpg";
 import img3 from "../../../assets/images/6.jpg";
@@ -66,6 +66,19 @@ function Offering() {
   return (
     <>
       <Box
+        sx={{
+          backgroundImage: `url(${image})`,
+          py: 2,
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-labelledby="about-heading">
+        <Header
+          firstText={t("What We’re Offering")}
+          secondText={t("Hatch to Harvest for Best Poultry Products")}
+          thirdText=""
+        />
+      </Box>
+      <Box
         component="section"
         aria-labelledby="offering-heading"
         sx={{
@@ -74,11 +87,6 @@ function Offering() {
           direction: locale === "en" ? "ltr" : "rtl",
         }}>
         {/* Decorative header */}
-        <Header
-          firstText={t("What We’re Offering")}
-          secondText={t("Hatch to Harvest for Best Poultry Products")}
-          thirdText=""
-        />
 
         <Grid container spacing={3}>
           {offerings.map(({ img, title, content }, idx) => (

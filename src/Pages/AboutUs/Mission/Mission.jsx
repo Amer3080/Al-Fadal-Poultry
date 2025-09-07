@@ -33,10 +33,10 @@ function Mission() {
               component="h2"
               gutterBottom
               sx={{
-                color: "#255946",
-                fontSize: { xs: "50px", md: "60px", lg: "70px" },
+                fontSize: { xs: "50px", md: "40px" },
                 fontWeight: 900,
-                fontFamily: "El Messiri",
+                fontFamily: "Marhey",
+                color: "#255946",
                 mb: 1,
               }}>
               Our Mission

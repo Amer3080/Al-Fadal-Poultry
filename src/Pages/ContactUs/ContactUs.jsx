@@ -120,7 +120,7 @@ const ContactUs = () => {
   };
 
   return (
-    <Box sx={{ mt: 8 }}>
+    <Box >
       <HeroSection HeadText={"Contact Us"} />
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Grid container spacing={4}>

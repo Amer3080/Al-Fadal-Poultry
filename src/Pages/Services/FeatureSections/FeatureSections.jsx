@@ -31,10 +31,10 @@ export default function FeatureSections({ features }) {
             variant="h4"
             gutterBottom
             sx={{
-              fontSize: { xs: "24", md: "35px" },
+              fontSize: { xs: "20px", md: "35px" },
               fontWeight: "900",
               color: "#255946",
-              fontFamily: "Roboto",
+              fontFamily: "Marhey",
               textAlign: {
                 xs: "center",
                 md: locale === "en" ? "end" : "start",
