@@ -31,14 +31,21 @@ export default function FeatureSections({ features }) {
             variant="h4"
             gutterBottom
             sx={{
-              fontSize: "35px",
+              fontSize: { xs: "24", md: "35px" },
               fontWeight: "900",
               color: "#255946",
               fontFamily: "Roboto",
+              textAlign: { xs: "center", md: "start" },
             }}>
             {heading}
           </Typography>
-          <Typography sx={{ mt: 4, fontSize: "18px", lineHeight: 2 }}>
+          <Typography
+            sx={{
+              mt: 4,
+              fontSize: "18px",
+              lineHeight: 2,
+              textAlign: { xs: "center", md: "start" },
+            }}>
             {text}
           </Typography>
         </Grid>

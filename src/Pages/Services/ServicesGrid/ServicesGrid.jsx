@@ -54,7 +54,10 @@ export default function ServicesGrid() {
                 </Box>
                 <Typography
                   variant="h5"
-                  sx={{ fontWeight: "bold", color: "#255946" }}
+                  sx={{
+                    fontWeight: "bold",
+                    color: "#255946",
+                  }}
                   gutterBottom>
                   {service.title}
                 </Typography>
