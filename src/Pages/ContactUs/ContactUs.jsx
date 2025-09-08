@@ -48,33 +48,7 @@ const ContactUs = () => {
     "Feedback",
   ];
 
-  const faqData = [
-    {
-      question: "How can I book a train ticket online?",
-      answer:
-        "You can book tickets through our official website or mobile app. Select your journey details, choose available seats, and complete the payment process.",
-    },
-    {
-      question: "What is the refund policy?",
-      answer:
-        "Refunds are processed within 5-7 business days. Cancellation charges may apply based on how early you cancel before the journey date.",
-    },
-    {
-      question: "How can I check my booking status?",
-      answer:
-        "You can check your booking status by entering your PNR number on our website or mobile app.",
-    },
-    {
-      question: "What identification documents are required for travel?",
-      answer:
-        "Valid government-issued photo ID such as Passport, Driver's License, or National ID card is required.",
-    },
-    {
-      question: "How early should I arrive at the station?",
-      answer:
-        "We recommend arriving at least 30 minutes before departure for domestic journeys.",
-    },
-  ];
+ 
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

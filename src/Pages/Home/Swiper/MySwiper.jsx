@@ -12,6 +12,7 @@ import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../../Components/Context/DataContext";
+import { Link } from "react-router-dom";
 export default function MySwiper() {
   const sliders = [imgFour, imgTwo, imgThree];
   const { t, i18n } = useTranslation();
@@ -78,7 +79,10 @@ export default function MySwiper() {
               <Button
                 variant="contained"
                 color="success"
+                href="contact-us"
                 sx={{
+                  position: "relative",
+                  zIndex: "5",
                   px: { lg: "3%" },
                   py: { lg: ".7%" },
                   fontSize: { xs: "10px", md: "12px", lg: "25px" },
@@ -87,8 +91,11 @@ export default function MySwiper() {
                   fontFamily: locale === "en" ? "Archivo" : "El Messiri",
                   fontWeight: "700",
                 }}>
-                {" "}
-                {t("Contact Us")}{" "}
+                <Link
+                  to={"/contact-us"}
+                  style={{ textDecoration: "none", color: "white" }}>
+                  {t("Contact Us")}
+                </Link>
               </Button>{" "}
             </div>{" "}
           </SwiperSlide>

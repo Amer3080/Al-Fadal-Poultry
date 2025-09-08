@@ -21,19 +21,15 @@ const StyledHeroSection = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   minHeight: "9vh", // Ensures full screen height
   padding: "120px 0",
-  marginTop: "4.5rem",
   [theme.breakpoints.down("xl")]: {
     padding: "80px 0",
-    marginTop: "3.96rem", // Slightly more space for mobile navbar
   },
   [theme.breakpoints.down("md")]: {
     padding: "80px 0",
-    marginTop: "4rem", // Slightly more space for mobile navbar
   },
 
   [theme.breakpoints.down("sm")]: {
     padding: "60px 0",
-    marginTop: "3.5rem", // Extra space for smaller navbar
   },
 }));
 

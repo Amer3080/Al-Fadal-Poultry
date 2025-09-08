@@ -1,4 +1,4 @@
-import { Box, Fab } from "@mui/material";
+import { Box, Fab, Toolbar } from "@mui/material";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import { FaFacebookF } from "react-icons/fa";
@@ -12,7 +12,7 @@ export default function MasterLayout() {
       <header>
         <NavBar />
       </header>
-
+      <Toolbar />
       <main id="content">
         <Outlet />
         <Box sx={{ "& > :not(style)": { m: 1 } }}>
@@ -23,7 +23,7 @@ export default function MasterLayout() {
             color="primary"
             aria-label="contact support"
             sx={{ position: "fixed", bottom: 160, right: 16 }}>
-            <FaFacebookF fontSize="30px" />
+            <FaFacebookF fontSize="33px" />
           </Fab>
           <Fab
             component={Link}
@@ -45,7 +45,6 @@ export default function MasterLayout() {
           </Fab>
         </Box>
       </main>
-
       <Footer />
     </>
   );
