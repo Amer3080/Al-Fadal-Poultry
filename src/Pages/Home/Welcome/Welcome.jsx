@@ -62,7 +62,12 @@ export default function Welcome() {
         />
       </Box>
 
-      <Box sx={{ flexGrow: 1, mx: { xs: 1, lg: 5 } }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          mx: { xs: 1, lg: 5 },
+          direction: locale === "en" ? "ltr" : "rtl",
+        }}>
         <Grid container spacing={4} alignItems="center">
           {/* Image Column */}
           <Grid size={{ xs: 12, lg: 6 }}>
@@ -133,29 +138,44 @@ export default function Welcome() {
                 "There are many variations of passages of lorem ipsum available but the majority have suffered alteration in some form by injected humor or random word which don't look even."
               )}
             </Typography>
-
             <Box
               sx={{
                 display: { xs: "block", sm: "flex" },
-                justifyContent: "space-between",
-                alignItems: "end",
+                justifyContent: "flex-start", // don’t space-between
+                alignItems: "flex-start",
                 flexWrap: "wrap",
                 mt: 3,
                 px: { xs: 3, lg: 0 },
               }}>
               <Paper elevation={0}>
                 <Demo>
-                  <List>
+                  <List disablePadding>
                     {features.map((value, index) => (
-                      <ListItem key={index} sx={{ p: 0 }}>
-                        <ListItemIcon sx={{ minWidth: 35 }}>
+                      <ListItem
+                        key={index}
+                        disableGutters
+                        sx={{
+                          py: 0.5,
+                          display: "flex",
+                          alignItems: "center",
+                          flexDirection: "row",
+                        }}>
+                        <ListItemIcon
+                          sx={{
+                            minWidth: { xs: 28, sm: 35 },
+                            // margin on the side pointing toward the text:
+                            mr: locale === "en" ? 1 : 0,
+                            ml: locale === "ar" ? 1 : 0,
+                          }}>
                           <CheckCircleIcon color="warning" />
                         </ListItemIcon>
                         <ListItemText
                           disableTypography
                           primary={value}
                           sx={{
-                            flexGrow: 0,
+                            m: 0,
+                            textAlign: locale === "ar" ? "right" : "left",
+                            flex: "0 1 auto",
                             fontFamily:
                               locale === "en" ? "Roboto" : "El Messiri",
                           }}
@@ -165,30 +185,6 @@ export default function Welcome() {
                   </List>
                 </Demo>
               </Paper>
-              {/* <Box
-                sx={{
-                  textAlign: "end",
-                }}>
-                <Typography
-                  component="p"
-                  sx={{
-                    fontSize: "22px",
-                    fontFamily:
-                      locale === "en" ? "Caveat" : "Noto Nastaliq Urdu",
-                    color: "#2B643A",
-                  }}>
-                  {t("Mr: Ahmed Fathy")}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontFamily: locale === "en" ? "Roboto" : "El Messiri",
-                    color: "text.secondary",
-                    mt: locale === "en" ? 0 : 2,
-                    ml: locale === "en" ? 0 : 3,
-                  }}>
-                  {t("Co Founder & CEO")}
-                </Typography>
-              </Box> */}
             </Box>
           </Grid>
         </Grid>

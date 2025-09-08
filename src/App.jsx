@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useContext } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import "animate.css/animate.min.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -13,7 +13,6 @@ import NotFound from "./Components/NotFound/NotFound";
 import CircularIndeterminate from "./Components/CircularIndeterminate/CircularIndeterminate.jsx";
 import image from "./assets/images/Logo.png";
 import "./App.css";
-import Preloader from "./Components/Preloader/Preloader.jsx";
 
 // Lazy-loaded pages
 const Home = lazy(() => import("./Pages/Home/Home"));
@@ -118,7 +117,7 @@ function App() {
                 alignItems: "center",
                 height: "100vh",
               }}>
-              <Preloader />{" "}
+              <CircularIndeterminate />
             </div>
           }>
           <RouterProvider router={routes} />

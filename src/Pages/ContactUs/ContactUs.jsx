@@ -120,11 +120,11 @@ const ContactUs = () => {
   };
 
   return (
-    <Box >
+    <Box>
       <HeroSection HeadText={"Contact Us"} />
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Grid container spacing={4}>
-          <Grid item xs={12} md={6} size={{ xs: 12, md: 6 }}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Typography
               variant="h4"
               component="h3"
@@ -202,7 +202,7 @@ const ContactUs = () => {
             </form>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Card sx={{ mb: 4 }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
