@@ -77,9 +77,10 @@ export default function MySwiper() {
                 )}{" "}
               </Typography>{" "}
               <Button
+                component={Link}
+                to="/contact-us"
                 variant="contained"
                 color="success"
-                href="contact-us"
                 sx={{
                   position: "relative",
                   zIndex: "5",
@@ -91,11 +92,7 @@ export default function MySwiper() {
                   fontFamily: locale === "en" ? "Archivo" : "El Messiri",
                   fontWeight: "700",
                 }}>
-                <Link
-                  to={"/contact-us"}
-                  style={{ textDecoration: "none", color: "white" }}>
-                  {t("Contact Us")}
-                </Link>
+                {t("Contact Us")}
               </Button>{" "}
             </div>{" "}
           </SwiperSlide>

@@ -16,7 +16,7 @@ export default function MasterLayout() {
       <main id="content">
         <Outlet />
         <Box sx={{ "& > :not(style)": { m: 1 } }}>
-          <Fab
+          {/* <Fab
             component={Link}
             to="https://www.facebook.com/"
             target="blank"
@@ -24,7 +24,7 @@ export default function MasterLayout() {
             aria-label="contact support"
             sx={{ position: "fixed", bottom: 160, right: 16 }}>
             <FaFacebookF fontSize="33px" />
-          </Fab>
+          </Fab> */}
           <Fab
             component={Link}
             to="https://web.whatsapp.com/"

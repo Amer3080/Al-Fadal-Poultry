@@ -27,7 +27,7 @@ export default function FeatureSections({ features }) {
         </Grid>
         <Grid size={{ xs: 12, md: 6 }} sx={{ px: 4 }}>
           <Typography
-            component="h2"
+            component="h3"
             variant="h4"
             gutterBottom
             sx={{

@@ -18,6 +18,7 @@ import Header from "../../../Hooks/Header";
 
 import imageJpg from "../../../assets/images/10.jpg";
 import image from "../../../assets/images/Frame.png";
+import { Link } from "react-router-dom";
 const KeyboardTabIcon = lazy(() => import("@mui/icons-material/KeyboardTab"));
 const KeyboardReturnIcon = lazy(() =>
   import("@mui/icons-material/KeyboardReturn")
@@ -128,6 +129,8 @@ function About() {
                       <KeyboardReturnIcon sx={{ mr: 2 }} />
                     ) : null
                   }
+                  component={Link}
+                  to="/about-us"
                   sx={buttonStyles(locale)}
                   variant="contained"
                   color="success"
