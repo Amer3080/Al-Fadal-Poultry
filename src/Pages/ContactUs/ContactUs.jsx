@@ -28,7 +28,6 @@ import {
   FaInstagram,
   FaMapMarkerAlt,
 } from "react-icons/fa";
-import { MdExpandMore, MdHome, MdSupport } from "react-icons/md";
 import HeroSection from "../../Components/HeroSection/HeroSection";
 
 const ContactUs = () => {
@@ -261,14 +260,6 @@ const ContactUs = () => {
             </Box>
           </Grid>
         </Grid>
-
-        <Fab
-          color="primary"
-          aria-label="contact support"
-          sx={{ position: "fixed", bottom: 16, right: 16 }}>
-          <MdSupport />
-        </Fab>
-
         <Snackbar
           open={showSuccess}
           autoHideDuration={6000}
