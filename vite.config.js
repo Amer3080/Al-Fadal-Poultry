@@ -1,22 +1,25 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   build: {
     sourcemap: true,
     // ...your other settings
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    visualizer({
+      open: true, // open report in browser
+      filename: "stats.html", // report filename
+      gzipSize: true,
+      brotliSize: true,
+    }),
+  ],
   resolve: {
     alias: {
-      // any import of @mui/styled-engine → @mui/styled-engine-sc
-      "@mui/styled-engine": path.resolve(
-        __dirname,
-        "node_modules/@mui/styled-engine-sc"
-      ),
+      "@mui/styled-engine": "@mui/styled-engine-sc",
     },
-    // make sure we don’t accidentally bundle multiple copies
     dedupe: ["react", "react-dom", "styled-components"],
   },
   optimizeDeps: {

@@ -176,7 +176,9 @@ function Testimonials() {
                         <FaQuoteRight size={24} style={{ color: "#ddd" }} />
                       )}
                     </Suspense>
-                    <Typography variant="body1" sx={{ mt: 1 }}>
+                    <Typography
+                      variant="body1"
+                      sx={{ mt: 1, textAlign: "center" }}>
                       {rev.tText}
                     </Typography>
                   </Box>

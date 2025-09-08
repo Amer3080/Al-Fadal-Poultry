@@ -36,8 +36,8 @@ const LogoItem = styled(Box)({
 });
 
 const IconImage = styled("img")({
-  width: 28,
-  height: 28,
+  width: 45,
+  height: 45,
   flexShrink: 0,
 });
 

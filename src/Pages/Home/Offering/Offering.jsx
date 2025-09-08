@@ -15,10 +15,10 @@ import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
 import { useTranslation } from "react-i18next";
 import image from "../../../assets/images/Frame.png";
-import img1 from "../../../assets/images/12.jpg";
-import img2 from "../../../assets/images/13.jpg";
-import img3 from "../../../assets/images/6.jpg";
-import img4 from "../../../assets/images/7.jpg";
+import img1 from "../../../assets/images/s3.jpg";
+import img2 from "../../../assets/images/s5.jpg";
+import img3 from "../../../assets/images/s2.jpg";
+import img4 from "../../../assets/images/s1.jpg";
 
 const rawContent = [
   {
