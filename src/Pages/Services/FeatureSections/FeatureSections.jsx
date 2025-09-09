@@ -1,10 +1,14 @@
-import React, { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Box, Typography, Grid } from "@mui/material";
 import { DataContext } from "../../../Components/Context/DataContext";
+import { useTranslation } from "react-i18next";
 
 export default function FeatureSections({ features }) {
   const { locale } = useContext(DataContext);
-
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
   return features.map(({ imageUrl, heading, text }, i) => (
     <Box
       component="section"
@@ -40,7 +44,7 @@ export default function FeatureSections({ features }) {
                 md: locale === "en" ? "end" : "start",
               },
             }}>
-            {heading}
+            {t(heading)}
           </Typography>
           <Typography
             sx={{

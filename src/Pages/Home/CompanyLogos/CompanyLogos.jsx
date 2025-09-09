@@ -1,12 +1,9 @@
-// CompanyLogos.jsx
-import React, { useContext, useMemo, lazy, Suspense, memo } from "react";
+import { useContext, useMemo, lazy, Suspense, memo } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/system";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { DataContext } from "../../../Components/Context/DataContext";
-
-// Static imports of each logo
 import logo1 from "../../../assets/images/logos/1.jpg";
 import logo2 from "../../../assets/images/logos/2.jpg";
 import logo3 from "../../../assets/images/logos/3.jpg";
@@ -20,10 +17,8 @@ import logo10 from "../../../assets/images/logos/10.jpg";
 import logo11 from "../../../assets/images/logos/11.jpg";
 import logo12 from "../../../assets/images/logos/12.jpg";
 
-// Lazy‐load the Slider component
 const Slider = lazy(() => import("react-slick"));
 
-// Styled container for each logo slide
 const LogoSlide = styled(Box)({
   display: "flex",
   alignItems: "center",
@@ -31,12 +26,8 @@ const LogoSlide = styled(Box)({
   margin: "0 10px",
   width: "100%",
 });
-
-// Main component
 function CompanyLogos() {
   const { locale } = useContext(DataContext);
-
-  // Pre-map logo sources to include alt text and dimensions
   const logos = useMemo(
     () => [
       { src: logo1, alt: "Partner Company 1", width: 250, height: 150 },
@@ -54,8 +45,6 @@ function CompanyLogos() {
     ],
     []
   );
-
-  // Memoize slider settings to avoid recreation on re-render
   const settings = useMemo(
     () => ({
       dots: false,

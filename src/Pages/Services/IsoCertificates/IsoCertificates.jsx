@@ -1,9 +1,8 @@
-import React, { useState, useCallback, memo } from "react";
+import { useState, useCallback, memo } from "react";
 import { Box, ImageList, ImageListItem, Card, styled } from "@mui/material";
 import imageOne from "../../../assets/images/c1.jpg";
 import imageTwo from "../../../assets/images/c2.jpg";
 import imageThree from "../../../assets/images/c3.jpg";
-
 const images = [
   {
     src: imageOne,
@@ -34,11 +33,9 @@ const StyledCard = styled(Card)(() => ({
   },
   height: "100%",
 }));
-
 function IsoCertificates() {
   const [, setOpenIndex] = useState(null);
   const handleOpen = useCallback((idx) => setOpenIndex(idx), []);
-
   return (
     <Box component="section" aria-label="Client Testimonials" sx={{ py: 6 }}>
       <ImageList

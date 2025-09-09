@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useCallback,
-  memo,
-  useContext,
-  useEffect,
-} from "react";
+import { useState, useCallback, memo, useContext, useEffect } from "react";
 import { Box, ImageList, ImageListItem, Card, styled } from "@mui/material";
 import image from "../../../assets/images/Frame.png";
 import imageOne from "../../../assets/images/c1.jpg";
@@ -48,11 +42,8 @@ const StyledCard = styled(Card)(() => ({
 function IsoCertificates() {
   const [, setOpenIndex] = useState(null);
   const handleOpen = useCallback((idx) => setOpenIndex(idx), []);
-
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
-
-  // Sync i18n language when locale changes
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);

@@ -1,7 +1,14 @@
 import { Box, Typography } from "@mui/material";
 import imageTwo from "../../../assets/images/Frame.png";
-
+import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { DataContext } from "../../../Components/Context/DataContext";
 function Vision() {
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
   return (
     <>
       <Box
@@ -43,7 +50,7 @@ function Vision() {
               fontFamily: "Marhey",
               mb: 5,
             }}>
-            Our Vision
+            {t("Our Vision")}
           </Typography>
           <Typography
             color="#255946"

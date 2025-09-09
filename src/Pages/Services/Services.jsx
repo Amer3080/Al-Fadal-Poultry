@@ -7,11 +7,19 @@ import imageTwo from "../../assets/images/s4.jpg";
 import imageThree from "../../assets/images/s5.jpg";
 import IsoCertificates from "./IsoCertificates/IsoCertificates.jsx";
 import { Helmet } from "react-helmet-async";
+import { useContext, useEffect } from "react";
+import { DataContext } from "../../Components/Context/DataContext.jsx";
+import { useTranslation } from "react-i18next";
 export default function Services() {
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
   return (
     <>
       <Helmet>
-        <title>Services</title>
+        <title>{t("Services")}</title>
         <meta
           name="description"
           content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards, reliable supply, and ISO certified."

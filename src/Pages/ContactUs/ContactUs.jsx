@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import emailjs from "emailjs-com";
 import {
   Container,
   Grid,
@@ -7,17 +8,11 @@ import {
   Card,
   CardContent,
   Typography,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Box,
-  Breadcrumbs,
-  Link,
   Snackbar,
   Alert,
   MenuItem,
   IconButton,
-  Fab,
 } from "@mui/material";
 import {
   FaPhone,
@@ -29,8 +24,15 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import HeroSection from "../../Components/HeroSection/HeroSection";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { DataContext } from "../../Components/Context/DataContext";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -39,6 +41,11 @@ const ContactUs = () => {
   });
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID);
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
 
   const subjects = [
     "Booking Inquiry",
@@ -48,103 +55,113 @@ const ContactUs = () => {
     "Feedback",
   ];
 
- 
-
   const handleInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    validateField(e.target.name, e.target.value);
+    const { name, value } = e.target;
+    setFormData((f) => ({ ...f, [name]: value }));
+    validateField(name, value);
   };
 
   const validateField = (name, value) => {
-    let tempErrors = { ...errors };
-    switch (name) {
-      case "name":
-        tempErrors.name =
+    setErrors((err) => {
+      const updated = { ...err };
+      if (name === "name")
+        updated.name =
           value.length < 3 ? "Name must be at least 3 characters" : "";
-        break;
-      case "email":
-        tempErrors.email = !/^\S+@\S+\.\S+$/.test(value)
+      if (name === "email")
+        updated.email = !/^\S+@\S+\.\S+$/.test(value)
           ? "Invalid email format"
           : "";
-        break;
-      case "subject":
-        tempErrors.subject = !value ? "Please select a subject" : "";
-        break;
-      case "message":
-        tempErrors.message =
+      if (name === "subject")
+        updated.subject = !value ? "Please select a subject" : "";
+      if (name === "message")
+        updated.message =
           value.length < 10 ? "Message must be at least 10 characters" : "";
-        break;
-      default:
-        break;
-    }
-    setErrors(tempErrors);
+      return updated;
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValid =
-      Object.values(errors).every((x) => x === "") &&
-      Object.values(formData).every((x) => x !== "");
+      Object.values(formData).every((v) => v) &&
+      Object.values(errors).every((errMsg) => !errMsg);
+    if (!isValid) return;
 
-    if (isValid) {
-      setShowSuccess(true);
-      setFormData({ name: "", email: "", subject: "", message: "" });
-    }
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        }
+      )
+      .then(() => {
+        setShowSuccess(true);
+        setFormData({ name: "", email: "", subject: "", message: "" });
+      })
+      .catch(() => setShowError(true));
   };
 
   return (
     <Box>
-      <HeroSection HeadText={"Contact Us"} />
-      <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Helmet>
+        <title>Contact Us</title>
+        <meta
+          name="description"
+          content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards, reliable supply, and ISO certified."
+        />
+      </Helmet>
+      <HeroSection HeadText="Contact Us" />
+      <Container
+        maxWidth="lg"
+        sx={{ py: 4, direction: locale === "en" ? "ltr" : "rtl" }}>
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, md: 6 }}>
             <Typography
               variant="h4"
-              component="h3"
               sx={{
                 color: "#255946",
-                fontSize: "40px",
+                fontSize: { xs: "2rem", md: "2.5rem" },
                 fontWeight: 900,
                 fontFamily: "El Messiri",
-                mb: 1,
-              }}
-              gutterBottom>
-              Contact Us
+                mb: 2,
+                textAlign: { xs: "center", md: "left" },
+              }}>
+              {t("Contact Us")}
             </Typography>
-            <form onSubmit={handleSubmit}>
-              <TextField
-                fullWidth
-                label="Name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                error={Boolean(errors.name)}
-                helperText={errors.name}
-                margin="normal"
-                required
-              />
-              <TextField
-                fullWidth
-                label="Email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                error={Boolean(errors.email)}
-                helperText={errors.email}
-                margin="normal"
-                required
-              />
+
+            <Box component="form" onSubmit={handleSubmit} noValidate>
+              {/* Name & Email */}
+              {["name", "email"].map((field) => (
+                <TextField
+                  key={field}
+                  fullWidth
+                  margin="normal"
+                  label={field.charAt(0).toUpperCase() + field.slice(1)}
+                  name={field}
+                  type={field === "email" ? "email" : "text"}
+                  value={formData[field]}
+                  onChange={handleInputChange}
+                  error={Boolean(errors[field])}
+                  helperText={errors[field]}
+                  required
+                />
+              ))}
+
+              {/* Subject */}
               <TextField
                 fullWidth
                 select
+                margin="normal"
                 label="Subject"
                 name="subject"
                 value={formData.subject}
                 onChange={handleInputChange}
                 error={Boolean(errors.subject)}
                 helperText={errors.subject}
-                margin="normal"
                 required>
                 {subjects.map((option) => (
                   <MenuItem key={option} value={option}>
@@ -152,8 +169,11 @@ const ContactUs = () => {
                   </MenuItem>
                 ))}
               </TextField>
+
+              {/* Message */}
               <TextField
                 fullWidth
+                margin="normal"
                 label="Message"
                 name="message"
                 multiline
@@ -162,79 +182,122 @@ const ContactUs = () => {
                 onChange={handleInputChange}
                 error={Boolean(errors.message)}
                 helperText={errors.message}
-                margin="normal"
                 required
               />
+
+              {/* Submit */}
               <Button
                 type="submit"
                 variant="contained"
                 size="large"
-                sx={{ mt: 2, backgroundColor: "#255946", color: "white" }}>
+                sx={{
+                  mt: 2,
+                  backgroundColor: "#255946",
+                  color: "white",
+                  ":hover": { backgroundColor: "#1e483f" },
+                }}>
                 Send Message
               </Button>
-            </form>
-          </Grid>
-
-          <Grid size={{ xs: 12, md: 6 }}>
-            <Card sx={{ mb: 4 }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Contact Information
-                </Typography>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <FaMapMarkerAlt style={{ marginRight: "8px" }} />
-                  <Typography>
-                    123 Railway Square, Transport City, TC 12345
-                  </Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <FaPhone style={{ marginRight: "8px" }} />
-                  <Typography>+1 (555) 123-4567</Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <FaEnvelope style={{ marginRight: "8px" }} />
-                  <Typography>support@railwayservice.com</Typography>
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  <FaClock style={{ marginRight: "8px" }} />
-                  <Typography>Mon - Sat: 8:00 AM - 8:00 PM</Typography>
-                </Box>
-              </CardContent>
-            </Card>
-
-            <Box sx={{ mb: 4 }}>
-              <img
-                src="https://images.unsplash.com/photo-1581362072978-14998d01fdaa"
-                alt="Railway Station Location"
-                style={{ width: "100%", height: "200px", objectFit: "cover" }}
-              />
-              <Button
-                variant="outlined"
-                startIcon={<FaMapMarkerAlt />}
-                sx={{ mt: 1, backgroundColor: "#255946", color: "white" }}>
-                Get Directions
-              </Button>
             </Box>
-
+          </Grid>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Card
+              sx={{
+                mb: 4,
+                mt: 10,
+                direction: locale === "en" ? "ltr" : "rtl",
+              }}>
+              {" "}
+              <CardContent>
+                {" "}
+                <Typography variant="h6" gutterBottom>
+                  {" "}
+                  Contact Information{" "}
+                </Typography>{" "}
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  {" "}
+                  <FaMapMarkerAlt style={{ marginRight: "8px" }} />{" "}
+                  <Typography>
+                    {" "}
+                    123 Railway Square, Transport City, TC 12345{" "}
+                  </Typography>{" "}
+                </Box>{" "}
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  {" "}
+                  <FaPhone style={{ marginRight: "8px" }} />{" "}
+                  <Typography>+1 (555) 123-4567</Typography>{" "}
+                </Box>{" "}
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  {" "}
+                  <FaEnvelope style={{ marginRight: "8px" }} />{" "}
+                  <Typography>support@railwayservice.com</Typography>{" "}
+                </Box>{" "}
+                <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                  {" "}
+                  <FaClock style={{ marginRight: "8px" }} />{" "}
+                  <Typography>Mon - Sat: 8:00 AM - 8:00 PM</Typography>{" "}
+                </Box>{" "}
+              </CardContent>{" "}
+            </Card>{" "}
             <Box sx={{ mb: 4 }}>
+              {" "}
               <Typography variant="h6" gutterBottom>
-                Follow Us
-              </Typography>
+                {" "}
+                Follow Us{" "}
+              </Typography>{" "}
               <Box sx={{ display: "flex", gap: 2 }}>
-                <IconButton aria-label="Facebook">
-                  <FaFacebook />
-                </IconButton>
-                <IconButton aria-label="Twitter">
-                  <FaTwitter />
-                </IconButton>
-                <IconButton aria-label="Instagram">
-                  <FaInstagram />
-                </IconButton>
-              </Box>
+                {" "}
+                <IconButton
+                  component={Link}
+                  to="https://www.facebook.com/"
+                  target="_blank"
+                  aria-label="Facebook">
+                  {" "}
+                  <FaFacebook />{" "}
+                </IconButton>{" "}
+                <IconButton
+                  component={Link}
+                  to="https://www.twitter.com/"
+                  target="_blank"
+                  aria-label="Twitter">
+                  {" "}
+                  <FaTwitter />{" "}
+                </IconButton>{" "}
+                <IconButton
+                  component={Link}
+                  to="https://www.instagram.com/"
+                  target="_blank"
+                  aria-label="Instagram">
+                  {" "}
+                  <FaInstagram />{" "}
+                </IconButton>{" "}
+              </Box>{" "}
+            </Box>
+          </Grid>
+          <Grid size={{ xs: 12 }}>
+            <Box
+              sx={{
+                width: "100%",
+                height: { xs: 250, md: 300 },
+                borderRadius: 2,
+                overflow: "hidden",
+                boxShadow: 3,
+              }}>
+              <iframe
+                title="Google Map"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27722.334327813798!2d31.30792354362573!3d29.711305929845043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1459ca41bdd52aa3%3A0x5ea3088c30ad5f34!2z2KfZhNij2K7Ytdin2LXYjCDYp9mE2LXZgdiMINmF2K3Yp9mB2LjYqSDYp9mE2KzZitiy2Kk!5e0!3m2!1sar!2seg!4v1757389084985!5m2!1sar!2seg"></iframe>
             </Box>
           </Grid>
         </Grid>
         <Snackbar
+          anchorOrigin={{ horizontal: "center", vertical: "top" }}
           open={showSuccess}
           autoHideDuration={6000}
           onClose={() => setShowSuccess(false)}>
@@ -242,7 +305,19 @@ const ContactUs = () => {
             onClose={() => setShowSuccess(false)}
             severity="success"
             sx={{ width: "100%" }}>
-            Message sent successfully!
+            Your message has been sent!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{ horizontal: "center", vertical: "top" }}
+          open={showError}
+          autoHideDuration={6000}
+          onClose={() => setShowError(false)}>
+          <Alert
+            onClose={() => setShowError(false)}
+            severity="error"
+            sx={{ width: "100%" }}>
+            Failed to send. Please try again later.
           </Alert>
         </Snackbar>
       </Container>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -20,6 +20,10 @@ import {
 } from "react-icons/fa";
 import { styled } from "@mui/material";
 import HeroSection from "../../Components/HeroSection/HeroSection";
+import { DataContext } from "../../Components/Context/DataContext";
+import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet-async";
+import image from "../../assets/images/f.jpg";
 
 const StyledAccordion = styled(Accordion)(() => ({
   marginBottom: "16px",
@@ -40,14 +44,17 @@ const IconWrapper = styled(Box)({
 });
 const Faq = () => {
   const [expanded, setExpanded] = useState(false);
-
-  const handleChange = (panel) => (event, isExpanded) => {
+  const handleChange = (panel) => (isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
   const faqData = [
     {
-      id: "panel1",
+      id: t("panel1"),
       icon: <FaSuitcase size={24} />,
       question: "What types of vacation packages do you offer?",
       answer:
@@ -86,12 +93,19 @@ const Faq = () => {
       icon: <FaGlobeAmericas size={24} />,
       question: "Can you recommend destinations based on my preferences?",
       answer:
-        "Yes! Our travel experts can provide personalized destination recommendations based on your interests, budget, preferred travel style, and desired experiences. We consider factors like seasonal weather, local events, and current travel conditions.",
+        "Yes! Our travel experts can provide personalized destination recommendations based on your interests, budget, preferred travel style, and desired experiences. We consider factors like seasonal weather, local , and current travel conditions.",
     },
   ];
 
   return (
     <Box>
+      <Helmet>
+        <title>FAQ</title>
+        <meta
+          name="description"
+          content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards, reliable supply, and ISO certified."
+        />
+      </Helmet>
       <HeroSection HeadText={"FAQ"} />
       <Container maxWidth="lg" sx={{ py: 8 }}>
         <Typography
@@ -110,6 +124,30 @@ const Faq = () => {
         </Typography>
 
         <Grid container spacing={4}>
+          <Grid
+            size={{ xs: 12, md: 5 }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <Box
+              component="img"
+              src={image}
+              alt="FAQ Support Illustration"
+              sx={{
+                width: "100%",
+                maxWidth: 500,
+                height: "auto",
+                borderRadius: 2,
+                boxShadow: 3,
+              }}
+              onError={(e) => {
+                e.target.src =
+                  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3";
+              }}
+            />
+          </Grid>
           <Grid size={{ xs: 12, md: 7 }}>
             <Card
               elevation={3}
@@ -147,31 +185,6 @@ const Faq = () => {
                 </StyledAccordion>
               ))}
             </Card>
-          </Grid>
-
-          <Grid
-            size={{ xs: 12, md: 5 }}
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}>
-            <Box
-              component="img"
-              src="https://images.unsplash.com/photo-1557804506-669a67965ba0"
-              alt="FAQ Support Illustration"
-              sx={{
-                width: "100%",
-                maxWidth: 500,
-                height: "auto",
-                borderRadius: 2,
-                boxShadow: 3,
-              }}
-              onError={(e) => {
-                e.target.src =
-                  "https://images.unsplash.com/photo-1516321318423-f06f85e504b3";
-              }}
-            />
           </Grid>
         </Grid>
       </Container>

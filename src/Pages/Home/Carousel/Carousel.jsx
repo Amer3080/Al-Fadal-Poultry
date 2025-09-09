@@ -14,11 +14,7 @@ import { Box, Typography } from "@mui/material";
 import carouselStyle from "./Carousel.Style.module.css";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
-
-// Preload the chicken icon for LCP
 import iconPng from "../../../assets/images/11.png";
-
-// Lazy‐load the slider and its CSS in one chunk
 const Slider = lazy(async () => {
   await Promise.all([
     import("slick-carousel/slick/slick.css"),
@@ -44,13 +40,9 @@ const IconImage = styled("img")({
 function Carousel() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
-
-  // Sync i18n with the site locale
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
-
-  // Carousel slides text
   const slides = useMemo(
     () => [
       t("Al-Fadal Poultry"),
@@ -61,7 +53,6 @@ function Carousel() {
     [t]
   );
 
-  // Slider settings (memoized to avoid re-creations)
   const settings = useMemo(
     () => ({
       dots: true,

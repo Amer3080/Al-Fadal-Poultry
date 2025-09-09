@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import Header from "../../../Hooks/Header";
 import image from "../../../assets/images/Frame.png";
 import imgJpg from "../../../assets/images/5.jpg";
@@ -25,13 +25,9 @@ const Demo = styled("div")(({ theme }) => ({
 export default function Welcome() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
-
-  // sync language
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
-
-  // static feature list
   const features = useMemo(
     () => [
       t("Professional Farmers"),
@@ -40,7 +36,6 @@ export default function Welcome() {
     ],
     [t]
   );
-
   return (
     <>
       <Box
@@ -69,7 +64,6 @@ export default function Welcome() {
           direction: locale === "en" ? "ltr" : "rtl",
         }}>
         <Grid container spacing={4} alignItems="center">
-          {/* Image Column */}
           <Grid size={{ xs: 12, lg: 6 }}>
             <Box
               crossOrigin="anonymous"
@@ -88,9 +82,7 @@ export default function Welcome() {
                 borderRadius: "50%",
               }}
             />
-          </Grid>
-
-          {/* Text & Features Column */}
+          </Grid>{" "}
           <Grid
             size={{ xs: 12, lg: 6 }}
             sx={{
@@ -141,7 +133,7 @@ export default function Welcome() {
             <Box
               sx={{
                 display: { xs: "block", sm: "flex" },
-                justifyContent: "flex-start", // don’t space-between
+                justifyContent: "flex-start",
                 alignItems: "flex-start",
                 flexWrap: "wrap",
                 mt: 3,
@@ -163,7 +155,6 @@ export default function Welcome() {
                         <ListItemIcon
                           sx={{
                             minWidth: { xs: 28, sm: 35 },
-                            // margin on the side pointing toward the text:
                             mr: locale === "en" ? 1 : 0,
                             ml: locale === "ar" ? 1 : 0,
                           }}>

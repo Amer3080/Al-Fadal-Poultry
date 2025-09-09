@@ -1,7 +1,14 @@
-import React from "react";
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import image from "../../../assets/images/Frame.png";
+import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { DataContext } from "../../../Components/Context/DataContext";
 export default function ActionBanner({ heading }) {
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
   return (
     <Box
       component="section"
@@ -9,7 +16,6 @@ export default function ActionBanner({ heading }) {
         py: 3,
         textAlign: "center",
         background: `url(${image})`,
-        // background: "linear-gradient(90deg, #7e22ce 0%, #ec4899 100%)",
         color: "common.white",
       }}>
       <Typography
@@ -21,7 +27,7 @@ export default function ActionBanner({ heading }) {
           fontSize: { xs: "24px", md: "34px", lg: "45px" },
         }}
         gutterBottom>
-        {heading}
+        {t(heading)}
       </Typography>
       <Typography
         component="h3"
@@ -31,7 +37,7 @@ export default function ActionBanner({ heading }) {
           fontSize: { xs: "14px", md: "24px", lg: "30px" },
           fontFamily: "bold",
         }}>
-        FPF For Poultry Production
+        {t("FPF For Poultry Production")}
       </Typography>
     </Box>
   );

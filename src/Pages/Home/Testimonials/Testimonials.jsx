@@ -1,5 +1,4 @@
-// Testimonials.jsx
-import React, {
+import {
   useContext,
   useEffect,
   useState,
@@ -8,7 +7,6 @@ import React, {
   Suspense,
   memo,
 } from "react";
-import { Helmet } from "react-helmet-async";
 import {
   Box,
   Container,
@@ -28,8 +26,6 @@ import { useTranslation } from "react-i18next";
 import image from "../../../assets/images/Frame.png";
 import photo_girl from "../../../assets/images/girl.jpg";
 import photo_man from "../../../assets/images/man.jpg";
-
-// Lazy‐load quote icons
 const FaQuoteLeft = lazy(() =>
   import("react-icons/fa").then((mod) => ({ default: mod.FaQuoteLeft }))
 );
@@ -37,7 +33,6 @@ const FaQuoteRight = lazy(() =>
   import("react-icons/fa").then((mod) => ({ default: mod.FaQuoteRight }))
 );
 
-// Styled card with hover transform
 const TestimonialCard = styled(Card)(({ theme }) => ({
   height: "100%",
   transition: "transform 0.3s ease-in-out",
@@ -47,7 +42,6 @@ const TestimonialCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-// Static testimonials data
 const rawTestimonials = [
   {
     id: 1,
@@ -86,13 +80,9 @@ function Testimonials() {
   const { t, i18n } = useTranslation();
   const [selected, setSelected] = useState(null);
   const [open, setOpen] = useState(false);
-
-  // Sync language
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [locale, i18n]);
-
-  // Memoize testimonials for render performance
   const testimonials = useMemo(
     () =>
       rawTestimonials.map((item) => ({
@@ -104,13 +94,11 @@ function Testimonials() {
       })),
     [t, locale]
   );
-
   const handleOpen = (item) => {
     setSelected(item);
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-
   return (
     <>
       <Box

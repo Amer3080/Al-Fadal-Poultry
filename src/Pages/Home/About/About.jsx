@@ -1,13 +1,4 @@
-// About.jsx
-import React, {
-  useContext,
-  useEffect,
-  lazy,
-  Suspense,
-  memo,
-  useMemo,
-} from "react";
-import { Helmet } from "react-helmet-async";
+import { useContext, useEffect, lazy, Suspense, memo } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -15,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
-
 import imageJpg from "../../../assets/images/10.jpg";
 import image from "../../../assets/images/Frame.png";
 import { Link } from "react-router-dom";
@@ -24,7 +14,6 @@ const KeyboardReturnIcon = lazy(() =>
   import("@mui/icons-material/KeyboardReturn")
 );
 
-// Memoized style objects live outside the component
 const boxStyles = {
   my: 5,
   flexGrow: 1,
@@ -69,8 +58,6 @@ const buttonStyles = (locale) => ({
 function About() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
-
-  // Sync i18n language when locale changes
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);

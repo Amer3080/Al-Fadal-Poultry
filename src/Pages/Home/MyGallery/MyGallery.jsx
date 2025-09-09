@@ -1,4 +1,4 @@
-import React, {
+import {
   useState,
   useCallback,
   useMemo,
@@ -30,12 +30,9 @@ import imageFive from "../../../assets/images/gallery/5.jpg";
 import imageSix from "../../../assets/images/gallery/15.jpg";
 import imageSeven from "../../../assets/images/gallery/10.jpg";
 import imageEight from "../../../assets/images/gallery/12.jpg";
-// Lazy‐load navigation icons
 const CloseIcon = lazy(() => import("@mui/icons-material/Close"));
 const ArrowBack = lazy(() => import("@mui/icons-material/ArrowBackIosNew"));
 const ArrowForward = lazy(() => import("@mui/icons-material/ArrowForwardIos"));
-
-// Gallery images
 const images = [
   {
     src: imageOne,
@@ -107,16 +104,11 @@ function MyGallery() {
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
   const isSm = useMediaQuery(theme.breakpoints.between("sm", "md"));
   const cols = isXs ? 1 : isSm ? 2 : 4;
-
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
-
-  // Sync locale with i18n
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
-
-  // Handlers
   const handleOpen = useCallback((idx) => setOpenIndex(idx), []);
   const handleClose = useCallback(() => setOpenIndex(null), []);
   const handlePrev = useCallback(() => {
@@ -128,7 +120,6 @@ function MyGallery() {
     setOpenIndex((i) => (i === null ? null : (i + 1) % images.length));
   }, []);
 
-  // Current image
   const currentImage = useMemo(
     () => (openIndex !== null ? images[openIndex] : null),
     [openIndex]

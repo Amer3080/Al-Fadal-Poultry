@@ -1,12 +1,10 @@
-import React, { useContext, useEffect } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   Box,
   Container,
   Grid,
   Typography,
-  Link,
   IconButton,
   Button,
   InputAdornment,
@@ -83,8 +81,8 @@ export default function Footer() {
               </Typography>
               <nav aria-label={t("Social Media")}>
                 <IconButton
-                  component="a"
-                  href="https://www.facebook.com/"
+                  component={Link}
+                  to="https://www.facebook.com/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Follow us on Facebook"
@@ -92,8 +90,8 @@ export default function Footer() {
                   <FacebookIcon />
                 </IconButton>
                 <IconButton
-                  component="a"
-                  href="https://x.com/home"
+                  component={Link}
+                  to="https://x.com/home"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Follow us on Twitter"
@@ -101,8 +99,8 @@ export default function Footer() {
                   <TwitterIcon />
                 </IconButton>
                 <IconButton
-                  component="a"
-                  href="https://web.telegram.org/k/"
+                  component={Link}
+                  to="https://web.telegram.org/k/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Follow us on Telegram"
@@ -110,8 +108,8 @@ export default function Footer() {
                   <TelegramIcon />
                 </IconButton>
                 <IconButton
-                  component="a"
-                  href="https://www.whatsapp.com/?lang=ar"
+                  component={Link}
+                  to="https://www.whatsapp.com/?lang=ar"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Follow us on WhatsApp"
@@ -142,19 +140,21 @@ export default function Footer() {
                 { label: "About Us", to: "/about-us" },
                 { label: "Contact Us", to: "/contact-us" },
                 { label: "History", to: "/history" },
-                { label: "FAQ", to: "/fqa" },
+                { label: "FAQ", to: "/faq" },
               ].map(({ label, to }) => (
-                <Typography key={to} variant="body2" sx={{ my: 1 }}>
-                  <Link
-                    component={RouterLink}
-                    to={to}
-                    underline="hover"
-                    sx={{
-                      color: "grey.100",
-                      fontFamily: locale === "ar" ? "Marhey" : "Roboto",
-                    }}>
-                    {t(label)}
-                  </Link>
+                <Typography
+                  component={Link}
+                  to={to}
+                  key={to}
+                  variant="body2"
+                  sx={{
+                    my: 1,
+                    display: "block",
+                    color: "white",
+                    textDecoration: "none",
+                    pr: 0.5,
+                  }}>
+                  {t(label)}
                 </Typography>
               ))}
             </Grid>

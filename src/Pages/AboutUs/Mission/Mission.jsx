@@ -1,10 +1,10 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Container, Box, Typography, Grid } from "@mui/material";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-
 import image from "../../../assets/images/m1.jpg";
-
+import { useTranslation } from "react-i18next";
+import { DataContext } from "../../../Components/Context/DataContext";
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0 },
@@ -13,7 +13,11 @@ const fadeUp = {
 function Mission() {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.3, triggerOnce: true });
-
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
   useEffect(() => {
     if (inView) controls.start("visible");
   }, [controls, inView]);
@@ -39,12 +43,12 @@ function Mission() {
                 color: "#255946",
                 mb: 1,
               }}>
-              Our Mission
+              {t("Our Mission")}
             </Typography>
             <Typography
               color="text.secondary"
               sx={{ pt: 3, lineHeight: 1.5, fontSize: "25px" }}
-              paragraph>
+              component="p">
               We strive to revolutionize industry standards through innovative
               solutions and unwavering commitment to excellence. Our mission is
               to empower businesses with cutting-edge technology while

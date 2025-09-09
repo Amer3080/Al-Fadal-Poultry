@@ -10,7 +10,9 @@ import {
 } from "@mui/material";
 import imgMan from "../../../assets/images/man.jpg";
 import imgGirl from "../../../assets/images/girl.jpg";
-
+import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { DataContext } from "../../../Components/Context/DataContext";
 const StyledCard = styled(Card)(() => ({
   transition: "transform 0.3s, box-shadow 0.3s",
   "&:hover": {
@@ -20,31 +22,36 @@ const StyledCard = styled(Card)(() => ({
   height: "100%",
 }));
 
-const portfolioData = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    title: "Frontend Developer",
-    avatar: imgGirl,
-    bio: "Passionate frontend developer with 5+ years of experience in creating responsive and user-friendly web applications. Specialized in React and Modern JavaScript.",
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    title: "UX Designer",
-    avatar: imgMan,
-    bio: "Creative UX designer focusing on user-centered design principles. Experienced in creating intuitive and accessible interfaces for web and mobile applications.",
-  },
-  {
-    id: 3,
-    name: "Emily Rodriguez",
-    title: "Full Stack Developer",
-    avatar: imgGirl,
-    bio: "Full stack developer with expertise in MERN stack. Passionate about building scalable web applications and implementing efficient backend solutions.",
-  },
-];
-
 const Team = () => {
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
+  const portfolioData = [
+    {
+      id: 1,
+      name: t("Sarah Johnson"),
+      title: "Frontend Developer",
+      avatar: imgGirl,
+      bio: "Passionate frontend developer with 5+ years of experience in creating responsive and user-friendly web applications. Specialized in React and Modern JavaScript.",
+    },
+    {
+      id: 2,
+      name: "Michael Chen",
+      title: "UX Designer",
+      avatar: imgMan,
+      bio: "Creative UX designer focusing on user-centered design principles. Experienced in creating intuitive and accessible interfaces for web and mobile applications.",
+    },
+    {
+      id: 3,
+      name: "Emily Rodriguez",
+      title: "Full Stack Developer",
+      avatar: imgGirl,
+      bio: "Full stack developer with expertise in MERN stack. Passionate about building scalable web applications and implementing efficient backend solutions.",
+    },
+  ];
+
   return (
     <Box component="section" sx={{ py: { xs: 6, md: 10 } }}>
       <Container maxWidth="lg">

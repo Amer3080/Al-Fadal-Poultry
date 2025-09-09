@@ -1,6 +1,7 @@
-import React, { lazy, useEffect, memo } from "react";
+import { lazy, useEffect, memo, useContext } from "react";
 import { Helmet } from "react-helmet-async";
-// Lazy‐load each section to split the bundle and defer offscreen content
+import { DataContext } from "../../Components/Context/DataContext";
+import { useTranslation } from "react-i18next";
 const MySwiper = lazy(() => import("./Swiper/MySwiper"));
 const Welcome = lazy(() => import("./Welcome/Welcome"));
 const OurService = lazy(() => import("./OurService/OurService"));
@@ -14,12 +15,14 @@ const Testimonials = lazy(() => import("./Testimonials/Testimonials"));
 const IsoCertificates = lazy(() => import("./IsoCertificates/IsoCertificates"));
 
 function Home() {
-  // Scroll to top on route change / mount
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
-  // JSON-LD structured data for Organization and WebSite
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -46,12 +49,11 @@ function Home() {
   return (
     <>
       <Helmet>
-        <title>Al-Fadal Poultry | Home</title>
+        <title>{t("Home")}</title>
         <meta
           name="description"
           content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards, reliable supply, and ISO certified."
         />
-        {/* JSON-LD structured data */}
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 

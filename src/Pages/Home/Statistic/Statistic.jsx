@@ -1,25 +1,12 @@
-// NumberCounters.jsx
-import React, {
-  useContext,
-  useEffect,
-  useMemo,
-  lazy,
-  Suspense,
-  memo,
-} from "react";
+import { useContext, useEffect, useMemo, lazy, Suspense, memo } from "react";
 import { Box, Grid, Typography, Paper } from "@mui/material";
 import Header from "../../../Hooks/Header";
 import { useInView } from "react-intersection-observer";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
 import image from "../../../assets/images/Frame.png";
-// Lazy‐load the animated numbers for a smaller initial bundle
 const AnimatedNumbers = lazy(() => import("react-animated-numbers"));
-
-// Icon used as a background image
 import iconPng from "../../../assets/images/icon.png";
-
-// Raw, untranslated data
 const rawData = [
   { num: 46, sym: "K", textKey: "Areas" },
   { num: 24, sym: "+", textKey: "Experience" },
@@ -31,13 +18,9 @@ function NumberCounters() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
   const { ref, inView } = useInView({ threshold: 0.2, triggerOnce: false });
-
-  // Sync language
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
-
-  // Translate data only when `t` changes
   const counters = useMemo(
     () =>
       rawData.map(({ num, sym, textKey }) => ({
@@ -47,7 +30,6 @@ function NumberCounters() {
       })),
     [t]
   );
-
   return (
     <>
       <Box
@@ -59,9 +41,7 @@ function NumberCounters() {
         aria-labelledby="about-heading">
         <Header
           firstText={t("High-quality Chickens")}
-          secondText={t(
-            "Our numbers  the constant improvement in the quality"
-          )}
+          secondText={t("Our numbers  the constant improvement in the quality")}
           thirdText={t("")}
         />
       </Box>

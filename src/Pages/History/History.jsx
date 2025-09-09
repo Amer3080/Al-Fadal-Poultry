@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useContext, useEffect } from "react";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -34,49 +34,12 @@ import imageThree from "../../assets/images/s3.jpg";
 import imageFour from "../../assets/images/s5.jpg";
 import fallbackImage from "../../assets/images/1.jpg";
 import { Helmet } from "react-helmet-async";
+import { DataContext } from "../../Components/Context/DataContext";
+import { useTranslation } from "react-i18next";
 
 const HeroSection = lazy(() =>
   import("../../Components/HeroSection/HeroSection")
 );
-
-const timelineData = [
-  {
-    id: 1,
-    title: "First Moon Landing",
-    date: "1969-07-20",
-    description:
-      "Neil Armstrong becomes the first human to walk on the moon during the Apollo 11 mission.",
-    image: imageOne,
-    dotIcon: <RocketLaunchIcon color="primary" />,
-  },
-  {
-    id: 2,
-    title: "World Wide Web Invention",
-    date: "1989-03-12",
-    description:
-      "Tim Berners-Lee invents the World Wide Web, revolutionizing global communication.",
-    image: imageTwo,
-    dotIcon: <LanguageIcon color="secondary" />,
-  },
-  {
-    id: 3,
-    title: "Discovery of DNA Structure",
-    date: "1953-04-25",
-    description:
-      "Watson and Crick publish their groundbreaking paper on the structure of DNA.",
-    image: imageThree,
-    dotIcon: <ScienceIcon color="success" />,
-  },
-  {
-    id: 4,
-    title: "First Digital Computer",
-    date: "1946-02-14",
-    description:
-      "ENIAC, the first general-purpose electronic computer, is unveiled to the public.",
-    image: imageFour,
-    dotIcon: <ComputerIcon color="error" />,
-  },
-];
 
 const LazyImage = ({ src, alt }) => {
   const { ref, inView } = useInView({
@@ -115,6 +78,49 @@ const History = () => {
   const toggleExpand = (id) => {
     setExpandedId((prev) => (prev === id ? null : id));
   };
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  const timelineData = [
+    {
+      id: 1,
+      title: t("First Moon Landing"),
+      date: "1969-07-20",
+      description:
+        "Neil Armstrong becomes the first human to walk on the moon during the Apollo 11 mission.",
+      image: imageOne,
+      dotIcon: <RocketLaunchIcon color="primary" />,
+    },
+    {
+      id: 2,
+      title: "World Wide Web Invention",
+      date: "1989-03-12",
+      description:
+        "Tim Berners-Lee invents the World Wide Web, revolutionizing global communication.",
+      image: imageTwo,
+      dotIcon: <LanguageIcon color="secondary" />,
+    },
+    {
+      id: 3,
+      title: "Discovery of DNA Structure",
+      date: "1953-04-25",
+      description:
+        "Watson and Crick publish their groundbreaking paper on the structure of DNA.",
+      image: imageThree,
+      dotIcon: <ScienceIcon color="success" />,
+    },
+    {
+      id: 4,
+      title: "First Digital Computer",
+      date: "1946-02-14",
+      description:
+        "ENIAC, the first general-purpose electronic computer, is unveiled to the public.",
+      image: imageFour,
+      dotIcon: <ComputerIcon color="error" />,
+    },
+  ];
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
 
   return (
     <Box>
@@ -125,11 +131,9 @@ const History = () => {
           content="Natural Poultry products 100% from Al Fadal Establishment, committed to quality and food safety standards."
         />
       </Helmet>
-
       <Suspense fallback={<Skeleton variant="rectangular" height={240} />}>
         <HeroSection HeadText="History" />
       </Suspense>
-
       <Box
         sx={{
           maxWidth: 900,

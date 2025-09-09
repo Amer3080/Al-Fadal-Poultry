@@ -1,6 +1,4 @@
-// Offering.jsx
-
-import React, { useContext, useEffect, useMemo, memo } from "react";
+import { useContext, useEffect, useMemo, memo } from "react";
 import {
   Box,
   Grid,
@@ -46,13 +44,9 @@ const rawContent = [
 function Offering() {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
-
-  // Keep i18n in sync with our locale
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
-
-  // Translate titles & contents once per render
   const offerings = useMemo(
     () =>
       rawContent.map((item) => ({

@@ -1,5 +1,8 @@
 import { Container, Typography, Grid, Paper } from "@mui/material";
 import { motion } from "framer-motion";
+import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { DataContext } from "../../../Components/Context/DataContext";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 50 },
@@ -7,6 +10,12 @@ const fadeUp = {
 };
 
 function Values() {
+  const { locale } = useContext(DataContext);
+  const { t, i18n } = useTranslation();
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [i18n, locale]);
+
   return (
     <Container component="section" id="values" sx={{ py: { xs: 6, md: 10 } }}>
       <motion.div
@@ -27,7 +36,7 @@ function Values() {
             color: "#255946",
             mb: 5,
           }}>
-          Our Values
+          {t("Our Values")}
         </Typography>
         <Grid container spacing={4}>
           {["Innovation", "Integrity", "Excellence"].map((val) => (
