@@ -123,6 +123,7 @@ export default function OurService() {
                   component={Link}
                   to={feature.link}
                   className="learn-more-btn"
+                  aria-label="Go to Services  page"
                   sx={{
                     width: 55,
                     height: 55,

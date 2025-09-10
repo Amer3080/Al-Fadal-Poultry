@@ -1,30 +1,24 @@
-import { useState, useCallback, memo } from "react";
-import { Box, ImageList, ImageListItem, Card, styled } from "@mui/material";
+import { memo } from "react";
+import { Box, Grid, Typography, Card, styled } from "@mui/material";
 import imageOne from "../../../assets/images/c1.jpg";
 import imageTwo from "../../../assets/images/c2.jpg";
 import imageThree from "../../../assets/images/c3.jpg";
+
 const images = [
   {
     src: imageOne,
-    original: imageOne,
-    alt: "Gallery image 1",
-
-    tags: [
-      { value: "Nature", title: "Nature" },
-      { value: "Flora", title: "Flora" },
-    ],
+    alt: "ISO Certificate for Organic Poultry Standards",
   },
   {
     src: imageTwo,
-    original: imageTwo,
-    alt: "Gallery image 2",
+    alt: "ISO Certificate for Food Safety Compliance",
   },
   {
     src: imageThree,
-    original: imageThree,
-    alt: "Gallery image 3",
+    alt: "ISO Certificate for Quality Assurance",
   },
 ];
+
 const StyledCard = styled(Card)(() => ({
   transition: "transform 0.3s, box-shadow 0.3s",
   "&:hover": {
@@ -32,46 +26,52 @@ const StyledCard = styled(Card)(() => ({
     boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
   },
   height: "100%",
+  padding: "16px",
+  borderRadius: "12px",
 }));
+
 function IsoCertificates() {
-  const [, setOpenIndex] = useState(null);
-  const handleOpen = useCallback((idx) => setOpenIndex(idx), []);
   return (
-    <Box component="section" aria-label="Client Testimonials" sx={{ py: 6 }}>
-      <ImageList
-        gap={50}
+    <Box
+      component="section"
+      aria-labelledby="iso-certificates-heading"
+      sx={{ py: 6 }}>
+      <Typography
+        id="iso-certificates-heading"
+        component="h2"
+        variant="h4"
         sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          flexWrap: "wrap",
+          textAlign: "center",
+          fontWeight: "bold",
+          color: "#255946",
+          mb: 4,
         }}>
+        ISO Certifications
+      </Typography>
+
+      <Grid container spacing={4} justifyContent="center">
         {images.map((img, idx) => (
-          <StyledCard key={img.src}>
-            <ImageListItem
-              onClick={() => handleOpen(idx)}
-              sx={{
-                cursor: "pointer",
-                borderRadius: 1,
-                overflow: "hidden",
-              }}>
-              <img
-                crossOrigin="anonymous"
+          <Grid key={idx} size={{ xs: 12, sm: 6, md: 4 }}>
+            <StyledCard>
+              <Box
+                component="img"
                 src={img.src}
                 alt={img.alt}
                 loading="lazy"
                 decoding="async"
-                style={{
-                  maxWidth: "300px",
+                sx={{
+                  width: "100%",
+                  height: "auto",
                   display: "block",
-                  mx: "auto",
-                  my: 12,
+                  borderRadius: 2,
                 }}
               />
-            </ImageListItem>
-          </StyledCard>
+            </StyledCard>
+          </Grid>
         ))}
-      </ImageList>
+      </Grid>
     </Box>
   );
 }
+
 export default memo(IsoCertificates);

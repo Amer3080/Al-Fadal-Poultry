@@ -1,25 +1,25 @@
 import { Box, Typography } from "@mui/material";
 import image from "../../../assets/images/Frame.png";
-import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { DataContext } from "../../../Components/Context/DataContext";
+
 export default function ActionBanner({ heading }) {
-  const { locale } = useContext(DataContext);
-  const { t, i18n } = useTranslation();
-  useEffect(() => {
-    i18n.changeLanguage(locale);
-  }, [i18n, locale]);
+  const { t } = useTranslation();
+
   return (
     <Box
       component="section"
+      aria-labelledby="action-banner-heading"
       sx={{
-        py: 3,
+        py: 4,
         textAlign: "center",
-        background: `url(${image})`,
+        backgroundImage: `url(${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
         color: "common.white",
       }}>
       <Typography
-        component="h3"
+        id="action-banner-heading"
+        component="h2"
         variant="h4"
         sx={{
           fontWeight: "bold",
@@ -29,13 +29,14 @@ export default function ActionBanner({ heading }) {
         gutterBottom>
         {t(heading)}
       </Typography>
+
       <Typography
-        component="h3"
+        component="p"
         variant="h6"
         sx={{
           color: "#147242",
           fontSize: { xs: "14px", md: "24px", lg: "30px" },
-          fontFamily: "bold",
+          fontWeight: "bold",
         }}>
         {t("FPF For Poultry Production")}
       </Typography>

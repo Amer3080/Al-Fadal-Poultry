@@ -1,65 +1,66 @@
-import { useContext, useEffect } from "react";
 import { Box, Typography, Grid } from "@mui/material";
-import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
 
 export default function FeatureSections({ features }) {
-  const { locale } = useContext(DataContext);
-  const { t, i18n } = useTranslation();
-  useEffect(() => {
-    i18n.changeLanguage(locale);
-  }, [i18n, locale]);
-  return features.map(({ imageUrl, heading, text }, i) => (
-    <Box
-      component="section"
-      key={i}
-      sx={{ py: 8, direction: locale === "en" ? "ltr" : "rtl" }}>
-      <Grid
-        container
-        spacing={4}
-        alignItems="start"
-        direction={i % 2 ? "row-reverse" : "row"}>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <Box
-            component="img"
-            src={imageUrl}
-            alt={heading}
-            width="100%"
-            height="auto"
-            loading="lazy"
-          />
+  const { t } = useTranslation();
+
+  return features.map(({ imageUrl, heading, text }, i) => {
+    const sectionId = `feature-section-${i}`;
+
+    return (
+      <Box
+        component="section"
+        key={sectionId}
+        aria-labelledby={sectionId}
+        sx={{ py: 8 }}>
+        <Grid
+          container
+          spacing={4}
+          alignItems="start"
+          direction={i % 2 === 0 ? "row" : "row-reverse"}>
+          {/* Image Column */}
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Box
+              component="img"
+              src={imageUrl}
+              alt={heading || ""}
+              width="100%"
+              height="auto"
+              loading="lazy"
+              sx={{ borderRadius: 2 }}
+            />
+          </Grid>
+
+          {/* Text Column */}
+          <Grid size={{ xs: 12, md: 6 }} sx={{ px: 4 }}>
+            <Typography
+              id={sectionId}
+              component="h2"
+              variant="h4"
+              gutterBottom
+              sx={{
+                fontSize: { xs: "20px", md: "35px" },
+                fontWeight: 900,
+                color: "#255946",
+                fontFamily: "Marhey",
+                textAlign: { xs: "center", md: "start" },
+              }}>
+              {t(heading)}
+            </Typography>
+
+            <Typography
+              component="p"
+              sx={{
+                mt: 4,
+                fontSize: "18px",
+                lineHeight: 2,
+                textAlign: { xs: "center", md: "start" },
+              }}>
+              {t(text)}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }} sx={{ px: 4 }}>
-          <Typography
-            component="h3"
-            variant="h4"
-            gutterBottom
-            sx={{
-              fontSize: { xs: "20px", md: "35px" },
-              fontWeight: "900",
-              color: "#255946",
-              fontFamily: "Marhey",
-              textAlign: {
-                xs: "center",
-                md: locale === "en" ? "end" : "start",
-              },
-            }}>
-            {t(heading)}
-          </Typography>
-          <Typography
-            sx={{
-              mt: 4,
-              fontSize: "18px",
-              lineHeight: 2,
-              textAlign: {
-                xs: "center",
-                md: locale === "en" ? "end" : "start",
-              },
-            }}>
-            {text}
-          </Typography>
-        </Grid>
-      </Grid>
-    </Box>
-  ));
+      </Box>
+    );
+  });
 }

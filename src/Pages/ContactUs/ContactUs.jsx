@@ -23,6 +23,12 @@ import {
   FaInstagram,
   FaMapMarkerAlt,
 } from "react-icons/fa";
+import {
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  FormHelperText,
+} from "@mui/material";
 import HeroSection from "../../Components/HeroSection/HeroSection";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
@@ -32,7 +38,6 @@ import { useTranslation } from "react-i18next";
 const ContactUs = () => {
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,7 +51,6 @@ const ContactUs = () => {
     emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID);
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
-
   const subjects = [
     "Booking Inquiry",
     "Schedule Information",
@@ -54,13 +58,11 @@ const ContactUs = () => {
     "General Support",
     "Feedback",
   ];
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((f) => ({ ...f, [name]: value }));
     validateField(name, value);
   };
-
   const validateField = (name, value) => {
     setErrors((err) => {
       const updated = { ...err };
@@ -79,14 +81,12 @@ const ContactUs = () => {
       return updated;
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const isValid =
       Object.values(formData).every((v) => v) &&
       Object.values(errors).every((errMsg) => !errMsg);
     if (!isValid) return;
-
     emailjs
       .send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
@@ -104,7 +104,6 @@ const ContactUs = () => {
       })
       .catch(() => setShowError(true));
   };
-
   return (
     <Box>
       <Helmet>
@@ -132,37 +131,60 @@ const ContactUs = () => {
               }}>
               {t("Contact Us")}
             </Typography>
-
             <Box component="form" onSubmit={handleSubmit} noValidate>
-              {/* Name & Email */}
-              {["name", "email"].map((field) => (
-                <TextField
-                  key={field}
-                  fullWidth
-                  margin="normal"
-                  label={field.charAt(0).toUpperCase() + field.slice(1)}
-                  name={field}
-                  type={field === "email" ? "email" : "text"}
-                  value={formData[field]}
-                  onChange={handleInputChange}
-                  error={Boolean(errors[field])}
-                  helperText={errors[field]}
-                  required
-                />
-              ))}
-
-              {/* Subject */}
+              {/* Name Field (Text input) */}
               <TextField
+                id="contact-name"
+                name="name"
+                label={t("Name")}
+                autoComplete="name"
+                fullWidth
+                margin="normal"
+                value={formData.name}
+                onChange={handleInputChange}
+                error={Boolean(errors.name)}
+                helperText={errors.name}
+                required
+              />
+
+              {/* Email Field (Text input) */}
+              <TextField
+                id="contact-email"
+                name="email"
+                label={t("Email")}
+                autoComplete="email"
+                fullWidth
+                margin="normal"
+                type="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                error={Boolean(errors.email)}
+                helperText={errors.email}
+                required
+              />
+
+              {/* Subject Field (Select) */}
+              <TextField
+                label={t("Subject")}
                 fullWidth
                 select
                 margin="normal"
-                label="Subject"
-                name="subject"
                 value={formData.subject}
                 onChange={handleInputChange}
                 error={Boolean(errors.subject)}
                 helperText={errors.subject}
-                required>
+                required
+                // 1) Override the label's htmlFor so it matches our custom id
+                InputLabelProps={{ htmlFor: "contact-subject" }}
+                // 2) Tell MUI to put id/name/autocomplete on the actual <select>
+                SelectProps={{
+                  native: false, // still using <MenuItem>, not <option>
+                  inputProps: {
+                    id: "contact-subject",
+                    name: "subject",
+                    autoComplete: "off",
+                  },
+                }}>
                 {subjects.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
@@ -170,22 +192,27 @@ const ContactUs = () => {
                 ))}
               </TextField>
 
-              {/* Message */}
-              <TextField
-                fullWidth
-                margin="normal"
-                label="Message"
-                name="message"
-                multiline
-                rows={4}
-                value={formData.message}
-                onChange={handleInputChange}
-                error={Boolean(errors.message)}
-                helperText={errors.message}
-                required
-              />
+              {/* Message Field (Textarea) */}
+              <FormControl fullWidth margin="normal">
+                <InputLabel htmlFor="contact-message">
+                  {t("Message")}
+                </InputLabel>
+                <OutlinedInput
+                  id="contact-message"
+                  name="message"
+                  autoComplete="off"
+                  multiline
+                  rows={4}
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  error={Boolean(errors.message)}
+                  label={t("Message")}
+                />
+                {errors.message && (
+                  <FormHelperText error>{errors.message}</FormHelperText>
+                )}
+              </FormControl>
 
-              {/* Submit */}
               <Button
                 type="submit"
                 variant="contained"
@@ -196,7 +223,7 @@ const ContactUs = () => {
                   color: "white",
                   ":hover": { backgroundColor: "#1e483f" },
                 }}>
-                Send Message
+                {t("Send Message")}
               </Button>
             </Box>
           </Grid>
@@ -207,71 +234,57 @@ const ContactUs = () => {
                 mt: 10,
                 direction: locale === "en" ? "ltr" : "rtl",
               }}>
-              {" "}
               <CardContent>
-                {" "}
                 <Typography variant="h6" gutterBottom>
-                  {" "}
-                  Contact Information{" "}
-                </Typography>{" "}
+                  Contact Information
+                </Typography>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  {" "}
-                  <FaMapMarkerAlt style={{ marginRight: "8px" }} />{" "}
+                  <FaMapMarkerAlt style={{ marginRight: "8px" }} />
                   <Typography>
-                    {" "}
-                    123 Railway Square, Transport City, TC 12345{" "}
-                  </Typography>{" "}
-                </Box>{" "}
+                    123 Railway Square, Transport City, TC 12345
+                  </Typography>
+                </Box>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  {" "}
-                  <FaPhone style={{ marginRight: "8px" }} />{" "}
-                  <Typography>+1 (555) 123-4567</Typography>{" "}
-                </Box>{" "}
+                  <FaPhone style={{ marginRight: "8px" }} />
+                  <Typography>+1 (555) 123-4567</Typography>
+                </Box>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  {" "}
-                  <FaEnvelope style={{ marginRight: "8px" }} />{" "}
-                  <Typography>support@railwayservice.com</Typography>{" "}
-                </Box>{" "}
+                  <FaEnvelope style={{ marginRight: "8px" }} />
+                  <Typography>support@railwayservice.com</Typography>
+                </Box>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-                  {" "}
-                  <FaClock style={{ marginRight: "8px" }} />{" "}
-                  <Typography>Mon - Sat: 8:00 AM - 8:00 PM</Typography>{" "}
-                </Box>{" "}
-              </CardContent>{" "}
-            </Card>{" "}
+                  <FaClock style={{ marginRight: "8px" }} />
+                  <Typography>Mon - Sat: 8:00 AM - 8:00 PM</Typography>
+                </Box>
+              </CardContent>
+            </Card>
             <Box sx={{ mb: 4 }}>
-              {" "}
               <Typography variant="h6" gutterBottom>
-                {" "}
-                Follow Us{" "}
-              </Typography>{" "}
+                Follow Us
+              </Typography>
               <Box sx={{ display: "flex", gap: 2 }}>
-                {" "}
                 <IconButton
                   component={Link}
                   to="https://www.facebook.com/"
                   target="_blank"
                   aria-label="Facebook">
-                  {" "}
-                  <FaFacebook />{" "}
-                </IconButton>{" "}
+                  <FaFacebook />
+                </IconButton>
                 <IconButton
                   component={Link}
                   to="https://www.twitter.com/"
                   target="_blank"
                   aria-label="Twitter">
-                  {" "}
-                  <FaTwitter />{" "}
-                </IconButton>{" "}
+                  <FaTwitter />
+                </IconButton>
                 <IconButton
                   component={Link}
                   to="https://www.instagram.com/"
                   target="_blank"
                   aria-label="Instagram">
-                  {" "}
-                  <FaInstagram />{" "}
-                </IconButton>{" "}
-              </Box>{" "}
+                  <FaInstagram />
+                </IconButton>
+              </Box>
             </Box>
           </Grid>
           <Grid size={{ xs: 12 }}>
@@ -324,5 +337,4 @@ const ContactUs = () => {
     </Box>
   );
 };
-
 export default ContactUs;
