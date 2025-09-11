@@ -29,26 +29,22 @@ export default function MySwiper() {
         effect="fade"
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         className="mySwiper">
-        {" "}
         {sliders.map((image, index) => (
           <SwiperSlide key={index} className={styles.slide}>
-            {" "}
             <img
               crossOrigin="anonymous"
               src={image}
               alt={`Slide ${index + 1}`}
               className={styles["slide-image"]}
-            />{" "}
+            />
             <div className={styles["text_content"]}>
-              {" "}
               <Typography
                 component="h3"
                 variant="h5"
                 color="white"
                 sx={{ fontFamily: "Marhey", fontSize: "2vw" }}>
-                {" "}
-                {t("No antibiotics, no growth stimulants!")}{" "}
-              </Typography>{" "}
+                {t("No antibiotics, no growth stimulants!")}
+              </Typography>
               <Typography
                 component="h4"
                 variant="h2"
@@ -60,9 +56,8 @@ export default function MySwiper() {
                   fontFamily: locale === "en" ? "Oleo Script" : "El Messiri",
                   py: { xs: 1, md: 1, lg: 1 },
                 }}>
-                {" "}
-                {t("Fresh chickens for you every day!")}{" "}
-              </Typography>{" "}
+                {t("Fresh chickens for you every day!")}
+              </Typography>
               <Typography
                 component="h5"
                 color="white"
@@ -71,11 +66,8 @@ export default function MySwiper() {
                   fontSize: "2vw",
                   pb: { xs: 2, md: 4, lg: 6 },
                 }}>
-                {" "}
-                {t(
-                  "From farm to table, our poultry is simply incredible!"
-                )}{" "}
-              </Typography>{" "}
+                {t("From farm to table, our poultry is simply incredible!")}
+              </Typography>
               <Button
                 component={Link}
                 to="/contact-us"
@@ -93,11 +85,11 @@ export default function MySwiper() {
                   fontWeight: "700",
                 }}>
                 {t("Contact Us")}
-              </Button>{" "}
-            </div>{" "}
+              </Button>
+            </div>
           </SwiperSlide>
-        ))}{" "}
-      </Swiper>{" "}
+        ))}
+      </Swiper>
     </>
   );
 }
