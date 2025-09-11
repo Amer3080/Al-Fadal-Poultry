@@ -18,6 +18,7 @@ export default defineConfig({
   plugins: [
     purgecss({
       content: ["./index.html", "./src/**/*.jsx"], // Adjust paths to match your project
+      css: ["./src/index.css"],
       safelist: [
         /^Mui/, // MUI classes
         /^slick/, // Slick carousel classes

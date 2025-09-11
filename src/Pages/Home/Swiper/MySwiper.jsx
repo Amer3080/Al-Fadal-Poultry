@@ -28,7 +28,7 @@ export default function MySwiper() {
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         effect="fade"
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
-        className="mySwiper">
+        className={styles.slide}>
         {sliders.map((image, index) => (
           <SwiperSlide key={index} className={styles.slide}>
             <img
