@@ -1,49 +1,46 @@
-import { useState, useCallback, memo, useContext, useEffect } from "react";
-import { Box, ImageList, ImageListItem, Card, styled } from "@mui/material";
-import image from "../../../assets/images/Frame.png";
+import { Box, Card, styled, Grid } from "@mui/material";
 import imageOne from "../../../assets/images/c1.jpg";
 import imageTwo from "../../../assets/images/c2.jpg";
 import imageThree from "../../../assets/images/c3.jpg";
+import Header from "../../../Hooks/Header";
+import { memo, useContext, useEffect } from "react";
+import image from "../../../assets/images/Frame.png";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
-import Header from "../../../Hooks/Header";
 
 const images = [
   {
     src: imageOne,
-    original: imageOne,
-    alt: "Gallery image 1",
-
-    tags: [
-      { value: "Nature", title: "Nature" },
-      { value: "Flora", title: "Flora" },
-    ],
+    alt: "ISO Certificate for Organic Poultry Standards",
   },
   {
     src: imageTwo,
-    original: imageTwo,
-    alt: "Gallery image 2",
+    alt: "ISO Certificate for Food Safety Compliance",
   },
   {
     src: imageThree,
-    original: imageThree,
-    alt: "Gallery image 3",
+    alt: "ISO Certificate for Quality Assurance",
   },
 ];
-const StyledCard = styled(Card)(() => ({
+
+const StyledCard = styled(Card)(({ theme }) => ({
   transition: "transform 0.3s, box-shadow 0.3s",
+  height: "100%",
+  padding: theme.spacing(2),
+  borderRadius: theme.shape.borderRadius * 1.5,
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
   "&:hover": {
     transform: "translateY(-5px)",
-    boxShadow: "0 8px 16px rgba(0,0,0,0.2)",
+    boxShadow: theme.shadows[4],
   },
-  height: "100%",
 }));
 
 function IsoCertificates() {
-  const [, setOpenIndex] = useState(null);
-  const handleOpen = useCallback((idx) => setOpenIndex(idx), []);
   const { locale } = useContext(DataContext);
   const { t, i18n } = useTranslation();
+
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
@@ -51,54 +48,50 @@ function IsoCertificates() {
   return (
     <>
       <Box
+        component="section"
+        aria-labelledby="iso-certificates-heading"
         sx={{
           backgroundImage: `url(${image})`,
-          py: 2,
           backgroundRepeat: "no-repeat",
-        }}
-        aria-labelledby="about-heading">
+          backgroundSize: "cover",
+          py: 4,
+        }}>
         <Header
           firstText={t("")}
           secondText={t("ISO CERTIFICATES")}
           thirdText={t("FPF For Poultry Production")}
         />
       </Box>
-      <Box component="section" aria-label="Client Testimonials" sx={{ py: 6 }}>
-        <ImageList
-          gap={50}
-          sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            flexWrap: "wrap",
-          }}>
+
+      <Box
+        component="section"
+        aria-label={t("ISO Certified Gallery")}
+        sx={{ py: 6 }}>
+        <Grid container spacing={4} justifyContent="center" role="list">
           {images.map((img, idx) => (
-            <StyledCard key={img.src}>
-              <ImageListItem
-                onClick={() => handleOpen(idx)}
-                sx={{
-                  cursor: "pointer",
-                  borderRadius: 1,
-                  overflow: "hidden",
-                }}>
-                <img
-                  crossOrigin="anonymous"
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx} role="listitem">
+              <StyledCard component="figure" aria-label={img.alt} tabIndex={0}>
+                <Box
+                  component="img"
                   src={img.src}
                   alt={img.alt}
                   loading="lazy"
                   decoding="async"
-                  style={{
-                    maxWidth: "300px",
+                  sx={{
+                    width: "100%",
+                    maxWidth: 320,
+                    height: "auto",
                     display: "block",
-                    mx: "auto",
-                    my: 12,
+                    borderRadius: 2,
                   }}
                 />
-              </ImageListItem>
-            </StyledCard>
+              </StyledCard>
+            </Grid>
           ))}
-        </ImageList>
+        </Grid>
       </Box>
     </>
   );
 }
+
 export default memo(IsoCertificates);
