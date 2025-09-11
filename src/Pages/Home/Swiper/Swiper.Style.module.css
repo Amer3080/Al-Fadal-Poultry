@@ -41,3 +41,21 @@
   align-items: center;
   justify-content: center;
 }
+
+:global(.swiper) {
+  position: relative;
+}
+
+:global(.swiper-slide) {
+  position: relative;
+  z-index: 1;
+}
+
+:global(.swiper-slide-active) {
+  z-index: 2;
+}
+
+.text_content {
+  position: absolute;
+  z-index: 3; /* Above images */
+}
