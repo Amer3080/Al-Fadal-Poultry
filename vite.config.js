@@ -1,13 +1,25 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
+import purgecss from "vite-plugin-purgecss";
 
 export default defineConfig({
   build: {
     sourcemap: true,
-    // ...your other settings
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom"],
+          mui: ["@mui/material"],
+        },
+      },
+    },
   },
   plugins: [
+    purgecss({
+      content: ["./index.html", "./src/**/*.jsx"], // Adjust paths to match your project
+      safelist: [/^Mui/, /^slick/, "active"], // Keep important dynamic classes
+    }),
     react(),
     visualizer({
       open: true, // open report in browser

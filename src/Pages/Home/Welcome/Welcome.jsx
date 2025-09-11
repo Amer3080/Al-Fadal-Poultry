@@ -69,9 +69,10 @@ export default function Welcome() {
               crossOrigin="anonymous"
               component="img"
               src={imgJpg}
-              alt={t("Farm welcome image")}
+              alt="Farm welcome image"
               loading="eager"
               decoding="async"
+              fetchpriority="high"
               width={600}
               height={600}
               sx={{
