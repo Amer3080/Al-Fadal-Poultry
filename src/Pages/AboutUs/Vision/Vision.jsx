@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import imageTwo from "../../../assets/images/Frame.png";
+import imageTwo from "../../../assets/images/Frame.avif";
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Components/Context/DataContext";

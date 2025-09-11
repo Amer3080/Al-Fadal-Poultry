@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import { Container, Box, Typography, Grid } from "@mui/material";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import image from "../../../assets/images/m1.jpg";
+import image from "../../../assets/images/m1.avif";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Components/Context/DataContext";
 const fadeUp = {

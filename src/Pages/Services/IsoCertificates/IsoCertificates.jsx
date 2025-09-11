@@ -1,8 +1,8 @@
 import { memo } from "react";
 import { Box, Grid, Typography, Card, styled } from "@mui/material";
-import imageOne from "../../../assets/images/c1.jpg";
-import imageTwo from "../../../assets/images/c2.jpg";
-import imageThree from "../../../assets/images/c3.jpg";
+import imageOne from "../../../assets/images/c1.avif";
+import imageTwo from "../../../assets/images/c2.avif";
+import imageThree from "../../../assets/images/c3.avif";
 
 const images = [
   {

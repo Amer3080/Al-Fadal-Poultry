@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import image from "../../assets/images/Hero.jpg";
+import image from "../../assets/images/Hero.avif";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../Components/Context/DataContext";
 import Breadcrumbs from "@mui/material/Breadcrumbs";

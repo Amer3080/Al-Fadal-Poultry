@@ -34,11 +34,11 @@ import {
   TimelineDot,
 } from "@mui/lab";
 
-import imageOne from "../../assets/images/s1.jpg";
-import imageTwo from "../../assets/images/s2.jpg";
-import imageThree from "../../assets/images/s3.jpg";
-import imageFour from "../../assets/images/s5.jpg";
-import fallbackImage from "../../assets/images/1.jpg";
+import imageOne from "../../assets/images/s1.avif";
+import imageTwo from "../../assets/images/s2.avif";
+import imageThree from "../../assets/images/s3.avif";
+import imageFour from "../../assets/images/s5.avif";
+import fallbackImage from "../../assets/images/1.avif";
 
 import { Helmet } from "react-helmet-async";
 import { DataContext } from "../../Components/Context/DataContext";

@@ -6,8 +6,8 @@ import Grid from "@mui/material/Grid";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Components/Context/DataContext";
 import Header from "../../../Hooks/Header";
-import imageJpg from "../../../assets/images/10.jpg";
-import image from "../../../assets/images/Frame.png";
+import imageJpg from "../../../assets/images/10.avif";
+import image from "../../../assets/images/Frame.avif";
 import { Link } from "react-router-dom";
 const KeyboardTabIcon = lazy(() => import("@mui/icons-material/KeyboardTab"));
 const KeyboardReturnIcon = lazy(() =>

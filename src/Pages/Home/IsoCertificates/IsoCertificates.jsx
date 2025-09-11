@@ -1,10 +1,10 @@
 import { Box, Card, styled, Grid } from "@mui/material";
-import imageOne from "../../../assets/images/c1.jpg";
-import imageTwo from "../../../assets/images/c2.jpg";
-import imageThree from "../../../assets/images/c3.jpg";
+import imageOne from "../../../assets/images/c1.avif";
+import imageTwo from "../../../assets/images/c2.avif";
+import imageThree from "../../../assets/images/c3.avif";
 import Header from "../../../Hooks/Header";
 import { memo, useContext, useEffect } from "react";
-import image from "../../../assets/images/Frame.png";
+import image from "../../../assets/images/Frame.avif";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
 

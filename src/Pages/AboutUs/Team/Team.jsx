@@ -8,8 +8,8 @@ import {
   Container,
   styled,
 } from "@mui/material";
-import imgMan from "../../../assets/images/man.jpg";
-import imgGirl from "../../../assets/images/girl.jpg";
+import imgMan from "../../../assets/images/man.avif";
+import imgGirl from "../../../assets/images/girl.avif";
 import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Components/Context/DataContext";

@@ -1,5 +1,3 @@
-// Carousel.jsx
-
 import React, {
   useContext,
   useEffect,
@@ -8,13 +6,12 @@ import React, {
   Suspense,
   memo,
 } from "react";
-import { Helmet } from "react-helmet-async";
 import { styled } from "@mui/system";
 import { Box, Typography } from "@mui/material";
 import carouselStyle from "./Carousel.Style.module.css";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
-import iconPng from "../../../assets/images/11.png";
+import iconPng from "../../../assets/images/11.avif";
 const Slider = lazy(async () => {
   await Promise.all([
     import("slick-carousel/slick/slick.css"),

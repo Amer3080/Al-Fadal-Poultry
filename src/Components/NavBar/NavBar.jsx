@@ -27,7 +27,7 @@ import {
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../Context/DataContext";
-import logo from "../../assets/images/Logo.png";
+import logo from "../../assets/images/Logo.avif";
 const MenuIcon = lazy(() => import("@mui/icons-material/Menu"));
 const CottageIcon = lazy(() => import("@mui/icons-material/Cottage"));
 const LanguageIcon = lazy(() => import("@mui/icons-material/Language"));

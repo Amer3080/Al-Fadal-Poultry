@@ -23,7 +23,7 @@ import HeroSection from "../../Components/HeroSection/HeroSection";
 import { DataContext } from "../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
 import { Helmet } from "react-helmet-async";
-import image from "../../assets/images/f.jpg";
+import image from "../../assets/images/f.avif";
 
 const StyledAccordion = styled(Accordion)(() => ({
   marginBottom: "16px",

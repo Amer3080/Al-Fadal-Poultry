@@ -11,8 +11,7 @@ import MasterLayout from "./Components/MasterLayout/MasterLayout";
 import NotFound from "./Components/NotFound/NotFound";
 
 import CircularIndeterminate from "./Components/CircularIndeterminate/CircularIndeterminate.jsx";
-import image from "./assets/images/Logo.png";
-import "./App.css";
+import image from "./assets/images/Logo.avif";
 
 // Lazy-loaded pages
 const Home = lazy(() => import("./Pages/Home/Home"));

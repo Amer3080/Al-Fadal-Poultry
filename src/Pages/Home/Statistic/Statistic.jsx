@@ -4,9 +4,9 @@ import Header from "../../../Hooks/Header";
 import { useInView } from "react-intersection-observer";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
-import image from "../../../assets/images/Frame.png";
+import image from "../../../assets/images/Frame.avif";
 const AnimatedNumbers = lazy(() => import("react-animated-numbers"));
-import iconPng from "../../../assets/images/icon.png";
+import iconPng from "../../../assets/images/icon.avif";
 const rawData = [
   { num: 46, sym: "K", textKey: "Areas" },
   { num: 24, sym: "+", textKey: "Experience" },

@@ -19,7 +19,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { DataContext } from "../Context/DataContext";
-import logo from "../../assets/images/Logo.png";
+import logo from "../../assets/images/Logo.avif";
 import { useTranslation } from "react-i18next";
 
 export default function Footer() {

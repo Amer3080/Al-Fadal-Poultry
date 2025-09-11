@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import image from "../../../assets/images/Frame.png";
+import image from "../../../assets/images/Frame.avif";
 import { useTranslation } from "react-i18next";
 
 export default function ActionBanner({ heading }) {

@@ -8,9 +8,9 @@ import FeatureSections from "./FeatureSections/FeatureSections.jsx";
 import ActionBanner from "./ActionBanner/ActionBanner.jsx";
 import IsoCertificates from "./IsoCertificates/IsoCertificates.jsx";
 
-import imageOne from "../../assets/images/s1.jpg";
-import imageTwo from "../../assets/images/s4.jpg";
-import imageThree from "../../assets/images/s5.jpg";
+import imageOne from "../../assets/images/s1.avif";
+import imageTwo from "../../assets/images/s4.avif";
+import imageThree from "../../assets/images/s5.avif";
 
 import { DataContext } from "../../Components/Context/DataContext.jsx";
 

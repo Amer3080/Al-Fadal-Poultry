@@ -23,9 +23,9 @@ import {
 import Header from "../../../Hooks/Header";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
-import image from "../../../assets/images/Frame.png";
-import photo_girl from "../../../assets/images/girl.jpg";
-import photo_man from "../../../assets/images/man.jpg";
+import image from "../../../assets/images/Frame.avif";
+import photo_girl from "../../../assets/images/girl.avif";
+import photo_man from "../../../assets/images/man.avif";
 const FaQuoteLeft = lazy(() =>
   import("react-icons/fa").then((mod) => ({ default: mod.FaQuoteLeft }))
 );

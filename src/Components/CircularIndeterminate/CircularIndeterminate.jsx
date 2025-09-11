@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import logo from "../../assets/images/Logo.png";
+import logo from "../../assets/images/Logo.avif";
 export default function Loader() {
   return (
     <Box
