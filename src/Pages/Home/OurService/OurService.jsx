@@ -98,7 +98,7 @@ export default function OurService() {
               <CardContent sx={{ flexGrow: 1, textAlign: "center" }}>
                 <Typography
                   variant="h6"
-                  component="h3"
+                  component="p"
                   fontWeight={800}
                   gutterBottom>
                   {title}
@@ -112,7 +112,7 @@ export default function OurService() {
                 sx={{
                   position: "absolute",
                   bottom: "2%",
-                  right: "3.5%",
+                  right: "3%",
                   borderRadius: "50%",
                   display: "flex",
                   justifyContent: "center",
