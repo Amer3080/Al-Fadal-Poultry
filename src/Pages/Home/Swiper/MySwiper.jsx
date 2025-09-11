@@ -1,103 +1,107 @@
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import "swiper/css/effect-fade";
-import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
+
 import imgTwo from "../../../assets/images/2.avif";
 import imgThree from "../../../assets/images/1.avif";
 import imgFour from "../../../assets/images/4.avif";
+
 import styles from "./Swiper.Style.module.css";
 import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { Link } from "react-router-dom";
+
 export default function MySwiper() {
   const sliders = [imgFour, imgTwo, imgThree];
   const { t, i18n } = useTranslation();
   const { locale } = useContext(DataContext);
+
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
+
   return (
-    <>
+    <section aria-label={t("Hero Slider")} role="region">
       <Swiper
         spaceBetween={0}
-        centeredSlides={true}
+        centeredSlides
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         effect="fade"
         modules={[Autoplay, Pagination, Navigation, EffectFade]}
         className="mySwiper">
-        {" "}
         {sliders.map((image, index) => (
           <SwiperSlide key={index} className={styles.slide}>
-            {" "}
             <img
-              crossOrigin="anonymous"
               src={image}
-              alt={`Slide ${index + 1}`}
+              srcSet={`${image}?w=400 400w, ${image}?w=800 800w`}
+              sizes="(max-width: 600px) 100vw, 800px"
+              alt={t(`Slide ${index + 1}`)}
               className={styles["slide-image"]}
-            />{" "}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              fetchpriority={index === 0 ? "high" : "low"}
+            />
             <div className={styles["text_content"]}>
-              {" "}
               <Typography
                 component="h3"
                 variant="h5"
                 color="white"
-                sx={{ fontFamily: "Marhey", fontSize: "2vw" }}>
-                {" "}
-                {t("No antibiotics, no growth stimulants!")}{" "}
-              </Typography>{" "}
+                sx={{
+                  fontFamily: "Marhey",
+                  fontSize: { xs: "16px", md: "24px" },
+                }}>
+                {t("No antibiotics, no growth stimulants!")}
+              </Typography>
+
               <Typography
                 component="h4"
                 variant="h2"
                 sx={{
-                  position: "relative",
-                  fontSize: locale === "en" ? "5vw" : "6vw",
+                  fontSize: { xs: "32px", md: "48px", lg: "64px" },
                   color: "white",
                   fontWeight: locale === "en" ? "normal" : "900",
                   fontFamily: locale === "en" ? "Oleo Script" : "El Messiri",
-                  py: { xs: 1, md: 1, lg: 1 },
+                  py: 1,
                 }}>
-                {" "}
-                {t("Fresh chickens for you every day!")}{" "}
-              </Typography>{" "}
+                {t("Fresh chickens for you every day!")}
+              </Typography>
+
               <Typography
                 component="h5"
                 color="white"
                 sx={{
                   fontFamily: "Marhey",
-                  fontSize: "2vw",
+                  fontSize: { xs: "16px", md: "24px" },
                   pb: { xs: 2, md: 4, lg: 6 },
                 }}>
-                {" "}
-                {t(
-                  "From farm to table, our poultry is simply incredible!"
-                )}{" "}
-              </Typography>{" "}
+                {t("From farm to table, our poultry is simply incredible!")}
+              </Typography>
+
               <Button
                 component={Link}
                 to="/contact-us"
                 variant="contained"
                 color="success"
                 sx={{
-                  position: "relative",
-                  zIndex: "5",
-                  px: { lg: "3%" },
-                  py: { lg: ".7%" },
-                  fontSize: { xs: "10px", md: "12px", lg: "25px" },
+                  px: { lg: 3 },
+                  py: { lg: 1 },
+                  fontSize: { xs: "12px", md: "16px", lg: "20px" },
                   textTransform: "capitalize",
                   borderRadius: "20px",
                   fontFamily: locale === "en" ? "Archivo" : "El Messiri",
-                  fontWeight: "700",
+                  fontWeight: 700,
                 }}>
                 {t("Contact Us")}
-              </Button>{" "}
-            </div>{" "}
+              </Button>
+            </div>
           </SwiperSlide>
-        ))}{" "}
-      </Swiper>{" "}
-    </>
+        ))}
+      </Swiper>
+    </section>
   );
 }
