@@ -29,6 +29,9 @@ export default defineConfig({
         /^swiper-pagination/,
         /^swiper-button/,
         /^swiper-fade/,
+        /^slide/, // ✅ keep .slide
+        /^slide-image/, // ✅ keep .slide-image
+        /^text_content/, // ✅ keep .text_content
       ],
     }),
     react(),
