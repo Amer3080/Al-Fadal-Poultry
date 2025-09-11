@@ -10,6 +10,7 @@ import imgThree from "../../../assets/images/1.avif";
 import imgFour from "../../../assets/images/4.avif";
 
 import styles from "./Swiper.Style.module.css";
+
 import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { useContext, useEffect } from "react";
@@ -32,8 +33,7 @@ export default function MySwiper() {
         centeredSlides
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         effect="fade"
-        modules={[Autoplay, Pagination, Navigation, EffectFade]}
-        className="mySwiper">
+        modules={[Autoplay, Pagination, Navigation, EffectFade]}>
         {sliders.map((image, index) => (
           <SwiperSlide key={index} className={styles.slide}>
             <img
@@ -46,7 +46,7 @@ export default function MySwiper() {
               decoding="async"
               fetchpriority={index === 0 ? "high" : "low"}
             />
-            <div className={styles["text_content"]}>
+            <div className={styles.text_content}>
               <Typography
                 component="h3"
                 variant="h5"
