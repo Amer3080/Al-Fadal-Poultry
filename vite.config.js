@@ -18,7 +18,17 @@ export default defineConfig({
   plugins: [
     purgecss({
       content: ["./index.html", "./src/**/*.jsx"], // Adjust paths to match your project
-      safelist: [/^Mui/, /^slick/, "active"], // Keep important dynamic classes
+      safelist: [
+        /^Mui/, // MUI classes
+        /^slick/, // Slick carousel classes
+        "active", // Any active state class
+        /^swiper/, // ✅ Keep all Swiper classes
+        /^swiper-slide/,
+        /^swiper-wrapper/,
+        /^swiper-pagination/,
+        /^swiper-button/,
+        /^swiper-fade/,
+      ],
     }),
     react(),
     visualizer({
