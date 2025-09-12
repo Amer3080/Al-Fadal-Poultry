@@ -2,7 +2,7 @@ import { lazy, useEffect, memo, useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { DataContext } from "../../Components/Context/DataContext";
 import { useTranslation } from "react-i18next";
-const MySwiper = lazy(() => import("./Swiper/MySwiper"));
+// const MySwiper = lazy(() => import("./Swiper/MySwiper"));
 const Welcome = lazy(() => import("./Welcome/Welcome"));
 const OurService = lazy(() => import("./OurService/OurService"));
 const About = lazy(() => import("./About/About"));
@@ -58,7 +58,7 @@ function Home() {
       </Helmet>
 
       <main aria-label="Homepage">
-        <MySwiper />
+        {/* <MySwiper /> */}
         <Welcome />
         <OurService />
         <About />
