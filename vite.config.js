@@ -16,17 +16,13 @@ export default defineConfig({
   },
   plugins: [
     purgecss({
-      content: ["./index.html", "./src/**/*.jsx"], // Adjust paths to match your project
+      content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
+      defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
       safelist: [
-        /^Mui/, // MUI classes
-        /^slick/, // Slick carousel classes
-        "active", // Any active state class
-        /^swiper/, // ✅ Keep all Swiper classes
-        /^swiper-slide/,
-        /^swiper-wrapper/,
-        /^swiper-pagination/,
-        /^swiper-button/,
-        /^swiper-fade/,
+        // only Swiper’s root classes
+        "swiper",
+        "swiper-wrapper",
+        "swiper-slide",
       ],
     }),
     react(),
