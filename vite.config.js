@@ -2,6 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import purgecss from "vite-plugin-purgecss";
+
+
+
 export default defineConfig({
   build: {
     sourcemap: true,
@@ -18,12 +21,6 @@ export default defineConfig({
     purgecss({
       content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
       defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
-      safelist: [
-        // only Swiper’s root classes
-        "swiper",
-        "swiper-wrapper",
-        "swiper-slide",
-      ],
     }),
     react(),
     visualizer({

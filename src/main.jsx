@@ -4,14 +4,12 @@ import "./index.css";
 import App from "./App.jsx";
 import "./i18n";
 import DataContextProvider from "./Components/Context/DataContext.jsx";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 // MUI theme imports
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
-import "swiper/css/effect-fade";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
