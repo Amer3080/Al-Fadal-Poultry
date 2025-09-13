@@ -23,12 +23,12 @@ export default defineConfig({
       defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/g) || [],
       // safelist: [/^Mui/, /^css-/, /^your-component-prefix-/],
     }),
-    visualizer({
-      open: true,
-      filename: "stats.html",
-      gzipSize: true,
-      brotliSize: true,
-    }),
+    // visualizer({
+    //   open: true,
+    //   filename: "stats.html",
+    //   gzipSize: true,
+    //   brotliSize: true,
+    // }),
   ],
   resolve: {
     alias: { "@mui/styled-engine": "@mui/styled-engine-sc" },
