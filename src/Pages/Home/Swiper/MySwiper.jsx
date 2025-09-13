@@ -1,4 +1,3 @@
-// src/Components/MySwiper/MySwiper.jsx
 import React, { useContext, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -87,7 +86,7 @@ export default function MySwiper() {
       component="section"
       sx={{
         width: "100%",
-        maxWidth: 1200,
+        maxWidth: 1600,
         aspectRatio: "16/9",
       }}>
       <StyledSwiper
