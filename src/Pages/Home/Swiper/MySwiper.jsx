@@ -5,28 +5,26 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
+import { Autoplay, EffectFade } from "swiper/modules";
 
-import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
-
-import { styled } from "@mui/system";
+import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import { Button, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../../Components/Context/DataContext";
 import { Link } from "react-router-dom";
 
-// Your slide images
 import imgTwo from "../../../assets/images/2.jpg";
 import imgThree from "../../../assets/images/1.jpg";
 import imgFour from "../../../assets/images/4.jpg";
 
-// Fade-in & up keyframes
+// 1. Define the keyframes for fade+scale
 const fadeInUp = keyframes`
   0%   { transform: scale(1); }
   100% { transform: scale(1.07); }
 `;
 
-// Styled Swiper wrapper with overlay
+// 2. Style the Swiper container and overlay
 const StyledSwiper = styled(Swiper)({
   display: "flex",
   justifyContent: "center",
@@ -34,6 +32,7 @@ const StyledSwiper = styled(Swiper)({
   maxHeight: 650,
   overflow: "hidden",
   position: "relative",
+  // the dark gradient overlay on top of slides
   "&::after": {
     content: '""',
     position: "absolute",
@@ -44,25 +43,27 @@ const StyledSwiper = styled(Swiper)({
   },
 });
 
-// Optional: If you need to style the SwiperSlide container
+// 3. Each slide wrapper
 const StyledSlide = styled(SwiperSlide)({
   position: "relative",
 });
 
-// Image styling and animation
-const SlideImage = styled("img")({
-  width: "100%",
-  position: "relative",
-  transition: "0.3s",
-  animation: `${fadeInUp} 7500ms ease alternate infinite`,
-  zIndex: 0,
-});
+// 4. The animating image
+const SlideImage = styled("img")`
+  width: 100%;
+  height: auto;
+  transform-origin: center;
+  transition: transform 0.3s;
+  animation: ${fadeInUp} 7.5s ease alternate infinite;
+  z-index: 0;
+`;
 
-// Text overlay container
+// 5. Text and button container
 const TextContent = styled("div")({
   position: "absolute",
-  inset: 0,
   top: "25%",
+  left: 0,
+  right: 0,
   height: "65%",
   display: "flex",
   flexDirection: "column",
@@ -79,7 +80,7 @@ export default function MySwiper() {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
 
-  const sliders = [imgFour, imgTwo, imgThree];
+  const slides = [imgFour, imgTwo, imgThree];
 
   return (
     <StyledSwiper
@@ -87,14 +88,13 @@ export default function MySwiper() {
       centeredSlides
       autoplay={{ delay: 2500, disableOnInteraction: false }}
       effect="fade"
-      modules={[Autoplay, Pagination, Navigation, EffectFade]}
-      pagination={{ clickable: true }}
-      navigation>
-      {sliders.map((image, index) => (
-        <StyledSlide key={index}>
+      modules={[Autoplay, EffectFade]}
+      >
+      {slides.map((src, idx) => (
+        <StyledSlide key={idx}>
           <SlideImage
-            src={image}
-            alt={`Slide ${index + 1}`}
+            src={src}
+            alt={`Slide ${idx + 1}`}
             crossOrigin="anonymous"
           />
 
@@ -111,12 +111,12 @@ export default function MySwiper() {
               component="h4"
               variant="h2"
               sx={{
-                position: "relative",
                 fontSize: locale === "en" ? "5vw" : "6vw",
                 color: "white",
                 fontWeight: locale === "en" ? "normal" : "900",
                 fontFamily: locale === "en" ? "Oleo Script" : "El Messiri",
                 py: 1,
+                position: "relative",
               }}>
               {t("Fresh chickens for you every day!")}
             </Typography>
@@ -138,8 +138,7 @@ export default function MySwiper() {
               variant="contained"
               color="success"
               sx={{
-                position: "relative",
-                zIndex: 3,
+                mt: 2,
                 px: { lg: "3%" },
                 py: { lg: "0.7%" },
                 fontSize: { xs: "10px", md: "12px", lg: "25px" },
@@ -147,6 +146,8 @@ export default function MySwiper() {
                 borderRadius: "20px",
                 fontFamily: locale === "en" ? "Archivo" : "El Messiri",
                 fontWeight: 700,
+                position: "relative",
+                zIndex: 3,
               }}>
               {t("Contact Us")}
             </Button>
