@@ -1,16 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Box, Container, Typography } from "@mui/material";
 import { styled } from "@mui/system";
-import image from "../../assets/images/Hero.avif";
+import heroMeta from "../../assets/images/Hero.avif?width=396;792;1188&format=avif;webp&metadata";
 import { useTranslation } from "react-i18next";
 import { DataContext } from "../../Components/Context/DataContext";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import HomeIcon from "@mui/icons-material/Home";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
 import GrainIcon from "@mui/icons-material/Grain";
 import { Link } from "react-router-dom";
+
+const {
+  images,
+  srcSet: { avif, webp },
+} = heroMeta;
+
 const StyledHeroSection = styled(Box)(({ theme }) => ({
-  backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.6)), url(${image})`,
+  backgroundImage: `linear-gradient(rgba(0,0,0,0.6)), url(${images[0].src})`,
   backgroundSize: "cover",
   backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
@@ -19,12 +24,16 @@ const StyledHeroSection = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  minHeight: "9vh", // Ensures full screen height
+  minHeight: "9vh",
   padding: "120px 0",
-  [theme.breakpoints.down("xl")]: {
+
+  [theme.breakpoints.up("sm")]: {
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.6)), url(${images[1].src})`,
     padding: "80px 0",
   },
-  [theme.breakpoints.down("md")]: {
+
+  [theme.breakpoints.up("md")]: {
+    backgroundImage: `linear-gradient(rgba(0,0,0,0.6)), url(${images[2].src})`,
     padding: "80px 0",
   },
 
@@ -35,75 +44,72 @@ const StyledHeroSection = styled(Box)(({ theme }) => ({
 
 function handleClick(event) {
   event.preventDefault();
-  console.info("You clicked a breadcrumb.");
+}
+
+function IconBreadcrumbs({ textLink, locale }) {
+  const { t } = useTranslation();
+  return (
+    <div
+      role="presentation"
+      onClick={handleClick}
+      style={{ direction: locale === "en" ? "ltr" : "rtl" }}>
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        sx={{ fontSize: 20, color: "#fff", px: 8 }}>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              "&:hover .hoverable": { color: "#255946" },
+            }}>
+            <HomeIcon
+              className="hoverable"
+              sx={{
+                fontSize: { xs: 10, sm: 16, md: 30 },
+                color: "#fff",
+                mx: 1,
+                transition: "color 0.3s",
+              }}
+            />
+            <Typography
+              className="hoverable"
+              sx={{
+                fontSize: { xs: 10, sm: 16, md: 30 },
+                color: "#fff",
+                fontWeight: 900,
+                transition: "color 0.3s",
+                fontFamily: locale === "en" ? "Robot" : "El Messiri",
+              }}>
+              {t("Home")}
+            </Typography>
+          </Box>
+        </Link>
+        <Typography
+          sx={{
+            fontSize: { xs: 10, sm: 16, md: 30 },
+            fontWeight: 900,
+            display: "flex",
+            alignItems: "center",
+            fontFamily: locale === "en" ? "Robot" : "El Messiri",
+          }}>
+          <GrainIcon sx={{ mx: 1 }} fontSize="inherit" />
+          {t(textLink)}
+        </Typography>
+      </Breadcrumbs>
+    </div>
+  );
 }
 
 export default function HeroSection({ HeadText }) {
   const { t, i18n } = useTranslation();
   const { locale } = useContext(DataContext);
+
   useEffect(() => {
     i18n.changeLanguage(locale);
   }, [i18n, locale]);
-  function IconBreadcrumbs({ textLink }) {
-    return (
-      <div
-        role="presentation"
-        onClick={handleClick}
-        style={{
-          direction: locale === "en" ? "ltr" : "rtl",
-        }}>
-        <Breadcrumbs
-          aria-label="breadcrumb"
-          sx={{ fontSize: "20px", color: "white", px: 8 }}>
-          <Link to="/" style={{ textDecoration: "none" }}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                "&:hover .hoverable": {
-                  color: "#255946",
-                },
-              }}>
-              <HomeIcon
-                className="hoverable"
-                sx={{
-                  fontSize: { xs: "10px", sm: "16", md: "30px" },
-                  color: "white",
-                  fontWeight: "900",
-                  transition: "color 0.3s ease",
-                  mx: 1,
-                }}
-              />
-              <Typography
-                className="hoverable"
-                sx={{
-                  fontSize: { xs: "10px", sm: "16", md: "30px" },
-                  color: "white",
-                  fontWeight: "900",
-                  transition: "color 0.3s ease",
-                  fontFamily: locale === "en" ? "Robot" : "El Messiri",
-                }}>
-                {t("Home")}
-              </Typography>
-            </Box>
-          </Link>
 
-          <Typography
-            sx={{
-              fontSize: { xs: "10px", sm: "16", md: "30px" },
-              fontWeight: "900",
-              display: "flex",
-              alignItems: "center",
-              fontFamily: locale === "en" ? "Robot" : "El Messiri",
-            }}>
-            <GrainIcon sx={{ mx: 1 }} fontSize="inherit" />
-            {t(textLink)}
-          </Typography>
-        </Breadcrumbs>
-      </div>
-    );
-  }
   return (
     <Box sx={{ minHeight: "20rem" }}>
       <StyledHeroSection>
@@ -118,13 +124,14 @@ export default function HeroSection({ HeadText }) {
             sx={{
               mt: 5,
               fontFamily: locale === "en" ? "Robot" : "El Messiri",
-              fontSize: { xs: "35px", md: "65px" },
-              fontWeight: "700",
+              fontSize: { xs: 35, md: 65 },
+              fontWeight: 700,
             }}
             gutterBottom>
             {t(HeadText)}
           </Typography>
-          <IconBreadcrumbs textLink={HeadText} />
+
+          <IconBreadcrumbs textLink={HeadText} locale={locale} />
         </Container>
       </StyledHeroSection>
     </Box>

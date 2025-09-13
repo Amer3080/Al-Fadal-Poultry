@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@fontsource/archivo": "^5.2.6",
     "@fontsource/caveat": "^5.2.6",
     "@fontsource/el-messiri": "^5.2.6",
@@ -58,6 +60,7 @@
     "globals": "^16.3.0",
     "rollup-plugin-visualizer": "^6.0.3",
     "vite": "^7.1.2",
+    "vite-imagetools": "^8.0.0",
     "vite-plugin-purgecss": "^0.2.13",
     "webpack-bundle-analyzer": "^4.10.2"
   }
