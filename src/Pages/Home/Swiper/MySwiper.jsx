@@ -82,7 +82,6 @@ export default function MySlider() {
           {slides.map((src, idx) => (
             <Box key={idx} sx={{ position: "relative" }}>
               <SlideImage src={src} alt={`Slide ${idx + 1}`} />
-
               <TextOverlay>
                 <Typography
                   variant="h5"
